@@ -60,7 +60,7 @@ return flight;
     FI.setPrice(2000);
     list.add(FI);
     FlightInformation FI1 = new FlightInformation();
-    FI1.setFlight(addToFlightList("Riga","Madrid","easyJet",new GregorianCalendar(2016, 11, 1, 14, 0, 0),new GregorianCalendar(2016, 11, 1, 18, 0, 0)));
+    FI1.setFlight(addToFlightList("Riga","Copenhagen","easyJet",new GregorianCalendar(2016, 11, 1, 14, 0, 0),new GregorianCalendar(2016, 11, 1, 18, 0, 0)));
     FI1.setBookingNo("2");
     FI1.setNameAirline("BEline");
     FI1.setPrice(200);
@@ -78,32 +78,12 @@ return flight;
     public GetFlightsOutput getFlights(GetFlightsInput getFlightsInput) throws DatatypeConfigurationException {
         List<FlightInformation> flights = flightsList();
         
-        //TODO implement this method
          GetFlightsOutput object = new  GetFlightsOutput();
-//         FlightInformation flightInformation = new FlightInformation();
-//         Flight flight = new Flight();
-//         flight.setCarrier("Sas");
-//         flight.setDestination("Japan");
-//         GregorianCalendar x = new GregorianCalendar(2016,1,5, 17, 0,0);
-//        XMLGregorianCalendar date2 = null;
-//         try {
-//           date2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(x);
-//        } catch (DatatypeConfigurationException ex) {
-//            Logger.getLogger(LameDuck.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//         flight.setLandingTime(date2);
-//         flight.setLiftOffTime(date2);
-//         
-//         flightInformation.setFlight(flight);
-//         flightInformation.setBookingNo("1");
-//         flightInformation.setNameAirline("FUCK YOU");
-//         flightInformation.setPrice(1000);
-         System.out.println("Start: " + getFlightsInput.getStartAirport());
-         System.out.println("End: " + getFlightsInput.getDestination());
+
              for(FlightInformation result: flights){
-                 System.out.println("ALL of up: " +  result.getFlight().getCarrier());
-                 if(result.getFlight().getStartAirport().equals(getFlightsInput.getStartAirport()) && result.getFlight().getStartAirport().equals(getFlightsInput.getDestination())){
-                     System.out.println("First of up: " +  result.getFlight().getCarrier());
+                 
+                 if(result.getFlight().getStartAirport().equals(getFlightsInput.getStartAirport()) && result.getFlight().getDestination().equals(getFlightsInput.getDestination())){
+                     
                      if(result.getFlight().getLiftOffTime().getDay() == getFlightsInput.getFlightDate().getDay()
                         && result.getFlight().getLiftOffTime().getMonth() == getFlightsInput.getFlightDate().getMonth()
                              && result.getFlight().getLiftOffTime().getYear() == getFlightsInput.getFlightDate().getYear()
