@@ -8,7 +8,9 @@ package LameDuckService;
 import dk.dtu.imm.fastmoney.BankService;
 import dk.dtu.imm.fastmoney.CreditCardFaultMessage;
 import dk.dtu.imm.fastmoney.types.AccountType;
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.jws.WebService;
@@ -18,6 +20,7 @@ import sun.util.calendar.LocalGregorianCalendar.Date;
 import ws.lameduck.*;
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.ws.WebServiceRef;
+import sun.util.calendar.Gregorian;
 /**
  *
  * @author Dan
@@ -26,33 +29,77 @@ import javax.xml.ws.WebServiceRef;
 public class LameDuck {
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/fastmoney.imm.dtu.dk_8080/BankService.wsdl")
     private BankService service;
+
     
+private static Flight addToFlightList(String startCity, String endCity, String carrier,GregorianCalendar departureDate, GregorianCalendar arrivalDate) throws DatatypeConfigurationException{
+    
+    //Converting to correct XML date
+            XMLGregorianCalendar departureDate1, arrivalDate1;
+        
+            departureDate1 = DatatypeFactory.newInstance().newXMLGregorianCalendar(departureDate);
+            arrivalDate1 = DatatypeFactory.newInstance().newXMLGregorianCalendar(arrivalDate);
+       
+    Flight flight = new Flight();
+    flight.setCarrier(carrier);
+    flight.setDestination(endCity);
+    flight.setStartAirport(startCity);
+    flight.setLandingTime(departureDate1);
+    flight.setLiftOffTime(arrivalDate1);
 
+return flight;
+}
 
-    public GetFlightsOutput getFlights(GetFlightsInput getFlightsInput) {
-        //TODO implement this method
+    private static List<FlightInformation> flightsList() throws DatatypeConfigurationException{
+    List<FlightInformation> list = new ArrayList<FlightInformation>();
+    
+    
+    FlightInformation FI = new FlightInformation();
+    FI.setFlight(addToFlightList("Riga","Madrid","Ryanair",new GregorianCalendar(2016, 11, 1, 19, 0, 0),new GregorianCalendar(2016, 11, 1, 23, 50, 0)));
+    FI.setBookingNo("1");
+    FI.setNameAirline("GerLine");
+    FI.setPrice(2000);
+    list.add(FI);
+    FlightInformation FI1 = new FlightInformation();
+    FI1.setFlight(addToFlightList("Riga","Copenhagen","easyJet",new GregorianCalendar(2016, 11, 1, 14, 0, 0),new GregorianCalendar(2016, 11, 1, 18, 0, 0)));
+    FI1.setBookingNo("2");
+    FI1.setNameAirline("BEline");
+    FI1.setPrice(200);
+    list.add(FI1);
+    FlightInformation FI2 = new FlightInformation();
+    FI2.setFlight(addToFlightList("Riga","Dublin","SAS",new GregorianCalendar(2016, 10, 10, 14, 0, 0),new GregorianCalendar(2016, 10, 10, 2, 25, 0)));
+    FI2.setBookingNo("3");
+    FI2.setNameAirline("ZELine");
+    FI2.setPrice(560);
+    list.add(FI2);
+    return list;
+    
+    }
+
+    public GetFlightsOutput getFlights(GetFlightsInput getFlightsInput) throws DatatypeConfigurationException {
+        List<FlightInformation> flights = flightsList();
+        
          GetFlightsOutput object = new  GetFlightsOutput();
-         FlightInformation flightInformation = new FlightInformation();
-         Flight flight = new Flight();
-         flight.setCarrier("Sas");
-         flight.setDestination("Japan");
-         GregorianCalendar x = new GregorianCalendar(2016,1,5, 17, 0,0);
-        XMLGregorianCalendar date2 = null;
-         try {
-           date2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(x);
-        } catch (DatatypeConfigurationException ex) {
-            Logger.getLogger(LameDuck.class.getName()).log(Level.SEVERE, null, ex);
-        }
-         flight.setLandingTime(date2);
-         flight.setLiftOffTime(date2);
+
+             for(FlightInformation result: flights){
+                 
+                 if(result.getFlight().getStartAirport().equals(getFlightsInput.getStartAirport()) && result.getFlight().getDestination().equals(getFlightsInput.getDestination())){
+                     
+                     if(result.getFlight().getLiftOffTime().getDay() == getFlightsInput.getFlightDate().getDay()
+                        && result.getFlight().getLiftOffTime().getMonth() == getFlightsInput.getFlightDate().getMonth()
+                             && result.getFlight().getLiftOffTime().getYear() == getFlightsInput.getFlightDate().getYear()
+                             ){
+                         System.out.println("Last of up: " +  result.getFlight().getCarrier());
+                     object.getFlightInformation().add(result);
+                     }
+                 
+                 }
+              
+}
          
-         flightInformation.setFlight(flight);
-         flightInformation.setBookingNo("1");
-         flightInformation.setNameAirline("FUCK YOU");
-         flightInformation.setPrice(1000);
-         object.getFlightInformation().add(flightInformation);
          return object;
     }
+    
+    
 
     private boolean chargeCreditCard(int group, dk.dtu.imm.fastmoney.types.CreditCardInfoType creditCardInfo, int amount, dk.dtu.imm.fastmoney.types.AccountType account) throws CreditCardFaultMessage {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
