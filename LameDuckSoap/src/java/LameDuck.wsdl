@@ -37,6 +37,18 @@
             </xsd:complexType>
             <xsd:element name="getFlighsInput" type="tns:getFlightsInput"></xsd:element>
             <xsd:element name="getFlightsOutput" type="tns:getFlightsOutput"></xsd:element>
+            <xsd:complexType name="bookFlightInput">
+                <xsd:sequence>
+                    <xsd:element name="bookingNo" type="xsd:string"></xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="creditCardDetails">
+                <xsd:sequence>
+                    <xsd:element name="holdersName" type="xsd:string"></xsd:element>
+                    <xsd:element name="expirityDate" type="xsd:date"></xsd:element>
+                    <xsd:element name="cardNumber" type="xsd:int"></xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
         </xsd:schema>
     </types>
     <message name="LameDuckOperationRequest">
