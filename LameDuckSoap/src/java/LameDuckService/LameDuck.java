@@ -100,6 +100,16 @@ return flight;
     }
     
     
+    public boolean bookFlight(ws.lameduck.BookFlightInput input) throws BookFlightFaultMessage {
+        //TODO implement this method
+        throw new UnsupportedOperationException("Not implemented yet.");
+    }
+
+    public boolean cancelFlight(ws.lameduck.CancelFlightInput cancelFlightInput) throws CancelFlightFaultMessage {
+        //TODO implement this method
+        throw new UnsupportedOperationException("Not implemented yet.");
+    }
+    
 
     private boolean chargeCreditCard(int group, dk.dtu.imm.fastmoney.types.CreditCardInfoType creditCardInfo, int amount, dk.dtu.imm.fastmoney.types.AccountType account) throws CreditCardFaultMessage {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
