@@ -35,4 +35,34 @@ public interface LameDuckPortType {
         @WebParam(name = "getFlighsInput", targetNamespace = "http://LameDuck.ws", partName = "getFlightsInput")
         GetFlightsInput getFlightsInput);
 
+    /**
+     * 
+     * @param input
+     * @return
+     *     returns boolean
+     * @throws BookFlightFaultMessage
+     */
+    @WebMethod
+    @WebResult(name = "bookFlightOutput", targetNamespace = "http://LameDuck.ws", partName = "output")
+    public boolean bookFlight(
+        @WebParam(name = "bookFlightInput", targetNamespace = "http://LameDuck.ws", partName = "input")
+        BookFlightInput input)
+        throws BookFlightFaultMessage
+    ;
+
+    /**
+     * 
+     * @param cancelFlightInput
+     * @return
+     *     returns boolean
+     * @throws CancelFlightFaultMessage
+     */
+    @WebMethod
+    @WebResult(name = "cancelFlightOutput", targetNamespace = "http://LameDuck.ws", partName = "cancelFlightOutput")
+    public boolean cancelFlight(
+        @WebParam(name = "cancelFlightInput", targetNamespace = "http://LameDuck.ws", partName = "cancelFlightInput")
+        CancelFlightInput cancelFlightInput)
+        throws CancelFlightFaultMessage
+    ;
+
 }

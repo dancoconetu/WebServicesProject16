@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite errors="1" failures="0" hostname="DESKTOP-GD2FLL1" name="ClientTester" skipped="0" tests="1" time="2.628" timestamp="2016-11-07T12:28:34">
+<testsuite errors="0" failures="0" hostname="DESKTOP-GD2FLL1" name="ClientTester" skipped="0" tests="1" time="0.324" timestamp="2016-11-07T12:43:52">
   <properties>
     <property name="libs.jsp-compiler.javadoc" value="" />
     <property name="netbeans.autoupdate.country" value="US" />
@@ -59,7 +59,7 @@
     <property name="copylibs.rebase" value="true" />
     <property name="libs.spring-webmvc3.0.maven-pom" value="" />
     <property name="libs.swing-layout.maven-pom" value="" />
-    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner ClientTester skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,D:\WebServicesProject16\LameDuckTestCustomer\build\test\results\TEST-ClientTester.xml crashfile=D:\WebServicesProject16\LameDuckTestCustomer\build\junitvmwatcher7410254881607135265.properties propsfile=D:\WebServicesProject16\LameDuckTestCustomer\build\junit8159623632891945487.properties" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner ClientTester skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,D:\WebServicesProject16\LameDuckTestCustomer\build\test\results\TEST-ClientTester.xml crashfile=D:\WebServicesProject16\LameDuckTestCustomer\build\junitvmwatcher6665241734729981477.properties propsfile=D:\WebServicesProject16\LameDuckTestCustomer\build\junit4568316988731696212.properties" />
     <property name="build.classes.dir" value="build/classes" />
     <property name="build.sysclasspath" value="ignore" />
     <property name="ap.supported.internal" value="true" />
@@ -99,7 +99,7 @@
     <property name="javadoc.splitindex" value="true" />
     <property name="file.separator" value="\" />
     <property name="libs.Java-EE-GlassFish-v3-Prelude.maven-pom" value="" />
-    <property name="javac.includesfile.binary" value="D:\WebServicesProject16\LameDuckTestCustomer\null951149787" />
+    <property name="javac.includesfile.binary" value="D:\WebServicesProject16\LameDuckTestCustomer\null997226921" />
     <property name="libs.junit_4.maven-pom" value="" />
     <property name="mkdist.disabled" value="false" />
     <property name="javac.test.processorpath" value=":build/classes:D:\OpenESB-Quickstart-Standalone-v305\OpenESB-SE-3.0.5\OE-Studio\netbeans\platform\modules\ext\junit-4.10.jar" />
@@ -171,7 +171,7 @@
     <property name="file.encoding.pkg" value="sun.io" />
     <property name="sun.cpu.endian" value="little" />
     <property name="libs.JAXB-ENDORSED.javadoc" value="" />
-    <property name="wsdl-LameDuckService" value="D:\WebServicesProject16\LameDuckTestCustomer\xml-resources\web-service-references\LameDuckService\wsdl\justinase156_9090\LameDuckSoap\LameDuckService.wsdl" />
+    <property name="wsdl-LameDuckService" value="D:\WebServicesProject16\LameDuckTestCustomer\xml-resources\web-service-references\LameDuckService\wsdl\localhost_8080\LameDuckSoap\LameDuckService.wsdl" />
     <property name="libs.JWSAntTasks.classpath" value="D:\OpenESB-Quickstart-Standalone-v305\OpenESB-SE-3.0.5\OE-Studio\netbeans\java\ant\extra\org-netbeans-modules-javawebstart-anttasks.jar" />
     <property name="libs.spring-webmvc4.0.maven-pom" value="" />
     <property name="libs.spring-framework300.src" value="" />
@@ -416,45 +416,9 @@
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit" />
     <property name="libs.javaee-web-api-7.0.javadoc" value="D:\OpenESB-Quickstart-Standalone-v305\OpenESB-SE-3.0.5\OE-Studio\netbeans\enterprise\docs\javaee-doc-api.jar" />
   </properties>
-  <testcase classname="ClientTester" name="testGetFlightsOutput" time="2.585">
-    <error message="HTTP transport error: java.net.UnknownHostException: justinase156" type="com.sun.xml.internal.ws.client.ClientTransportException">com.sun.xml.internal.ws.client.ClientTransportException: HTTP transport error: java.net.UnknownHostException: justinase156
-	at com.sun.xml.internal.ws.transport.http.client.HttpClientTransport.getOutput(HttpClientTransport.java:117)
-	at com.sun.xml.internal.ws.transport.http.client.HttpTransportPipe.process(HttpTransportPipe.java:208)
-	at com.sun.xml.internal.ws.transport.http.client.HttpTransportPipe.processRequest(HttpTransportPipe.java:130)
-	at com.sun.xml.internal.ws.transport.DeferredTransportPipe.processRequest(DeferredTransportPipe.java:95)
-	at com.sun.xml.internal.ws.api.pipe.Fiber.__doRun(Fiber.java:1121)
-	at com.sun.xml.internal.ws.api.pipe.Fiber._doRun(Fiber.java:1035)
-	at com.sun.xml.internal.ws.api.pipe.Fiber.doRun(Fiber.java:1004)
-	at com.sun.xml.internal.ws.api.pipe.Fiber.runSync(Fiber.java:862)
-	at com.sun.xml.internal.ws.client.Stub.process(Stub.java:448)
-	at com.sun.xml.internal.ws.client.sei.SEIStub.doProcess(SEIStub.java:178)
-	at com.sun.xml.internal.ws.client.sei.SyncMethodHandler.invoke(SyncMethodHandler.java:93)
-	at com.sun.xml.internal.ws.client.sei.SyncMethodHandler.invoke(SyncMethodHandler.java:77)
-	at com.sun.xml.internal.ws.client.sei.SEIStub.invoke(SEIStub.java:147)
-	at com.sun.proxy.$Proxy35.getFlights(Unknown Source)
-	at ClientTester.getFlights(ClientTester.java:82)
-	at ClientTester.testGetFlightsOutput(ClientTester.java:65)
-Caused by: java.net.UnknownHostException: justinase156
-	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:184)
-	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:172)
-	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
-	at java.net.Socket.connect(Socket.java:589)
-	at java.net.Socket.connect(Socket.java:538)
-	at sun.net.NetworkClient.doConnect(NetworkClient.java:180)
-	at sun.net.www.http.HttpClient.openServer(HttpClient.java:432)
-	at sun.net.www.http.HttpClient.openServer(HttpClient.java:527)
-	at sun.net.www.http.HttpClient.&lt;init&gt;(HttpClient.java:211)
-	at sun.net.www.http.HttpClient.New(HttpClient.java:308)
-	at sun.net.www.http.HttpClient.New(HttpClient.java:326)
-	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:1202)
-	at sun.net.www.protocol.http.HttpURLConnection.plainConnect0(HttpURLConnection.java:1181)
-	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:1032)
-	at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:966)
-	at sun.net.www.protocol.http.HttpURLConnection.getOutputStream0(HttpURLConnection.java:1316)
-	at sun.net.www.protocol.http.HttpURLConnection.getOutputStream(HttpURLConnection.java:1291)
-	at com.sun.xml.internal.ws.transport.http.client.HttpClientTransport.getOutput(HttpClientTransport.java:104)
-</error>
-  </testcase>
-  <system-out><![CDATA[]]></system-out>
+  <testcase classname="ClientTester" name="testGetFlightsOutput" time="0.281" />
+  <system-out><![CDATA[sooo: GerLine
+Price: 2000
+]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

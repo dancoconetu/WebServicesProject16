@@ -55,7 +55,7 @@ public class ClientTester {
     int a = 0;
         GetFlightsInput gfi = new GetFlightsInput();
         gfi.setDestination("Madrid");
-        gfi.setStartAirport("Riga2");
+        gfi.setStartAirport("Riga");
          GregorianCalendar x = new GregorianCalendar(2016, 11, 1, 14, 0, 0);
         XMLGregorianCalendar date2 = null;
         date2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(x);
