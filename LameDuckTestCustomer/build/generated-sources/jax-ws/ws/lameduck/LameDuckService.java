@@ -84,6 +84,28 @@ public class LameDuckService
         return super.getPort(new QName("http://LameDuck.ws", "LameDuckPortTypeBindingPort"), LameDuckPortType.class, features);
     }
 
+    /**
+     * 
+     * @return
+     *     returns LameDuckPortType
+     */
+    @WebEndpoint(name = "LameDuckPortTypeBindingPort1")
+    public LameDuckPortType getLameDuckPortTypeBindingPort1() {
+        return super.getPort(new QName("http://LameDuck.ws", "LameDuckPortTypeBindingPort1"), LameDuckPortType.class);
+    }
+
+    /**
+     * 
+     * @param features
+     *     A list of {@link javax.xml.ws.WebServiceFeature} to configure on the proxy.  Supported features not in the <code>features</code> parameter will have their default values.
+     * @return
+     *     returns LameDuckPortType
+     */
+    @WebEndpoint(name = "LameDuckPortTypeBindingPort1")
+    public LameDuckPortType getLameDuckPortTypeBindingPort1(WebServiceFeature... features) {
+        return super.getPort(new QName("http://LameDuck.ws", "LameDuckPortTypeBindingPort1"), LameDuckPortType.class, features);
+    }
+
     private static URL __getWsdlLocation() {
         if (LAMEDUCKSERVICE_EXCEPTION!= null) {
             throw LAMEDUCKSERVICE_EXCEPTION;

@@ -63,6 +63,12 @@
             </xsd:complexType>
             <xsd:element name="cancelFlightInput" type="tns:cancelFlightInput"></xsd:element>
             <xsd:element name="cancelFlightOutput" type="xsd:boolean"></xsd:element>
+            <xsd:complexType name="expirityDateType">
+                <xsd:sequence>
+                    <xsd:element name="month" type="xsd:int"></xsd:element>
+                    <xsd:element name="year" type="xsd:int"></xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
         </xsd:schema>
     </types>
     <message name="LameDuckOperationRequest">
