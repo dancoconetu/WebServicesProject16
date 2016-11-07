@@ -61,6 +61,20 @@ public class HotelType {
      *     {@link String }
      *     
      */
+    public HotelType()
+    {
+        
+    }
+    public HotelType(String hotelName, String adress, String bookingNr, double totalPrice, boolean creditCardNeeded, String reservationService)
+    {
+        this.hotelName = hotelName;
+        this.adress = adress;
+        this.bookingNR = bookingNr;
+        this.totalPrice = totalPrice;
+        this.creditCardNeeded = creditCardNeeded;
+        this.reservationService = reservationService;
+    }
+    
     public String getHotelName() {
         return hotelName;
     }
