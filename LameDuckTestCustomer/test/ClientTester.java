@@ -45,17 +45,13 @@ public class ClientTester {
     public void tearDown() {
     }
 
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
+    //Expecting just one flight
       @Test
     public void testGetFlightsOutput() throws DatatypeConfigurationException{
     int a = 0;
         GetFlightsInput gfi = new GetFlightsInput();
         gfi.setDestination("Madrid");
-        gfi.setStartAirport("Riga2");
+        gfi.setStartAirport("Riga");
          GregorianCalendar x = new GregorianCalendar(2016, 11, 1, 14, 0, 0);
         XMLGregorianCalendar date2 = null;
         date2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(x);
@@ -71,15 +67,61 @@ public class ClientTester {
                System.out.println("Price: " + a);
 }
     
-    String result = "d";
     
-    assertEquals(2000,a);
+    assertEquals(1,list.size());
     }
+    
+    //Test having enough money on the account.
+      @Test
+    public void testbookValidFlight() throws DatatypeConfigurationException, BookFlightFaultMessage{
+     
+        BookFlightInput gfi = new BookFlightInput();
+        gfi.setBookingNo("2");
+        CreditCardDetails CreditInfo = new CreditCardDetails();
+        CreditInfo.setCardNumber("50408823");
+        CreditInfo.setHoldersName("Tobiasen Inge");
+          ExpirationDate ex = new ExpirationDate();
+          ex.setMonth(9);
+          ex.setYear(10);
+        CreditInfo.setExpirationDate(ex);
+        gfi.setCreditCardDetails(CreditInfo);
+          
+        System.out.println(gfi.getCreditCardDetails().getExpirationDate().getMonth());
+        assertEquals(true,bookFlight(gfi));
+    }
+    
+    //Test having NOT enough money on the account. EXPECTING ERROR
+      @Test
+    public void testbookInValidFlight() throws DatatypeConfigurationException, BookFlightFaultMessage{
+     
+        BookFlightInput gfi = new BookFlightInput();
+        gfi.setBookingNo("1");
+        CreditCardDetails CreditInfo = new CreditCardDetails();
+        CreditInfo.setCardNumber("50408823");
+        CreditInfo.setHoldersName("Tobiasen Inge");
+          ExpirationDate ex = new ExpirationDate();
+          ex.setMonth(9);
+          ex.setYear(10);
+        CreditInfo.setExpirationDate(ex);
+        gfi.setCreditCardDetails(CreditInfo);
+          
+        System.out.println(gfi.getCreditCardDetails().getExpirationDate().getMonth());
+        assertEquals("Expecting an error",bookFlight(gfi));
+    }
+    
+
+    
 
     private static GetFlightsOutput getFlights(ws.lameduck.GetFlightsInput getFlightsInput) {
         ws.lameduck.LameDuckService service = new ws.lameduck.LameDuckService();
         ws.lameduck.LameDuckPortType port = service.getLameDuckPortTypeBindingPort();
         return port.getFlights(getFlightsInput);
+    }
+
+    private static boolean bookFlight(ws.lameduck.BookFlightInput input) throws BookFlightFaultMessage {
+        ws.lameduck.LameDuckService service = new ws.lameduck.LameDuckService();
+        ws.lameduck.LameDuckPortType port = service.getLameDuckPortTypeBindingPort();
+        return port.bookFlight(input);
     }
 
 }

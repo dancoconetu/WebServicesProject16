@@ -2,12 +2,10 @@
 <definitions name="LameDuck" targetNamespace="http://LameDuck.ws"
     xmlns="http://schemas.xmlsoap.org/wsdl/"
     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
-    xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://LameDuck.ws" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:ns="http://types.fastmoney.imm.dtu.dk" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://LameDuck.ws" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
     <types>
         <xsd:schema targetNamespace="http://LameDuck.ws" xmlns:tns="http://LameDuck.ws">
-            <!-- <xsd:import namespace="http://types.fastmoney.imm.dtu.dk" schemaLocation="http://fastmoney.imm.dtu.dk:8080/BankService?xsd=1"/>
-           -->
-         <xsd:complexType name="flightInformation">
+            <xsd:complexType name="flightInformation">
                 <xsd:sequence>
                     <xsd:element name="bookingNo" type="xsd:string"></xsd:element>
                     <xsd:element name="price" type="xsd:int"></xsd:element>
@@ -37,8 +35,8 @@
                     <xsd:element name="flightInformation" type="tns:flightInformation" maxOccurs="unbounded" minOccurs="0"></xsd:element>
                 </xsd:sequence>
             </xsd:complexType>
-            <xsd:element name="getFlighsInputElement" type="tns:getFlightsInput"></xsd:element>
-            <xsd:element name="getFlightsOutputElement" type="tns:getFlightsOutput"></xsd:element>
+            <xsd:element name="getFlighsInput" type="tns:getFlightsInput"></xsd:element>
+            <xsd:element name="getFlightsOutput" type="tns:getFlightsOutput"></xsd:element>
             <xsd:complexType name="bookFlightInput">
                 <xsd:sequence>
                     <xsd:element name="bookingNo" type="xsd:string"></xsd:element>
@@ -48,14 +46,14 @@
             <xsd:complexType name="creditCardDetails">
                 <xsd:sequence>
                     <xsd:element name="holdersName" type="xsd:string"></xsd:element>
+                    <xsd:element name="expirityDate" type="tns:expirityDateType"></xsd:element>
                     <xsd:element name="cardNumber" type="xsd:string"></xsd:element>
-                    <xsd:element name="expirationDate" type="tns:expirationDate"></xsd:element>
                 </xsd:sequence>
             </xsd:complexType>
-            <xsd:element name="bookFlightInputElement" type="tns:bookFlightInput"></xsd:element>
-            <xsd:element name="bookFlightOutputElement" type="xsd:boolean"></xsd:element>
-            <xsd:element name="bookFlightFaultElement" type="xsd:string"></xsd:element>
-            <xsd:element name="cancelFlightFaultElement" type="xsd:string"></xsd:element>
+            <xsd:element name="bookFlightInput" type="tns:bookFlightInput"></xsd:element>
+            <xsd:element name="bookFlightOutput" type="xsd:boolean"></xsd:element>
+            <xsd:element name="bookFlightFault" type="xsd:string"></xsd:element>
+            <xsd:element name="cancelFlightFault" type="xsd:string"></xsd:element>
             <xsd:complexType name="cancelFlightInput">
                 <xsd:sequence>
                     <xsd:element name="bookingNo" type="xsd:string"></xsd:element>
@@ -63,60 +61,54 @@
                     <xsd:element name="price" type="xsd:int"></xsd:element>
                 </xsd:sequence>
             </xsd:complexType>
-            <xsd:element name="cancelFlightInputElement" type="tns:cancelFlightInput"></xsd:element>
-            <xsd:element name="cancelFlightOutputElement" type="xsd:boolean"></xsd:element>
-            <xsd:complexType name="expirationDate">
+            <xsd:element name="cancelFlightInput" type="tns:cancelFlightInput"></xsd:element>
+            <xsd:element name="cancelFlightOutput" type="xsd:boolean"></xsd:element>
+            <xsd:complexType name="expirityDateType">
                 <xsd:sequence>
-                    <xsd:element name="year" type="xsd:int"></xsd:element>
                     <xsd:element name="month" type="xsd:int"></xsd:element>
+                    <xsd:element name="year" type="xsd:int"></xsd:element>
                 </xsd:sequence>
             </xsd:complexType>
         </xsd:schema>
     </types>
     <message name="LameDuckOperationRequest">
-        <part name="getFlightsInput" element="tns:getFlighsInputElement"/>
+        <part name="getFlightsInput" element="tns:getFlighsInput"/>
     </message>
     <message name="LameDuckOperationResponse">
-        <part name="getFlightsOutput" element="tns:getFlightsOutputElement"/>
+        <part name="getFlightsOutput" element="tns:getFlightsOutput"/>
     </message>
     <message name="LameDuckOperationRequest1">
-        <part name="input" element="tns:bookFlightInputElement"/>
+        <part name="input" element="tns:bookFlightInput"/>
     </message>
     <message name="LameDuckOperationResponse1">
-        <part name="output" element="tns:bookFlightOutputElement"/>
+        <part name="output" element="tns:bookFlightOutput"/>
     </message>
     <message name="BookFlightFaultMessage">
-        <part name="BookFlightFault" element="tns:bookFlightFaultElement"/>
+        <part name="BookFlightFault" element="tns:bookFlightFault"/>
     </message>
     <message name="CancelFlightFaultMessage">
-        <part name="CancelFlightFault" element="tns:cancelFlightFaultElement"/>
+        <part name="CancelFlightFault" element="tns:cancelFlightFault"/>
     </message>
     <message name="LameDuckOperationRequest2">
-        <part name="cancelFlightInput" element="tns:cancelFlightInputElement"/>
+        <part name="cancelFlightInput" element="tns:cancelFlightInput"/>
     </message>
     <message name="LameDuckOperationResponse2">
-        <part name="cancelFlightOutput" element="tns:cancelFlightOutputElement"/>
-    </message>
-    <message name="LameDuckOperationRequest4">
-        <part name="input" element="tns:bookFlightInputElement"/>
-    </message>
-    <message name="LameDuckOperationResponse4">
-        <part name="output" element="tns:bookFlightOutputElement"/>
+        <part name="cancelFlightOutput" element="tns:cancelFlightOutput"/>
     </message>
     <portType name="LameDuckPortType">
         <operation name="getFlights">
             <input name="input1" message="tns:LameDuckOperationRequest"/>
             <output name="output1" message="tns:LameDuckOperationResponse"/>
         </operation>
+        <operation name="bookFlight">
+            <input name="input2" message="tns:LameDuckOperationRequest1"/>
+            <output name="output2" message="tns:LameDuckOperationResponse1"/>
+            <fault name="bookFlightFault" message="tns:BookFlightFaultMessage"/>
+        </operation>
         <operation name="cancelFlight">
             <input name="input3" message="tns:LameDuckOperationRequest2"/>
             <output name="output3" message="tns:LameDuckOperationResponse2"/>
             <fault name="cancelFlightFault" message="tns:CancelFlightFaultMessage"/>
-        </operation>
-        <operation name="bookFlight">
-            <input name="input2" message="tns:LameDuckOperationRequest4"/>
-            <output name="output2" message="tns:LameDuckOperationResponse4"/>
-            <fault name="BookFlightFault" message="tns:BookFlightFaultMessage"/>
         </operation>
     </portType>
     <binding name="LameDuckPortTypeBinding" type="tns:LameDuckPortType">
@@ -130,6 +122,18 @@
                 <soap:body use="literal"/>
             </output>
         </operation>
+        <operation name="bookFlight">
+            <soap:operation/>
+            <input name="input2">
+                <soap:body use="literal"/>
+            </input>
+            <output name="output2">
+                <soap:body use="literal"/>
+            </output>
+            <fault name="bookFlightFault">
+                <soap:fault name="bookFlightFault" use="literal"/>
+            </fault>
+        </operation>
         <operation name="cancelFlight">
             <soap:operation/>
             <input name="input3">
@@ -142,21 +146,12 @@
                 <soap:fault name="cancelFlightFault" use="literal"/>
             </fault>
         </operation>
-        <operation name="bookFlight">
-            <soap:operation/>
-            <input name="input2">
-                <soap:body use="literal"/>
-            </input>
-            <output name="output2">
-                <soap:body use="literal"/>
-            </output>
-            <fault name="BookFlightFault">
-                <soap:fault name="BookFlightFault" use="literal"/>
-            </fault>
-        </operation>
     </binding>
     <service name="LameDuckService">
         <port name="LameDuckPortTypeBindingPort" binding="tns:LameDuckPortTypeBinding">
+            <soap:address location="http://localhost:${HttpDefaultPort}/service"/>
+        </port>
+        <port name="LameDuckPortTypeBindingPort1" binding="tns:LameDuckPortTypeBinding">
             <soap:address location="http://localhost:${HttpDefaultPort}/service"/>
         </port>
     </service>
