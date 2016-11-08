@@ -36,7 +36,8 @@ public class LameDuck {
 
    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/fastmoney.imm.dtu.dk_8080/BankService.wsdl")
     private BankService service;
-    
+    private String LAMEDUCK_NAME = "LameDuck";
+    private String LAMEDUCK_NUMBER = "50208812";
     //Bank detail information used to connect to bank services
     private static final AccountType accountInfo= new AccountType();
     static {
@@ -150,11 +151,28 @@ return flight;
         throw new BookFlightFaultMessage("Error Flight Booking no: " +input.getBookingNo() + " doesnt exists",null);
     }
 
-    public boolean cancelFlight(CancelFlightInput cancelFlightInput) throws CancelFlightFaultMessage {
+  public boolean cancelFlight(ws.lameduck.CancelFlightInput cancelFlightInput) throws CancelFlightFaultMessage {
         //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+        
+        dk.dtu.imm.fastmoney.types.CreditCardInfoType creditCardInfo = new dk.dtu.imm.fastmoney.types.CreditCardInfoType();
+        dk.dtu.imm.fastmoney.types.AccountType account = new dk.dtu.imm.fastmoney.types.AccountType();
+        dk.dtu.imm.fastmoney.types.CreditCardInfoType.ExpirationDate expirationDate =new dk.dtu.imm.fastmoney.types.CreditCardInfoType.ExpirationDate();
+        expirationDate.setMonth(cancelFlightInput.getCreditCardDetails().getExpirationDate().getMonth());
+        expirationDate.setYear(cancelFlightInput.getCreditCardDetails().getExpirationDate().getYear());
+        creditCardInfo.setExpirationDate(expirationDate);
+        creditCardInfo.setName(cancelFlightInput.getCreditCardDetails().getHoldersName());
+        creditCardInfo.setNumber(cancelFlightInput.getCreditCardDetails().getCardNumber());
+        
+        account.setName(LAMEDUCK_NAME);
+        account.setNumber(LAMEDUCK_NUMBER);
+        try{
+            refundCreditCard(16, creditCardInfo, cancelFlightInput.getPrice()/2, account);
+        }
+        catch (CreditCardFaultMessage ex) {
+            throw new CancelFlightFaultMessage("Flight cancellation failed!", ex.getFaultInfo().getMessage());
+        }
+            return true;
     }
-    
 
     private boolean chargeCreditCard(int group, dk.dtu.imm.fastmoney.types.CreditCardInfoType creditCardInfo, int amount, dk.dtu.imm.fastmoney.types.AccountType account) throws CreditCardFaultMessage {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
