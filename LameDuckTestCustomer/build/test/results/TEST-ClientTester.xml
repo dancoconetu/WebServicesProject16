@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite errors="0" failures="0" hostname="JUSTINASE156" name="ClientTester" skipped="0" tests="1" time="0.359" timestamp="2016-11-07T13:53:53">
+<testsuite errors="1" failures="0" hostname="JUSTINASE156" name="ClientTester" skipped="0" tests="3" time="0.534" timestamp="2016-11-08T11:09:04">
   <properties>
     <property name="libs.jsp-compiler.javadoc" value="" />
     <property name="netbeans.autoupdate.country" value="US" />
@@ -59,7 +59,7 @@
     <property name="copylibs.rebase" value="true" />
     <property name="libs.spring-webmvc3.0.maven-pom" value="" />
     <property name="libs.swing-layout.maven-pom" value="" />
-    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner ClientTester skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\justinas\Desktop\WebServicesProject16\LameDuckTestCustomer\build\test\results\TEST-ClientTester.xml crashfile=C:\Users\justinas\Desktop\WebServicesProject16\LameDuckTestCustomer\build\junitvmwatcher5731739079507376093.properties propsfile=C:\Users\justinas\Desktop\WebServicesProject16\LameDuckTestCustomer\build\junit8979664704237796044.properties" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner ClientTester skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\justinas\Desktop\WebServicesProject16\LameDuckTestCustomer\build\test\results\TEST-ClientTester.xml crashfile=C:\Users\justinas\Desktop\WebServicesProject16\LameDuckTestCustomer\build\junitvmwatcher7163510105093857006.properties propsfile=C:\Users\justinas\Desktop\WebServicesProject16\LameDuckTestCustomer\build\junit8594717113924373653.properties" />
     <property name="build.classes.dir" value="build/classes" />
     <property name="build.sysclasspath" value="ignore" />
     <property name="ap.supported.internal" value="true" />
@@ -99,7 +99,7 @@
     <property name="javadoc.splitindex" value="true" />
     <property name="file.separator" value="\" />
     <property name="libs.Java-EE-GlassFish-v3-Prelude.maven-pom" value="" />
-    <property name="javac.includesfile.binary" value="C:\Users\justinas\Desktop\WebServicesProject16\LameDuckTestCustomer\null1770103600" />
+    <property name="javac.includesfile.binary" value="C:\Users\justinas\Desktop\WebServicesProject16\LameDuckTestCustomer\null1908279978" />
     <property name="libs.junit_4.maven-pom" value="" />
     <property name="mkdist.disabled" value="false" />
     <property name="javac.test.processorpath" value=":build/classes:\\psf\Dropbox\Temp\OpenESB-SE-3.0-2.5\OE-Studio\netbeans\platform\modules\ext\junit-4.10.jar" />
@@ -171,7 +171,7 @@
     <property name="file.encoding.pkg" value="sun.io" />
     <property name="sun.cpu.endian" value="little" />
     <property name="libs.JAXB-ENDORSED.javadoc" value="" />
-    <property name="wsdl-LameDuckService" value="C:\Users\justinas\Desktop\WebServicesProject16\LameDuckTestCustomer\xml-resources\web-service-references\LameDuckService\wsdl\justinase156_9090\LameDuckSoap\LameDuckService.wsdl" />
+    <property name="wsdl-LameDuckService" value="C:\Users\justinas\Desktop\WebServicesProject16\LameDuckTestCustomer\xml-resources\web-service-references\LameDuckService\wsdl\localhost_9090\LameDuckSoap\LameDuckService.wsdl" />
     <property name="libs.JWSAntTasks.classpath" value="\\psf\Dropbox\Temp\OpenESB-SE-3.0-2.5\OE-Studio\netbeans\java\ant\extra\org-netbeans-modules-javawebstart-anttasks.jar" />
     <property name="libs.spring-webmvc4.0.maven-pom" value="" />
     <property name="libs.spring-framework300.src" value="" />
@@ -416,9 +416,27 @@
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit" />
     <property name="libs.javaee-web-api-7.0.javadoc" value="\\psf\Dropbox\Temp\OpenESB-SE-3.0-2.5\OE-Studio\netbeans\enterprise\docs\javaee-doc-api.jar" />
   </properties>
-  <testcase classname="ClientTester" name="testGetFlightsOutput" time="0.297" />
+  <testcase classname="ClientTester" name="testGetFlightsOutput" time="0.25" />
+  <testcase classname="ClientTester" name="testbookValidFlight" time="0.095" />
+  <testcase classname="ClientTester" name="testbookInValidFlight" time="0.111">
+    <error message="Failed to charge CreditCard: The account has not enough money" type="ws.lameduck.BookFlightFaultMessage">ws.lameduck.BookFlightFaultMessage: Failed to charge CreditCard: The account has not enough money
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:422)
+	at com.sun.xml.internal.ws.fault.SOAPFaultBuilder.createException(SOAPFaultBuilder.java:135)
+	at com.sun.xml.internal.ws.client.sei.StubHandler.readResponse(StubHandler.java:238)
+	at com.sun.xml.internal.ws.db.DatabindingImpl.deserializeResponse(DatabindingImpl.java:189)
+	at com.sun.xml.internal.ws.db.DatabindingImpl.deserializeResponse(DatabindingImpl.java:276)
+	at com.sun.xml.internal.ws.client.sei.SyncMethodHandler.invoke(SyncMethodHandler.java:104)
+	at com.sun.xml.internal.ws.client.sei.SyncMethodHandler.invoke(SyncMethodHandler.java:77)
+	at com.sun.xml.internal.ws.client.sei.SEIStub.invoke(SEIStub.java:147)
+	at com.sun.proxy.$Proxy36.bookFlight(Unknown Source)
+	at ClientTester.bookFlight(ClientTester.java:124)
+	at ClientTester.testbookInValidFlight(ClientTester.java:109)
+</error>
+  </testcase>
   <system-out><![CDATA[sooo: GerLine
 Price: 2000
+9
+9
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

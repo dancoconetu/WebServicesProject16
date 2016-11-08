@@ -136,12 +136,9 @@ return flight;
                 try {
                     chargeCreditCard(16,CDD, result.getPrice(), accountInfo);
                     System.out.println("TRYING charge credit Card");
-                    
                     return true;
                 } catch (CreditCardFaultMessage ex) {
                     Logger.getLogger(LameDuck.class.getName()).log(Level.SEVERE, null, ex);
-                    throw new BookFlightFaultMessage("Failed to charge CreditCard: " + ex.getMessage(), null);
-                    
                 }
             }
         

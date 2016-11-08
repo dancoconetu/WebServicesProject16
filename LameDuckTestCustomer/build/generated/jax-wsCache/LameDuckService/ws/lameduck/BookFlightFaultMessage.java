@@ -10,7 +10,7 @@ import javax.xml.ws.WebFault;
  * Generated source version: 2.2
  * 
  */
-@WebFault(name = "bookFlightFault", targetNamespace = "http://LameDuck.ws")
+@WebFault(name = "bookFlightFaultElement", targetNamespace = "http://LameDuck.ws")
 public class BookFlightFaultMessage
     extends Exception
 {

@@ -30,25 +30,10 @@ public interface LameDuckPortType {
      *     returns ws.lameduck.GetFlightsOutput
      */
     @WebMethod
-    @WebResult(name = "getFlightsOutput", targetNamespace = "http://LameDuck.ws", partName = "getFlightsOutput")
+    @WebResult(name = "getFlightsOutputElement", targetNamespace = "http://LameDuck.ws", partName = "getFlightsOutput")
     public GetFlightsOutput getFlights(
-        @WebParam(name = "getFlighsInput", targetNamespace = "http://LameDuck.ws", partName = "getFlightsInput")
+        @WebParam(name = "getFlighsInputElement", targetNamespace = "http://LameDuck.ws", partName = "getFlightsInput")
         GetFlightsInput getFlightsInput);
-
-    /**
-     * 
-     * @param input
-     * @return
-     *     returns boolean
-     * @throws BookFlightFaultMessage
-     */
-    @WebMethod
-    @WebResult(name = "bookFlightOutput", targetNamespace = "http://LameDuck.ws", partName = "output")
-    public boolean bookFlight(
-        @WebParam(name = "bookFlightInput", targetNamespace = "http://LameDuck.ws", partName = "input")
-        BookFlightInput input)
-        throws BookFlightFaultMessage
-    ;
 
     /**
      * 
@@ -58,11 +43,26 @@ public interface LameDuckPortType {
      * @throws CancelFlightFaultMessage
      */
     @WebMethod
-    @WebResult(name = "cancelFlightOutput", targetNamespace = "http://LameDuck.ws", partName = "cancelFlightOutput")
+    @WebResult(name = "cancelFlightOutputElement", targetNamespace = "http://LameDuck.ws", partName = "cancelFlightOutput")
     public boolean cancelFlight(
-        @WebParam(name = "cancelFlightInput", targetNamespace = "http://LameDuck.ws", partName = "cancelFlightInput")
+        @WebParam(name = "cancelFlightInputElement", targetNamespace = "http://LameDuck.ws", partName = "cancelFlightInput")
         CancelFlightInput cancelFlightInput)
         throws CancelFlightFaultMessage
+    ;
+
+    /**
+     * 
+     * @param input
+     * @return
+     *     returns boolean
+     * @throws BookFlightFaultMessage
+     */
+    @WebMethod
+    @WebResult(name = "bookFlightOutputElement", targetNamespace = "http://LameDuck.ws", partName = "output")
+    public boolean bookFlight(
+        @WebParam(name = "bookFlightInputElement", targetNamespace = "http://LameDuck.ws", partName = "input")
+        BookFlightInput input)
+        throws BookFlightFaultMessage
     ;
 
 }

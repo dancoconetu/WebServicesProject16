@@ -10,7 +10,7 @@ import javax.xml.ws.WebFault;
  * Generated source version: 2.2
  * 
  */
-@WebFault(name = "cancelFlightFault", targetNamespace = "http://LameDuck.ws")
+@WebFault(name = "cancelFlightFaultElement", targetNamespace = "http://LameDuck.ws")
 public class CancelFlightFaultMessage
     extends Exception
 {

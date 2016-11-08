@@ -4,9 +4,7 @@ package ws.lameduck;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.datatype.XMLGregorianCalendar;
 
 
 /**
@@ -20,8 +18,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="holdersName" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="expirityDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
  *         &lt;element name="cardNumber" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="expirationDate" type="{http://LameDuck.ws}expirationDate"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -33,18 +31,17 @@ import javax.xml.datatype.XMLGregorianCalendar;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "creditCardDetails", propOrder = {
     "holdersName",
-    "expirityDate",
-    "cardNumber"
+    "cardNumber",
+    "expirationDate"
 })
 public class CreditCardDetails {
 
     @XmlElement(required = true)
     protected String holdersName;
     @XmlElement(required = true)
-    @XmlSchemaType(name = "date")
-    protected XMLGregorianCalendar expirityDate;
-    @XmlElement(required = true)
     protected String cardNumber;
+    @XmlElement(required = true)
+    protected ExpirationDate expirationDate;
 
     /**
      * Gets the value of the holdersName property.
@@ -71,30 +68,6 @@ public class CreditCardDetails {
     }
 
     /**
-     * Gets the value of the expirityDate property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link XMLGregorianCalendar }
-     *     
-     */
-    public XMLGregorianCalendar getExpirityDate() {
-        return expirityDate;
-    }
-
-    /**
-     * Sets the value of the expirityDate property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link XMLGregorianCalendar }
-     *     
-     */
-    public void setExpirityDate(XMLGregorianCalendar value) {
-        this.expirityDate = value;
-    }
-
-    /**
      * Gets the value of the cardNumber property.
      * 
      * @return
@@ -116,6 +89,30 @@ public class CreditCardDetails {
      */
     public void setCardNumber(String value) {
         this.cardNumber = value;
+    }
+
+    /**
+     * Gets the value of the expirationDate property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link ExpirationDate }
+     *     
+     */
+    public ExpirationDate getExpirationDate() {
+        return expirationDate;
+    }
+
+    /**
+     * Sets the value of the expirationDate property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link ExpirationDate }
+     *     
+     */
+    public void setExpirationDate(ExpirationDate value) {
+        this.expirationDate = value;
     }
 
 }

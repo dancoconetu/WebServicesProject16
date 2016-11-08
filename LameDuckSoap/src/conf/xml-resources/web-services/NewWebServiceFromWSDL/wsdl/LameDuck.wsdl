@@ -46,7 +46,7 @@
             <xsd:complexType name="creditCardDetails">
                 <xsd:sequence>
                     <xsd:element name="holdersName" type="xsd:string"></xsd:element>
-                    <xsd:element name="expirityDate" type="xsd:date"></xsd:element>
+                    <xsd:element name="expirityDate" type="tns:expirityDateType"></xsd:element>
                     <xsd:element name="cardNumber" type="xsd:string"></xsd:element>
                 </xsd:sequence>
             </xsd:complexType>
