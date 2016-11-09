@@ -4,7 +4,8 @@
     <system systemId="http://fastmoney.imm.dtu.dk:8080?wsdl" uri="src/conf/xml-resources/web-service-references/fastmoney.imm.dtu/wsdl/fastmoney.imm.dtu.dk_8080.wsdl"/>
     <system systemId="http://fastmoney.imm.dtu.dk:8080/BankService?wsdl" uri="src/conf/xml-resources/web-service-references/BankService/wsdl/fastmoney.imm.dtu.dk_8080/BankService.wsdl"/>
     <system systemId="http://fastmoney.imm.dtu.dk:8080/BankService?wsdl=1" uri="src/conf/xml-resources/web-service-references/BankService/wsdl/fastmoney.imm.dtu.dk_8080/BankService.wsdl_1.wsdl"/>
-    <system systemId="http://fastmoney.imm.dtu.dk:8080/BankService?xsd=1" uri="src/conf/xml-resources/web-service-references/BankService/wsdl/fastmoney.imm.dtu.dk_8080/BankService.xsd_1.xsd"/>
     <system systemId="http://fastmoney.imm.dtu.dk:8080/BankService?xsd=2" uri="src/conf/xml-resources/web-service-references/BankService/wsdl/fastmoney.imm.dtu.dk_8080/BankService.xsd_2.xsd"/>
     <system systemId="file:/D:/WebServicesProject16/LameDuckSoap/src/java/LameDuck.wsdl" uri="src/conf/xml-resources/web-services/LameDuck/wsdl/LameDuck.wsdl"/>
+    <system systemId="http://fastmoney.imm.dtu.dk:8080/BankService?xsd=1" uri="src/conf/xml-resources/web-services/LameDuck/wsdl/fastmoney.imm.dtu.dk_8080/BankService.xsd_1.xsd"/>
+    <system systemId="file:/C:/Users/justinas/Desktop/WebServicesProject16/LameDuckSoap/src/java/LameDuck.wsdl" uri="src/conf/xml-resources/web-services/LameDuck/wsdl/LameDuck.wsdl"/>
 </catalog>

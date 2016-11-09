@@ -5,9 +5,9 @@
  */
 package LameDuckService;
 
-import dk.dtu.imm.fastmoney.BankService;
-import dk.dtu.imm.fastmoney.CreditCardFaultMessage;
+import dk.dtu.imm.fastmoney.*;
 import dk.dtu.imm.fastmoney.types.AccountType;
+import dk.dtu.imm.fastmoney.types.CreditCardInfoType;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -16,19 +16,34 @@ import java.util.logging.Logger;
 import javax.jws.WebService;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
-import sun.util.calendar.LocalGregorianCalendar.Date;
-import ws.lameduck.*;
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.ws.WebServiceRef;
-import sun.util.calendar.Gregorian;
+import ws.lameduck.BookFlightFaultMessage;
+import ws.lameduck.BookFlightInput;
+import ws.lameduck.CancelFlightFaultMessage;
+import ws.lameduck.CancelFlightInput;
+import ws.lameduck.Flight;
+import ws.lameduck.FlightInformation;
+import ws.lameduck.GetFlightsInput;
+import ws.lameduck.GetFlightsOutput;
+
 /**
  *
- * @author Dan
+ * @author justinas
  */
 @WebService(serviceName = "LameDuckService", portName = "LameDuckPortTypeBindingPort", endpointInterface = "ws.lameduck.LameDuckPortType", targetNamespace = "http://LameDuck.ws", wsdlLocation = "WEB-INF/wsdl/LameDuck/LameDuck.wsdl")
 public class LameDuck {
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/fastmoney.imm.dtu.dk_8080/BankService.wsdl")
+
+   @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/fastmoney.imm.dtu.dk_8080/BankService.wsdl")
     private BankService service;
+    
+    //Bank detail information used to connect to bank services
+    private static final AccountType accountInfo= new AccountType();
+    static {
+    accountInfo.setName("SleepDeep");
+    accountInfo.setNumber("50308814");
+    
+    }
 
     
 private static Flight addToFlightList(String startCity, String endCity, String carrier,GregorianCalendar departureDate, GregorianCalendar arrivalDate) throws DatatypeConfigurationException{
@@ -99,13 +114,43 @@ return flight;
          return object;
     }
     
-    
-    public boolean bookFlight(ws.lameduck.BookFlightInput input) throws BookFlightFaultMessage {
-        //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+     
+    public boolean bookFlight(BookFlightInput input) throws BookFlightFaultMessage, DatatypeConfigurationException {
+        List<FlightInformation> list = flightsList();
+        
+        //Create an object of creditCardInfo
+        
+        CreditCardInfoType CDD = new CreditCardInfoType();
+        CDD.setNumber(input.getCreditCardDetails().getCardNumber());
+        CreditCardInfoType.ExpirationDate expirationDate = new CreditCardInfoType.ExpirationDate();
+        expirationDate.setMonth(input.getCreditCardDetails().getExpirationDate().getMonth());
+        expirationDate.setYear(input.getCreditCardDetails().getExpirationDate().getYear());
+        
+        CDD.setExpirationDate(expirationDate);
+        CDD.setName(input.getCreditCardDetails().getHoldersName());
+        
+        for(FlightInformation result: list){
+            
+            if(input.getBookingNo().equals(result.getBookingNo())){
+                System.out.println("Booking are equal: " + result.getBookingNo());
+                try {
+                    chargeCreditCard(16,CDD, result.getPrice(), accountInfo);
+                    System.out.println("TRYING charge credit Card");
+                    
+                    return true;
+                } catch (CreditCardFaultMessage ex) {
+                    Logger.getLogger(LameDuck.class.getName()).log(Level.SEVERE, null, ex);
+                    throw new BookFlightFaultMessage("Failed to charge CreditCard: " + ex.getMessage(), null);
+                    
+                }
+            }
+        
+                }
+        
+        throw new BookFlightFaultMessage("Error Flight Booking no: " +input.getBookingNo() + " doesnt exists",null);
     }
 
-    public boolean cancelFlight(ws.lameduck.CancelFlightInput cancelFlightInput) throws CancelFlightFaultMessage {
+    public boolean cancelFlight(CancelFlightInput cancelFlightInput) throws CancelFlightFaultMessage {
         //TODO implement this method
         throw new UnsupportedOperationException("Not implemented yet.");
     }
