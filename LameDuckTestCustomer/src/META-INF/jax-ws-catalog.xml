@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
     <system systemId="http://justinase156:9090/LameDuckSoap/LameDuckService?wsdl" uri="wsdl/justinase156_9090/LameDuckSoap/LameDuckService.wsdl"/>
+    <system systemId="http://justinase156:9090/LameDuckSoap/LameDuckService?null" uri="wsdl/justinase156_9090/LameDuckSoap/LameDuckService.null.xml"/>
+    <system systemId="http://localhost:9090/LameDuckSoap/LameDuckService?wsdl" uri="wsdl/localhost_9090/LameDuckSoap/LameDuckService.wsdl"/>
+    <system systemId="http://localhost:9090/LameDuckSoap/LameDuckService?null" uri="xml-resources/web-service-references/LameDuckService_2/wsdl/localhost_9090/LameDuckSoap/LameDuckService.null.xml"/>
 </catalog>
