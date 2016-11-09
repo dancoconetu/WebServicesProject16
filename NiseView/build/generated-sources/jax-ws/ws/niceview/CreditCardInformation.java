@@ -4,9 +4,7 @@ package ws.niceview;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.datatype.XMLGregorianCalendar;
 
 
 /**
@@ -21,7 +19,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *       &lt;sequence>
  *         &lt;element name="holderName" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="8digitNumber" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="expirtationDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
+ *         &lt;element name="expDate" type="{http://NiceView.WS}expDate"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -34,7 +32,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 @XmlType(name = "creditCardInformation", propOrder = {
     "holderName",
     "_8DigitNumber",
-    "expirtationDate"
+    "expDate"
 })
 public class CreditCardInformation {
 
@@ -43,8 +41,7 @@ public class CreditCardInformation {
     @XmlElement(name = "8digitNumber", required = true)
     protected String _8DigitNumber;
     @XmlElement(required = true)
-    @XmlSchemaType(name = "date")
-    protected XMLGregorianCalendar expirtationDate;
+    protected ExpDate expDate;
 
     /**
      * Gets the value of the holderName property.
@@ -95,27 +92,27 @@ public class CreditCardInformation {
     }
 
     /**
-     * Gets the value of the expirtationDate property.
+     * Gets the value of the expDate property.
      * 
      * @return
      *     possible object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link ExpDate }
      *     
      */
-    public XMLGregorianCalendar getExpirtationDate() {
-        return expirtationDate;
+    public ExpDate getExpDate() {
+        return expDate;
     }
 
     /**
-     * Sets the value of the expirtationDate property.
+     * Sets the value of the expDate property.
      * 
      * @param value
      *     allowed object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link ExpDate }
      *     
      */
-    public void setExpirtationDate(XMLGregorianCalendar value) {
-        this.expirtationDate = value;
+    public void setExpDate(ExpDate value) {
+        this.expDate = value;
     }
 
 }

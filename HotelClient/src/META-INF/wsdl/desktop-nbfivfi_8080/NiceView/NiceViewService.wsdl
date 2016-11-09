@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is Metro/2.3.1-b419 (branches/2.3.1.x-7937; 2014-08-04T08:11:03+0000) JAXWS-RI/2.2.10-b140803.1500 JAXWS-API/2.2.11 JAXB-RI/2.2.10-b140802.1033 JAXB-API/2.2.12-b140109.1041 svn-revision#unknown. --><definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://NiceView.WS" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" name="NiceView" targetNamespace="http://NiceView.WS">
+<wsdl:import namespace="http://NiceView.WS" location="http://desktop-nbfivfi:8080/NiceView/NiceViewService?wsdl=1"/>
+<wsdl:binding name="NiceViewBinding" type="tns:NiceViewPort">
+<soap:binding xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+<wsdl:operation name="cancelHotel">
+<soap:operation xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" soapAction="cancelHotel_action"/>
+<wsdl:input name="input3">
+<soap:body xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" use="literal"/>
+</wsdl:input>
+<wsdl:output name="output3">
+<soap:body xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" use="literal"/>
+</wsdl:output>
+<wsdl:fault name="cancelHotelFault">
+<soap:fault xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="cancelHotelFault" use="literal"/>
+</wsdl:fault>
+</wsdl:operation>
+<wsdl:operation name="bookHotel">
+<soap:operation xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" soapAction="bookHotel_action"/>
+<wsdl:input name="input2">
+<soap:body xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" use="literal"/>
+</wsdl:input>
+<wsdl:output name="output2">
+<soap:body xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" use="literal"/>
+</wsdl:output>
+<wsdl:fault name="bookHotelFault">
+<soap:fault xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="bookHotelFault" use="literal"/>
+</wsdl:fault>
+</wsdl:operation>
+<wsdl:operation name="getHotelsList">
+<soap:operation xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" soapAction="getHotelsList_action"/>
+<wsdl:input name="input1">
+<soap:body xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" use="literal"/>
+</wsdl:input>
+<wsdl:output name="output1">
+<soap:body xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" use="literal"/>
+</wsdl:output>
+<wsdl:fault name="getHotelListFault">
+<soap:fault xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="getHotelListFault" use="literal"/>
+</wsdl:fault>
+</wsdl:operation>
+</wsdl:binding>
+<wsdl:service name="NiceViewService">
+<wsdl:port name="NiceViewPort" binding="tns:NiceViewBinding">
+<soap:address xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" location="http://desktop-nbfivfi:8080/NiceView/NiceViewService"/>
+</wsdl:port>
+</wsdl:service>
+</definitions>

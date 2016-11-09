@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="hotelName" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="adress" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="bookingNR" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="totalPrice" type="{http://www.w3.org/2001/XMLSchema}double"/>
+ *         &lt;element name="price" type="{http://www.w3.org/2001/XMLSchema}double"/>
  *         &lt;element name="creditCardNeeded" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *         &lt;element name="reservationService" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *       &lt;/sequence>
@@ -36,7 +36,7 @@ import javax.xml.bind.annotation.XmlType;
     "hotelName",
     "adress",
     "bookingNR",
-    "totalPrice",
+    "price",
     "creditCardNeeded",
     "reservationService"
 })
@@ -48,7 +48,7 @@ public class HotelType {
     protected String adress;
     @XmlElement(required = true)
     protected String bookingNR;
-    protected double totalPrice;
+    protected double price;
     protected boolean creditCardNeeded;
     @XmlElement(required = true)
     protected String reservationService;
@@ -61,20 +61,6 @@ public class HotelType {
      *     {@link String }
      *     
      */
-    public HotelType()
-    {
-        
-    }
-    public HotelType(String hotelName, String adress, String bookingNr, double totalPrice, boolean creditCardNeeded, String reservationService)
-    {
-        this.hotelName = hotelName;
-        this.adress = adress;
-        this.bookingNR = bookingNr;
-        this.totalPrice = totalPrice;
-        this.creditCardNeeded = creditCardNeeded;
-        this.reservationService = reservationService;
-    }
-    
     public String getHotelName() {
         return hotelName;
     }
@@ -140,19 +126,19 @@ public class HotelType {
     }
 
     /**
-     * Gets the value of the totalPrice property.
+     * Gets the value of the price property.
      * 
      */
-    public double getTotalPrice() {
-        return totalPrice;
+    public double getPrice() {
+        return price;
     }
 
     /**
-     * Sets the value of the totalPrice property.
+     * Sets the value of the price property.
      * 
      */
-    public void setTotalPrice(double value) {
-        this.totalPrice = value;
+    public void setPrice(double value) {
+        this.price = value;
     }
 
     /**

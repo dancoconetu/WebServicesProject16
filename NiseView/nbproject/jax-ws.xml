@@ -3,10 +3,10 @@
   <services>
     <service name="NiceViewService">
       <implementation-class>NiceViewService.NiceViewService</implementation-class>
-      <wsdl-url>file:/D:/WebServicesProject16/NiseView/src/java/NiceView.wsdl</wsdl-url>
-      <local-wsdl-file>NiceView.wsdl</local-wsdl-file>
+      <wsdl-url>file:/C:/Users/Lalli/Documents/GitHub/WebServicesProject16/NiseView/src/java/NiceView.wsdl</wsdl-url>
+      <local-wsdl-file>NiceViewWrapper.wsdl</local-wsdl-file>
       <service-name>NiceViewService</service-name>
-      <port-name>NiceViewPortBindingPort</port-name>
+      <port-name>NiceViewPort</port-name>
       <package-name>ws.niceview</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>

@@ -25,44 +25,47 @@ public interface NiceViewPort {
 
     /**
      * 
-     * @param getHotelInputs
+     * @param input2
      * @return
-     *     returns ws.niceview.HotelListType
+     *     returns boolean
+     * @throws CancelHotelFault
      */
-    @WebMethod
-    @WebResult(name = "getHotelOutput", targetNamespace = "http://NiceView.WS", partName = "getHotelOutput")
-    public HotelListType getHotelList(
-        @WebParam(name = "getHotelInputs", targetNamespace = "http://NiceView.WS", partName = "getHotelInputs")
-        GetHotelInput getHotelInputs);
+    @WebMethod(action = "cancelHotel_action")
+    @WebResult(name = "cancelHotelOutput", targetNamespace = "http://NiceView.WS", partName = "output")
+    public boolean cancelHotel(
+        @WebParam(name = "cancelHotelInput", targetNamespace = "http://NiceView.WS", partName = "input2")
+        String input2)
+        throws CancelHotelFault
+    ;
 
     /**
      * 
-     * @param bookHotelInput
+     * @param input3
      * @return
      *     returns boolean
      * @throws BookHotelFault
      */
-    @WebMethod
-    @WebResult(name = "bookHotelOutput", targetNamespace = "http://NiceView.WS", partName = "bootHotelOutput")
+    @WebMethod(action = "bookHotel_action")
+    @WebResult(name = "bookHotelOutput", targetNamespace = "http://NiceView.WS", partName = "part1")
     public boolean bookHotel(
-        @WebParam(name = "bookHotelInput", targetNamespace = "http://NiceView.WS", partName = "bookHotelInput")
-        BookHotelInput bookHotelInput)
+        @WebParam(name = "bookHotelInput", targetNamespace = "http://NiceView.WS", partName = "input3")
+        BookHotelInput input3)
         throws BookHotelFault
     ;
 
     /**
      * 
-     * @param bookingNr
+     * @param input1
      * @return
-     *     returns boolean
-     * @throws CancelHotelFault
+     *     returns ws.niceview.GetHotelOutput
+     * @throws GetHotelListFault
      */
-    @WebMethod
-    @WebResult(name = "bookHotelOutput", targetNamespace = "http://NiceView.WS", partName = "part1")
-    public boolean cancelHotel(
-        @WebParam(name = "bookingNr", targetNamespace = "http://NiceView.WS", partName = "bookingNr")
-        String bookingNr)
-        throws CancelHotelFault
+    @WebMethod(action = "getHotelsList_action")
+    @WebResult(name = "getHotelsOutput", targetNamespace = "http://NiceView.WS", partName = "output1")
+    public GetHotelOutput getHotelsList(
+        @WebParam(name = "getHotelInputs", targetNamespace = "http://NiceView.WS", partName = "input1")
+        GetHotelInput input1)
+        throws GetHotelListFault
     ;
 
 }

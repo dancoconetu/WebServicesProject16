@@ -26,9 +26,11 @@ public class ObjectFactory {
 
     private final static QName _CancelHotelFault_QNAME = new QName("http://NiceView.WS", "cancelHotelFault");
     private final static QName _GetHotelInputs_QNAME = new QName("http://NiceView.WS", "getHotelInputs");
-    private final static QName _BookingNr_QNAME = new QName("http://NiceView.WS", "bookingNr");
+    private final static QName _BookHotelInput_QNAME = new QName("http://NiceView.WS", "bookHotelInput");
     private final static QName _CancelHotelOutput_QNAME = new QName("http://NiceView.WS", "cancelHotelOutput");
-    private final static QName _GetHotelOutput_QNAME = new QName("http://NiceView.WS", "getHotelOutput");
+    private final static QName _GetHotelsFault_QNAME = new QName("http://NiceView.WS", "getHotelsFault");
+    private final static QName _CancelHotelInput_QNAME = new QName("http://NiceView.WS", "cancelHotelInput");
+    private final static QName _GetHotelsOutput_QNAME = new QName("http://NiceView.WS", "getHotelsOutput");
     private final static QName _BookHotelOutput_QNAME = new QName("http://NiceView.WS", "bookHotelOutput");
     private final static QName _BookHotelFault_QNAME = new QName("http://NiceView.WS", "bookHotelFault");
 
@@ -56,6 +58,30 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GetHotelOutput }
+     * 
+     */
+    public GetHotelOutput createGetHotelOutput() {
+        return new GetHotelOutput();
+    }
+
+    /**
+     * Create an instance of {@link HotelInformationList }
+     * 
+     */
+    public HotelInformationList createHotelInformationList() {
+        return new HotelInformationList();
+    }
+
+    /**
+     * Create an instance of {@link HotelInformation }
+     * 
+     */
+    public HotelInformation createHotelInformation() {
+        return new HotelInformation();
+    }
+
+    /**
      * Create an instance of {@link CreditCardInformation }
      * 
      */
@@ -64,19 +90,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link HotelListType }
-     * 
-     */
-    public HotelListType createHotelListType() {
-        return new HotelListType();
-    }
-
-    /**
      * Create an instance of {@link HotelType }
      * 
      */
     public HotelType createHotelType() {
         return new HotelType();
+    }
+
+    /**
+     * Create an instance of {@link ExpDate }
+     * 
+     */
+    public ExpDate createExpDate() {
+        return new ExpDate();
     }
 
     /**
@@ -98,12 +124,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link BookHotelInput }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://NiceView.WS", name = "bookingNr")
-    public JAXBElement<String> createBookingNr(String value) {
-        return new JAXBElement<String>(_BookingNr_QNAME, String.class, null, value);
+    @XmlElementDecl(namespace = "http://NiceView.WS", name = "bookHotelInput")
+    public JAXBElement<BookHotelInput> createBookHotelInput(BookHotelInput value) {
+        return new JAXBElement<BookHotelInput>(_BookHotelInput_QNAME, BookHotelInput.class, null, value);
     }
 
     /**
@@ -116,12 +142,30 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link HotelListType }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://NiceView.WS", name = "getHotelOutput")
-    public JAXBElement<HotelListType> createGetHotelOutput(HotelListType value) {
-        return new JAXBElement<HotelListType>(_GetHotelOutput_QNAME, HotelListType.class, null, value);
+    @XmlElementDecl(namespace = "http://NiceView.WS", name = "getHotelsFault")
+    public JAXBElement<String> createGetHotelsFault(String value) {
+        return new JAXBElement<String>(_GetHotelsFault_QNAME, String.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://NiceView.WS", name = "cancelHotelInput")
+    public JAXBElement<String> createCancelHotelInput(String value) {
+        return new JAXBElement<String>(_CancelHotelInput_QNAME, String.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetHotelOutput }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://NiceView.WS", name = "getHotelsOutput")
+    public JAXBElement<GetHotelOutput> createGetHotelsOutput(GetHotelOutput value) {
+        return new JAXBElement<GetHotelOutput>(_GetHotelsOutput_QNAME, GetHotelOutput.class, null, value);
     }
 
     /**

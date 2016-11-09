@@ -4,22 +4,21 @@ package ws.niceview;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for anonymous complex type.
+ * <p>Java class for bookHotelInput complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType>
+ * &lt;complexType name="bookHotelInput">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="bookingNR" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="creditCardInformation" type="{http://NiceView.WS}creditCardInformation"/>
+ *         &lt;element name="CreditCardInformation" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -29,17 +28,16 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
+@XmlType(name = "bookHotelInput", propOrder = {
     "bookingNR",
     "creditCardInformation"
 })
-@XmlRootElement(name = "bookHotelInput")
 public class BookHotelInput {
 
     @XmlElement(required = true)
     protected String bookingNR;
-    @XmlElement(required = true)
-    protected CreditCardInformation creditCardInformation;
+    @XmlElement(name = "CreditCardInformation", required = true)
+    protected String creditCardInformation;
 
     /**
      * Gets the value of the bookingNR property.
@@ -70,10 +68,10 @@ public class BookHotelInput {
      * 
      * @return
      *     possible object is
-     *     {@link CreditCardInformation }
+     *     {@link String }
      *     
      */
-    public CreditCardInformation getCreditCardInformation() {
+    public String getCreditCardInformation() {
         return creditCardInformation;
     }
 
@@ -82,10 +80,10 @@ public class BookHotelInput {
      * 
      * @param value
      *     allowed object is
-     *     {@link CreditCardInformation }
+     *     {@link String }
      *     
      */
-    public void setCreditCardInformation(CreditCardInformation value) {
+    public void setCreditCardInformation(String value) {
         this.creditCardInformation = value;
     }
 
