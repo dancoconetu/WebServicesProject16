@@ -18,15 +18,29 @@ import ws.niceview.*;
  *
  * @author Lalli
  */
-@WebService(serviceName = "NiceViewService", portName = "NiceViewPort", endpointInterface = "ws.niceview.NiceViewPort", targetNamespace = "http://NiceView.WS", wsdlLocation = "WEB-INF/wsdl/NiceViewService/NiceViewWrapper.wsdl")
+@WebService(serviceName = "NiceViewService", portName = "NiceViewPortBindingPort", endpointInterface = "ws.niceview.NiceViewPort", targetNamespace = "http://NiceView.WS", wsdlLocation = "WEB-INF/wsdl/NiceViewServices/NiceView.wsdl")
 public class NiceViewServices {
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/fastmoney.imm.dtu.dk_8080/BankService.wsdl")
     private BankService service;
-    
 
     public boolean cancelHotel(java.lang.String input2) throws CancelHotelFault {
-        //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+          
+        boolean sucess = false;
+        String bookingNR = input2;
+
+        HotelInformationList hList = new HotelInformationList();
+        hList = getAllHotels();
+        List<HotelInformation> hotelInformation = hList.getHotelInformation();
+        
+        for (HotelInformation currHotel : hotelInformation) {
+            
+            if(currHotel.getBookingNR().equals(bookingNR)){
+                sucess=true;
+            }
+            
+        }
+
+        return sucess;
     }
 
     public boolean bookHotel(ws.niceview.BookHotelInput input3) throws BookHotelFault, CreditCardFaultMessage {
@@ -58,9 +72,7 @@ public class NiceViewServices {
                         CDD.setName(input3.getCreditCardInformation().getHolderName());
                         
                         
-                        sucess = validateCreditCard(16, CDD, 0);
-                   
-                   
+                        sucess = validateCreditCard(16, CDD, (int) currHotel.getPricePerNight());                                 
                }
                else{
                    //hotel booked
@@ -75,8 +87,8 @@ public class NiceViewServices {
         return sucess;
         
     }
-
-    public GetHotelOutput getHotelsList(GetHotelInput input1) throws GetHotelListFault {
+    
+     public GetHotelOutput getHotelsList(GetHotelInput input1) throws GetHotelListFault {
 
         GetHotelOutput ghout = new GetHotelOutput();
         
@@ -151,7 +163,13 @@ public class NiceViewServices {
         dk.dtu.imm.fastmoney.BankPortType port = service.getBankPort();
         return port.validateCreditCard(group, creditCardInfo, amount);
     }
+
+
     
     
-        
+   
+    
+    
+    
+    
 }

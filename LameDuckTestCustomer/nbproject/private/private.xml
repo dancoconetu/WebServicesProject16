@@ -2,6 +2,13 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/D:/WebServicesProject16/LameDuckTestCustomer/src/lameducktestcustomer/LameDuckTestCustomer.java</file>
+            <file>file:/D:/WebServicesProject16/LameDuckTestCustomer/src/META-INF/wsdl/localhost_9090/LameDuckSoap/LameDuckService.null.xml</file>
+            <file>file:/D:/WebServicesProject16/LameDuckTestCustomer/xml-resources/web-service-references/LameDuckService/wsdl/localhost_9090/LameDuckSoap/LameDuckService.wsdl</file>
+            <file>file:/D:/WebServicesProject16/LameDuckTestCustomer/src/META-INF/wsdl/localhost_9090/LameDuckSoap/LameDuckService.wsdl</file>
+            <file>file:/D:/WebServicesProject16/LameDuckTestCustomer/test/ClientTester.java</file>
+            <file>file:/D:/WebServicesProject16/LameDuckTestCustomer/src/META-INF/jax-ws-catalog.xml</file>
+        </group>
     </open-files>
 </project-private>

@@ -17,7 +17,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "NiceViewService", targetNamespace = "http://NiceView.WS", wsdlLocation = "file:/C:/Users/Lalli/Documents/GitHub/WebServicesProject16/NiseView/src/conf/xml-resources/web-services/NiceViewServices/wsdl/NiceView.wsdl")
+@WebServiceClient(name = "NiceViewService", targetNamespace = "http://NiceView.WS", wsdlLocation = "file:/D:/WebServicesProject16/NiseView/src/conf/xml-resources/web-services/NiceViewServices/wsdl/NiceView.wsdl")
 public class NiceViewService
     extends Service
 {
@@ -30,7 +30,7 @@ public class NiceViewService
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("file:/C:/Users/Lalli/Documents/GitHub/WebServicesProject16/NiseView/src/conf/xml-resources/web-services/NiceViewServices/wsdl/NiceView.wsdl");
+            url = new URL("file:/D:/WebServicesProject16/NiseView/src/conf/xml-resources/web-services/NiceViewServices/wsdl/NiceView.wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }
