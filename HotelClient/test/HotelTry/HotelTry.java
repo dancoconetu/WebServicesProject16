@@ -28,7 +28,6 @@ import java.util.logging.Logger;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import ws.niceview.*;
-
 /**
  *
  * @author Lalli
@@ -105,32 +104,53 @@ public class HotelTry {
           boolean sucess = false;
           
           BookHotelInput inp = new BookHotelInput();
-          inp.setBookingNR("343H");
-          inp.setCreditCardInformation("sdsdss");
-          
+          CreditCardInformation creditCard = new CreditCardInformation();
+          ExpDate expdate = new ExpDate();
+          expdate.setMonth(7);
+          expdate.setYear(9);
+          creditCard.setCardNumber("50408822");
+          creditCard.setExpDate(expdate);
+          creditCard.setHolderName("Bech Camilla");
+          inp.setBookingNR("333H");
+
+         inp.setCreditCardInformation(creditCard);
+        
           sucess = bookHotel(inp);
           
           System.out.println("it was a "+sucess);
-
 }
-
-    private static GetHotelOutput getHotelsList(ws.niceview.GetHotelInput input1) throws GetHotelListFault {
-        ws.niceview.NiceViewService service = new ws.niceview.NiceViewService();
-        ws.niceview.NiceViewPort port = service.getNiceViewPort();
-        return port.getHotelsList(input1);
+    @Test 
+    public void CancelHotelTry() throws CancelHotelFault{
+        
+        System.out.println("Cancelation was : " + cancelHotel("333H"));
+        
     }
 
-    private static boolean bookHotel(ws.niceview.BookHotelInput input3) throws BookHotelFault {
+    private static boolean bookHotel(ws.niceview.BookHotelInput input2) throws BookHotelFault {
         ws.niceview.NiceViewService service = new ws.niceview.NiceViewService();
-        ws.niceview.NiceViewPort port = service.getNiceViewPort();
-        return port.bookHotel(input3);
+        ws.niceview.NiceViewPort port = service.getNiceViewPortBindingPort();
+        return port.bookHotel(input2);
     }
 
     private static boolean cancelHotel(java.lang.String input2) throws CancelHotelFault {
         ws.niceview.NiceViewService service = new ws.niceview.NiceViewService();
-        ws.niceview.NiceViewPort port = service.getNiceViewPort();
+        ws.niceview.NiceViewPort port = service.getNiceViewPortBindingPort();
         return port.cancelHotel(input2);
     }
+
+    private static GetHotelOutput getHotelsList(ws.niceview.GetHotelInput input1) throws GetHotelListFault {
+        ws.niceview.NiceViewService service = new ws.niceview.NiceViewService();
+        ws.niceview.NiceViewPort port = service.getNiceViewPortBindingPort();
+        return port.getHotelsList(input1);
+    }
+
+
+
+
+
+
+
+
 
 
 }

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jax-ws xmlns="http://www.netbeans.org/ns/jax-ws/1">
   <services>
-    <service name="NiceViewService">
-      <implementation-class>NiceViewService.NiceViewService</implementation-class>
+    <service name="NiceViewServices">
+      <implementation-class>NiceViewService.NiceViewServices</implementation-class>
       <wsdl-url>file:/C:/Users/Lalli/Documents/GitHub/WebServicesProject16/NiseView/src/java/NiceView.wsdl</wsdl-url>
-      <local-wsdl-file>NiceViewWrapper.wsdl</local-wsdl-file>
+      <local-wsdl-file>NiceView.wsdl</local-wsdl-file>
       <service-name>NiceViewService</service-name>
-      <port-name>NiceViewPort</port-name>
+      <port-name>NiceViewPortBindingPort</port-name>
       <package-name>ws.niceview</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>

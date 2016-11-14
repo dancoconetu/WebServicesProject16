@@ -17,7 +17,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "NiceViewService", targetNamespace = "http://NiceView.WS", wsdlLocation = "file:/C:/Users/Lalli/Documents/GitHub/WebServicesProject16/NiseView/src/conf/xml-resources/web-services/NiceViewService/wsdl/NiceViewWrapper.wsdl")
+@WebServiceClient(name = "NiceViewService", targetNamespace = "http://NiceView.WS", wsdlLocation = "file:/C:/Users/Lalli/Documents/GitHub/WebServicesProject16/NiseView/src/conf/xml-resources/web-services/NiceViewServices/wsdl/NiceView.wsdl")
 public class NiceViewService
     extends Service
 {
@@ -30,7 +30,7 @@ public class NiceViewService
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("file:/C:/Users/Lalli/Documents/GitHub/WebServicesProject16/NiseView/src/conf/xml-resources/web-services/NiceViewService/wsdl/NiceViewWrapper.wsdl");
+            url = new URL("file:/C:/Users/Lalli/Documents/GitHub/WebServicesProject16/NiseView/src/conf/xml-resources/web-services/NiceViewServices/wsdl/NiceView.wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }
@@ -67,9 +67,9 @@ public class NiceViewService
      * @return
      *     returns NiceViewPort
      */
-    @WebEndpoint(name = "NiceViewPort")
-    public NiceViewPort getNiceViewPort() {
-        return super.getPort(new QName("http://NiceView.WS", "NiceViewPort"), NiceViewPort.class);
+    @WebEndpoint(name = "NiceViewPortBindingPort")
+    public NiceViewPort getNiceViewPortBindingPort() {
+        return super.getPort(new QName("http://NiceView.WS", "NiceViewPortBindingPort"), NiceViewPort.class);
     }
 
     /**
@@ -79,9 +79,9 @@ public class NiceViewService
      * @return
      *     returns NiceViewPort
      */
-    @WebEndpoint(name = "NiceViewPort")
-    public NiceViewPort getNiceViewPort(WebServiceFeature... features) {
-        return super.getPort(new QName("http://NiceView.WS", "NiceViewPort"), NiceViewPort.class, features);
+    @WebEndpoint(name = "NiceViewPortBindingPort")
+    public NiceViewPort getNiceViewPortBindingPort(WebServiceFeature... features) {
+        return super.getPort(new QName("http://NiceView.WS", "NiceViewPortBindingPort"), NiceViewPort.class, features);
     }
 
     private static URL __getWsdlLocation() {

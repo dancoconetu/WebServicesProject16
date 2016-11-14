@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="holderName" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="8digitNumber" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="cardNumber" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="expDate" type="{http://NiceView.WS}expDate"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
@@ -31,15 +31,15 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "creditCardInformation", propOrder = {
     "holderName",
-    "_8DigitNumber",
+    "cardNumber",
     "expDate"
 })
 public class CreditCardInformation {
 
     @XmlElement(required = true)
     protected String holderName;
-    @XmlElement(name = "8digitNumber", required = true)
-    protected String _8DigitNumber;
+    @XmlElement(required = true)
+    protected String cardNumber;
     @XmlElement(required = true)
     protected ExpDate expDate;
 
@@ -68,27 +68,27 @@ public class CreditCardInformation {
     }
 
     /**
-     * Gets the value of the 8DigitNumber property.
+     * Gets the value of the cardNumber property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String get8DigitNumber() {
-        return _8DigitNumber;
+    public String getCardNumber() {
+        return cardNumber;
     }
 
     /**
-     * Sets the value of the 8DigitNumber property.
+     * Sets the value of the cardNumber property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void set8DigitNumber(String value) {
-        this._8DigitNumber = value;
+    public void setCardNumber(String value) {
+        this.cardNumber = value;
     }
 
     /**

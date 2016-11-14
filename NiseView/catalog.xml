@@ -6,5 +6,5 @@
     <system systemId="http://fastmoney.imm.dtu.dk:8080/BankService?xsd=1" uri="src/conf/xml-resources/web-service-references/BankService/wsdl/fastmoney.imm.dtu.dk_8080/BankService.xsd_1.xsd"/>
     <system systemId="http://fastmoney.imm.dtu.dk:8080/BankService?xsd=2" uri="src/conf/xml-resources/web-service-references/BankService/wsdl/fastmoney.imm.dtu.dk_8080/BankService.xsd_2.xsd"/>
     <system systemId="file:/C:/Users/Lalli/Documents/NetBeansProjects/NiseView/src/java/NiceView.wsdl" uri="src/conf/xml-resources/web-services/NewWebServiceFromWSDL/wsdl/NiceView.wsdl"/>
-    <system systemId="file:/C:/Users/Lalli/Documents/GitHub/WebServicesProject16/NiseView/src/java/NiceView.wsdl" uri="src/conf/xml-resources/web-services/NiceViewService/wsdl/NiceView.wsdl"/>
+    <system systemId="file:/C:/Users/Lalli/Documents/GitHub/WebServicesProject16/NiseView/src/java/NiceView.wsdl" uri="src/conf/xml-resources/web-services/NiceViewServices/wsdl/NiceView.wsdl"/>
 </catalog>

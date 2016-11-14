@@ -32,7 +32,7 @@
             <xsd:complexType name="creditCardInformation">
                 <xsd:sequence>
                     <xsd:element name="holderName" type="xsd:string"></xsd:element>
-                    <xsd:element name="8digitNumber" type="xsd:string"></xsd:element>
+                    <xsd:element name="cardNumber" type="xsd:string"></xsd:element>
                     <xsd:element name="expDate" type="tns:expDate"></xsd:element>
                 </xsd:sequence>
             </xsd:complexType>
@@ -49,7 +49,7 @@
             <xsd:complexType name="bookHotelInput">
                 <xsd:sequence>
                     <xsd:element name="bookingNR" type="xsd:string"></xsd:element>
-                    <xsd:element name="CreditCardInformation" type="xsd:string"></xsd:element>
+                    <xsd:element name="creditCardInformation" type="tns:creditCardInformation"></xsd:element>
                 </xsd:sequence>
             </xsd:complexType>
             <xsd:element name="bookHotelInput" type="tns:bookHotelInput"></xsd:element>
@@ -88,17 +88,23 @@
     <message name="NiceViewOperationResponse1">
         <part name="output" element="tns:cancelHotelOutput"/>
     </message>
-    <message name="NiceViewOperationRequest2">
-        <part name="input3" element="tns:bookHotelInput"/>
-    </message>
-    <message name="NiceViewOperationResponse2">
-        <part name="part1" element="tns:bookHotelOutput"/>
-    </message>
     <message name="NiceViewOperationRequest4">
         <part name="input1" element="tns:getHotelInputs"/>
     </message>
     <message name="NiceViewOperationResponse4">
         <part name="output1" element="tns:getHotelsOutput"/>
+    </message>
+    <message name="NiceViewOperationRequest">
+        <part name="input2" element="tns:bookHotelInput"/>
+    </message>
+    <message name="NiceViewOperationResponse">
+        <part name="output2" element="tns:bookHotelOutput"/>
+    </message>
+    <message name="NiceViewOperationRequest2">
+        <part name="input2" element="tns:bookHotelInput"/>
+    </message>
+    <message name="NiceViewOperationResponse2">
+        <part name="output2" element="tns:bookHotelOutput"/>
     </message>
     <portType name="NiceViewPort">
         <operation name="cancelHotel">
@@ -106,15 +112,15 @@
             <output name="output3" message="tns:NiceViewOperationResponse1"/>
             <fault name="cancelHotelFault" message="tns:CancelHotelFault"/>
         </operation>
-        <operation name="bookHotel">
-            <input name="input2" message="tns:NiceViewOperationRequest2"/>
-            <output name="output2" message="tns:NiceViewOperationResponse2"/>
-            <fault name="bookHotelFault" message="tns:BookHotelFault"/>
-        </operation>
         <operation name="getHotelsList">
             <input name="input1" message="tns:NiceViewOperationRequest4"/>
             <output name="output1" message="tns:NiceViewOperationResponse4"/>
             <fault name="getHotelListFault" message="tns:GetHotelListFault"/>
+        </operation>
+        <operation name="bookHotel">
+            <input name="input2" message="tns:NiceViewOperationRequest2"/>
+            <output name="output2" message="tns:NiceViewOperationResponse2"/>
+            <fault name="bookHotelFault" message="tns:BookHotelFault"/>
         </operation>
     </portType>
     <binding name="NiceViewPortBinding" type="tns:NiceViewPort">
@@ -131,18 +137,6 @@
                 <soap:fault name="cancelHotelFault" use="literal"/>
             </fault>
         </operation>
-        <operation name="bookHotel">
-            <soap:operation/>
-            <input name="input2">
-                <soap:body use="literal"/>
-            </input>
-            <output name="output2">
-                <soap:body use="literal"/>
-            </output>
-            <fault name="bookHotelFault">
-                <soap:fault name="bookHotelFault" use="literal"/>
-            </fault>
-        </operation>
         <operation name="getHotelsList">
             <soap:operation/>
             <input name="input1">
@@ -153,6 +147,18 @@
             </output>
             <fault name="getHotelListFault">
                 <soap:fault name="getHotelListFault" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="bookHotel">
+            <soap:operation/>
+            <input name="input2">
+                <soap:body use="literal"/>
+            </input>
+            <output name="output2">
+                <soap:body use="literal"/>
+            </output>
+            <fault name="bookHotelFault">
+                <soap:fault name="bookHotelFault" use="literal"/>
             </fault>
         </operation>
     </binding>

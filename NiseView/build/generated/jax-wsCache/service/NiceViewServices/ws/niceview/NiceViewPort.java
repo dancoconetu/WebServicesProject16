@@ -30,7 +30,7 @@ public interface NiceViewPort {
      *     returns boolean
      * @throws CancelHotelFault
      */
-    @WebMethod(action = "cancelHotel_action")
+    @WebMethod
     @WebResult(name = "cancelHotelOutput", targetNamespace = "http://NiceView.WS", partName = "output")
     public boolean cancelHotel(
         @WebParam(name = "cancelHotelInput", targetNamespace = "http://NiceView.WS", partName = "input2")
@@ -40,32 +40,32 @@ public interface NiceViewPort {
 
     /**
      * 
-     * @param input3
-     * @return
-     *     returns boolean
-     * @throws BookHotelFault
-     */
-    @WebMethod(action = "bookHotel_action")
-    @WebResult(name = "bookHotelOutput", targetNamespace = "http://NiceView.WS", partName = "part1")
-    public boolean bookHotel(
-        @WebParam(name = "bookHotelInput", targetNamespace = "http://NiceView.WS", partName = "input3")
-        BookHotelInput input3)
-        throws BookHotelFault
-    ;
-
-    /**
-     * 
      * @param input1
      * @return
      *     returns ws.niceview.GetHotelOutput
      * @throws GetHotelListFault
      */
-    @WebMethod(action = "getHotelsList_action")
+    @WebMethod
     @WebResult(name = "getHotelsOutput", targetNamespace = "http://NiceView.WS", partName = "output1")
     public GetHotelOutput getHotelsList(
         @WebParam(name = "getHotelInputs", targetNamespace = "http://NiceView.WS", partName = "input1")
         GetHotelInput input1)
         throws GetHotelListFault
+    ;
+
+    /**
+     * 
+     * @param input2
+     * @return
+     *     returns boolean
+     * @throws BookHotelFault
+     */
+    @WebMethod
+    @WebResult(name = "bookHotelOutput", targetNamespace = "http://NiceView.WS", partName = "output2")
+    public boolean bookHotel(
+        @WebParam(name = "bookHotelInput", targetNamespace = "http://NiceView.WS", partName = "input2")
+        BookHotelInput input2)
+        throws BookHotelFault
     ;
 
 }

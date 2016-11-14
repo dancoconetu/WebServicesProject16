@@ -7,6 +7,7 @@ package NiceViewService;
 
 import dk.dtu.imm.fastmoney.BankService;
 import dk.dtu.imm.fastmoney.CreditCardFaultMessage;
+import dk.dtu.imm.fastmoney.types.CreditCardInfoType;
 import java.util.Date;
 import java.util.List;
 import javax.jws.WebService;
@@ -17,21 +18,36 @@ import ws.niceview.*;
  *
  * @author Lalli
  */
-@WebService(serviceName = "NiceViewService", portName = "NiceViewPort", endpointInterface = "ws.niceview.NiceViewPort", targetNamespace = "http://NiceView.WS", wsdlLocation = "WEB-INF/wsdl/NiceViewService/NiceViewWrapper.wsdl")
-public class NiceViewService {
+@WebService(serviceName = "NiceViewService", portName = "NiceViewPortBindingPort", endpointInterface = "ws.niceview.NiceViewPort", targetNamespace = "http://NiceView.WS", wsdlLocation = "WEB-INF/wsdl/NiceViewServices/NiceView.wsdl")
+public class NiceViewServices {
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/fastmoney.imm.dtu.dk_8080/BankService.wsdl")
     private BankService service;
 
     public boolean cancelHotel(java.lang.String input2) throws CancelHotelFault {
-        //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+          
+        boolean sucess = false;
+        String bookingNR = input2;
+
+        HotelInformationList hList = new HotelInformationList();
+        hList = getAllHotels();
+        List<HotelInformation> hotelInformation = hList.getHotelInformation();
+        
+        for (HotelInformation currHotel : hotelInformation) {
+            
+            if(currHotel.getBookingNR().equals(bookingNR)){
+                sucess=true;
+            }
+            
+        }
+
+        return sucess;
     }
 
-    public boolean bookHotel(ws.niceview.BookHotelInput input3) throws BookHotelFault {
+    public boolean bookHotel(ws.niceview.BookHotelInput input3) throws BookHotelFault, CreditCardFaultMessage {
  
         boolean sucess = false;
         String bookingNR = input3.getBookingNR();
-        String creditCard = input3.getCreditCardInformation();
+        
         
         HotelInformationList hList = new HotelInformationList();
         hList = getAllHotels();
@@ -40,8 +56,28 @@ public class NiceViewService {
         for (HotelInformation currHotel : hotelInformation) {
             
             if(currHotel.getBookingNR().equals(bookingNR)){
-                
-                //bookingNR found
+                //creditCard needed
+               if(currHotel.isCreditCardReqiured()==true){
+                   
+                   //check if credit card is valid
+                        CreditCardInfoType CDD = new CreditCardInfoType();
+                        
+                        CDD.setNumber(input3.getCreditCardInformation().getCardNumber());
+                        
+                        CreditCardInfoType.ExpirationDate expirationDate = new CreditCardInfoType.ExpirationDate();
+                        expirationDate.setMonth(input3.getCreditCardInformation().getExpDate().getMonth());
+                        expirationDate.setYear(input3.getCreditCardInformation().getExpDate().getYear());   
+                   
+                        CDD.setExpirationDate(expirationDate);
+                        CDD.setName(input3.getCreditCardInformation().getHolderName());
+                        
+                        
+                        sucess = validateCreditCard(16, CDD, (int) currHotel.getPricePerNight());                                 
+               }
+               else{
+                   //hotel booked
+                   sucess=true;
+               }
                 
                 
             }
@@ -51,8 +87,8 @@ public class NiceViewService {
         return sucess;
         
     }
-
-    public GetHotelOutput getHotelsList(GetHotelInput input1) throws GetHotelListFault {
+    
+     public GetHotelOutput getHotelsList(GetHotelInput input1) throws GetHotelListFault {
 
         GetHotelOutput ghout = new GetHotelOutput();
         
@@ -92,7 +128,7 @@ public class NiceViewService {
                 h.setBookingNR(bla.getBookingNR());
                 h.setCreditCardNeeded(bla.isCreditCardReqiured());
                 h.setHotelName(bla.getName());
-                h.setPrice(bla.getPricePerNight()*daysBetween(dateFrom, dateTo));
+                h.setPrice(bla.getPricePerNight()*NRofDates(dateFrom, dateTo));
                 h.setReservationService(bla.getHotelReservationService());
 
                 gho.getHotelType().add(h);
@@ -102,8 +138,8 @@ public class NiceViewService {
         return gho;
     }
     
-        public int daysBetween(Date d1, Date d2) {
-        return (int) ((d2.getTime() - d1.getTime()) / (1000 * 60 * 60 * 24));
+        public int NRofDates(Date date1, Date date2) {
+        return (int) ((date2.getTime() - date1.getTime()) / (1000 * 60 * 60 * 24));
     }
 
     private HotelInformationList getAllHotels(){
@@ -127,7 +163,13 @@ public class NiceViewService {
         dk.dtu.imm.fastmoney.BankPortType port = service.getBankPort();
         return port.validateCreditCard(group, creditCardInfo, amount);
     }
+
+
     
     
-        
+   
+    
+    
+    
+    
 }

@@ -125,7 +125,7 @@ return flight;
         CreditCardInfoType.ExpirationDate expirationDate = new CreditCardInfoType.ExpirationDate();
         expirationDate.setMonth(input.getCreditCardDetails().getExpirationDate().getMonth());
         expirationDate.setYear(input.getCreditCardDetails().getExpirationDate().getYear());
-        
+         
         CDD.setExpirationDate(expirationDate);
         CDD.setName(input.getCreditCardDetails().getHoldersName());
         
@@ -175,7 +175,7 @@ return flight;
         // If the calling of port operations may lead to race condition some synchronization is required.
         dk.dtu.imm.fastmoney.BankPortType port = service.getBankPort();
         return port.validateCreditCard(group, creditCardInfo, amount);
-    }
+}
     
     
     
