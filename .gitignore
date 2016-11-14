@@ -8,3 +8,10 @@
 /HotelClient/dist/
 /NiseView/dist/
 /TravelAgencySoapBpel/nbproject/private/
+/TravelAgencySoapBpel/build/
+/BpelComposite/nbproject/private/
+/BpelComposite/src/jbiServiceUnits/
+/BpelComposite/build/
+/BpelComposite/dist/
+/MainTests/nbproject/private/
+/MainTests/build/

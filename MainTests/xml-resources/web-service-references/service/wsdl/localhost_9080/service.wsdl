@@ -1,10 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<definitions name="TravelAgency" targetNamespace="http://j2ee.netbeans.org/wsdl/TravelAgencySoapBpel/src/TravelAgency"
-    xmlns="http://schemas.xmlsoap.org/wsdl/"
-    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
-    xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://j2ee.netbeans.org/wsdl/TravelAgencySoapBpel/src/TravelAgency" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
-    <types>
-        <xsd:schema targetNamespace="http://j2ee.netbeans.org/wsdl/TravelAgencySoapBpel/src/TravelAgency" xmlns:tns="http://j2ee.netbeans.org/wsdl/TravelAgencySoapBpel/src/TravelAgency">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://j2ee.netbeans.org/wsdl/TravelAgencySoapBpel/src/TravelAgency" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="TravelAgency" targetNamespace="http://j2ee.netbeans.org/wsdl/TravelAgencySoapBpel/src/TravelAgency">
+  <types>
+    <xsd:schema targetNamespace="http://j2ee.netbeans.org/wsdl/TravelAgencySoapBpel/src/TravelAgency">
             
             
             <xsd:complexType name="hotelType">
@@ -27,7 +24,7 @@
             <xsd:element name="getHotelInputs" type="tns:getHotelInput"/>
             <xsd:complexType name="getHotelOutput">
                 <xsd:sequence>
-                    <xsd:element name="hotelType" type="tns:hotelType" minOccurs="0" maxOccurs="unbounded"/>
+                    <xsd:element maxOccurs="unbounded" minOccurs="0" name="hotelType" type="tns:hotelType"/>
                 </xsd:sequence>
             </xsd:complexType>
             <xsd:complexType name="creditCardInformation">
@@ -69,7 +66,7 @@
             </xsd:complexType>
             <xsd:complexType name="HotelInformationList">
                 <xsd:sequence>
-                    <xsd:element name="HotelInformation" type="tns:HotelInformation" minOccurs="0" maxOccurs="unbounded"/>
+                    <xsd:element maxOccurs="unbounded" minOccurs="0" name="HotelInformation" type="tns:HotelInformation"/>
                 </xsd:sequence>
             </xsd:complexType>
             
@@ -101,7 +98,7 @@
             </xsd:complexType>
             <xsd:complexType name="getFlightsOutput">
                 <xsd:sequence>
-                    <xsd:element name="flightInformation" type="tns:flightInformation" maxOccurs="unbounded" minOccurs="0"/>
+                    <xsd:element maxOccurs="unbounded" minOccurs="0" name="flightInformation" type="tns:flightInformation"/>
                 </xsd:sequence>
             </xsd:complexType>
             <xsd:element name="getFlighsInputElement" type="tns:getFlightsInput"/>
@@ -139,50 +136,56 @@
                 </xsd:sequence>
             </xsd:complexType>
         </xsd:schema>
-        
-     
-    </types>
-    <message name="TravelAgencyOperationRequest">
-        <part name="getHotelsInput" element="tns:getHotelInputs"/>
-    </message>
-    <message name="TravelAgencyOperationResponse">
-        <part name="getHotelsOutput" element="tns:getHotelsOutput"/>
-    </message>
-    <message name="TravelAgencyOperationRequest1">
-        <part name="getHotelsRequest" element="tns:getHotelInputs"/>
-    </message>
-    <message name="TravelAgencyOperationResponse1">
-        <part name="getHotelsResponse" element="tns:getHotelsOutput"/>
-    </message>
-    <message name="TravelAgencyOperationRequest2">
-        <part name="request" element="tns:getHotelInputs"/>
-    </message>
-    <message name="TravelAgencyOperationResponse2">
-        <part name="response" element="tns:getHotelsOutput"/>
-    </message>
-    <portType name="TravelAgencyPortType">
-        <operation name="getHotels">
-            <input name="input1" message="tns:TravelAgencyOperationRequest2"/>
-            <output name="output1" message="tns:TravelAgencyOperationResponse2"/>
-        </operation>
-    </portType>
-    <binding name="TravelAgencyPortTypeBinding" type="tns:TravelAgencyPortType">
-        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-        <operation name="getHotels">
-            <soap:operation/>
-            <input name="input1">
-                <soap:body use="literal"/>
-            </input>
-            <output name="output1">
-                <soap:body use="literal"/>
-            </output>
-        </operation>
-    </binding>
-    <service name="TravelAgencyService">
-        <port name="TravelAgencyPortTypeBindingPort" binding="tns:TravelAgencyPortTypeBinding">
-            <soap:address location="http://localhost:${HttpDefaultPort}/service"/>
-        </port>
-    </service>
+  </types>
+  <message name="TravelAgencyOperationRequest1">
+    <part element="tns:getHotelInputs" name="getHotelsRequest">
+    </part>
+  </message>
+  <message name="TravelAgencyOperationRequest2">
+    <part element="tns:getHotelInputs" name="request">
+    </part>
+  </message>
+  <message name="TravelAgencyOperationResponse2">
+    <part element="tns:getHotelsOutput" name="response">
+    </part>
+  </message>
+  <message name="TravelAgencyOperationResponse1">
+    <part element="tns:getHotelsOutput" name="getHotelsResponse">
+    </part>
+  </message>
+  <message name="TravelAgencyOperationRequest">
+    <part element="tns:getHotelInputs" name="getHotelsInput">
+    </part>
+  </message>
+  <message name="TravelAgencyOperationResponse">
+    <part element="tns:getHotelsOutput" name="getHotelsOutput">
+    </part>
+  </message>
+  <portType name="TravelAgencyPortType">
+    <operation name="getHotels">
+      <input message="tns:TravelAgencyOperationRequest2" name="input1">
+    </input>
+      <output message="tns:TravelAgencyOperationResponse2" name="output1">
+    </output>
+    </operation>
+  </portType>
+  <binding name="TravelAgencyPortTypeBinding" type="tns:TravelAgencyPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="getHotels">
+      <soap:operation/>
+      <input name="input1">
+        <soap:body use="literal"/>
+      </input>
+      <output name="output1">
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="TravelAgencyService">
+    <port binding="tns:TravelAgencyPortTypeBinding" name="TravelAgencyPortTypeBindingPort">
+      <soap:address location="http://DESKTOP-GD2FLL1.eduroam.wireless.dtu.dk:9080/service"/>
+    </port>
+  </service>
     <plnk:partnerLinkType name="TravelAgency">
         <!-- A partner link type is automatically generated when a new port type is added. Partner link types are used by BPEL processes. 
 In a BPEL process, a partner link represents the interaction between the BPEL process and a partner service. Each partner link is associated with a partner link type.
