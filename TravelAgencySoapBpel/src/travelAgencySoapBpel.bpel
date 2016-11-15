@@ -6,6 +6,7 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+    xmlns:ns0="http://j2ee.netbeans.org/wsdl/TravelAgencySoapBpel/src/TravelAgency"
     xmlns:sxt="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Trace" 
     xmlns:sxed="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Editor2"
     xmlns:sxat="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Attachment"
@@ -22,34 +23,144 @@
         <partnerLink name="PartnerLink2" xmlns:tns="http://enterprise.netbeans.org/bpel/NiceViewServiceWrapper" partnerLinkType="tns:NiceViewPortLinkType" partnerRole="NiceViewPortRole"/>
     </partnerLinks>
     <variables>
+        
+         
         <variable name="GetHotelsListOut" xmlns:tns="http://NiceView.WS" messageType="tns:NiceViewOperationResponse4"/>
         <variable name="GetHotelsListIn" xmlns:tns="http://NiceView.WS" messageType="tns:NiceViewOperationRequest4"/>
-        <variable name="GetHotelsOut" xmlns:tns="http://j2ee.netbeans.org/wsdl/TravelAgencySoapBpel/src/TravelAgency" messageType="tns:TravelAgencyOperationResponse2"/>
-        <variable name="GetHotelsIn" xmlns:tns="http://j2ee.netbeans.org/wsdl/TravelAgencySoapBpel/src/TravelAgency" messageType="tns:TravelAgencyOperationRequest2"/>
+       
+        <variable name="GetHotelsIn" xmlns:tns="http://j2ee.netbeans.org/wsdl/TravelAgencySoapBpel/src/TravelAgency" messageType="tns:GetHotelsRequest"/>
+       
+      
+         
+       
     </variables>
+    <correlationSets>
+        <correlationSet name="CorrelationSet1" properties="ns0:itineraryId"/>
+    </correlationSets>
     <sequence>
-        <receive name="Receive1" createInstance="yes" partnerLink="PartnerLink3" operation="getHotels" xmlns:tns="http://j2ee.netbeans.org/wsdl/TravelAgencySoapBpel/src/TravelAgency" portType="tns:TravelAgencyPortType" variable="GetHotelsIn"/>
-        <assign name="Assign1">
-            <copy>
-                <from>$GetHotelsIn.request/city</from>
-                <to>$GetHotelsListIn.input1/city</to>
-            </copy>
-            <copy>
-                <from>$GetHotelsIn.request/arrival</from>
-                <to>$GetHotelsListIn.input1/arrival</to>
-            </copy>
-            <copy>
-                <from>$GetHotelsIn.request/departure</from>
-                <to>$GetHotelsListIn.input1/departure</to>
-            </copy>
-        </assign>
-        <invoke name="Invoke1" partnerLink="PartnerLink2" operation="getHotelsList" xmlns:tns="http://NiceView.WS" portType="tns:NiceViewPort" inputVariable="GetHotelsListIn" outputVariable="GetHotelsListOut"/>
-        <assign name="Assign2">
-            <copy>
-                <from>$GetHotelsListOut.output1/hotelType</from>
-                <to>$GetHotelsOut.response/hotelType</to>
-            </copy>
-        </assign>
-        <reply name="Reply1" partnerLink="PartnerLink3" operation="getHotels" xmlns:tns="http://j2ee.netbeans.org/wsdl/TravelAgencySoapBpel/src/TravelAgency" portType="tns:TravelAgencyPortType" variable="GetHotelsOut"/>
+        <scope name="Scope3">
+              <variables>
+                            <variable name="hotelsNumber" type="xs:int"/>
+                            <variable name="flightsNumber" type="xs:int"/>
+                             <variable name="itinerary" type="ns0:itinerary">
+                                <sxed:editor>
+                                    <sxed:predicate path="$itinerary/hotelArray/hotelType[1 + $hotelsNumber]" source="to"/>
+                                    <sxed:predicate path="$itinerary/flightArray/flightInformation[1 + $flightsNumber]" source="to"/>
+                                </sxed:editor>
+                                   </variable>
+                        </variables>
+            <eventHandlers>
+                <onEvent partnerLink="PartnerLink3" operation="getHotels" portType="ns0:TravelAgencyPortType" variable="GetHotelsIn" messageType="ns0:GetHotelsRequest">
+                    <scope name="getHotelsScope">
+                        <variables>
+                            <variable name="GetHotelsOut" messageType="ns0:GetHotelsResponse"/>
+                        </variables>
+                        <sequence name="Sequence3">
+                            <assign name="Assign1">
+                                <copy>
+                                    <from>$GetHotelsIn.request/city</from>
+                                        <to>$GetHotelsListIn.input1/city</to>
+                                </copy>
+                                    <copy>
+                                    <from>$GetHotelsIn.request/arrival</from>
+                                        <to>$GetHotelsListIn.input1/arrival</to>
+                                </copy>
+                                    <copy>
+                                    <from>$GetHotelsIn.request/departure</from>
+                                        <to>$GetHotelsListIn.input1/departure</to>
+                                </copy>
+                            </assign>
+                            <invoke name="Invoke1" partnerLink="PartnerLink2" operation="getHotelsList" xmlns:tns="http://NiceView.WS" portType="tns:NiceViewPort" inputVariable="GetHotelsListIn" outputVariable="GetHotelsListOut"/>
+                            <assign name="Assign2">
+                                <copy>
+                                        <from>$GetHotelsListOut.output1/hotelType</from>
+                                            <to>$GetHotelsOut.response/hotelType</to>
+                                    </copy>
+                            </assign>
+                            <reply name="getHotelsReply" partnerLink="PartnerLink3" operation="getHotels" portType="ns0:TravelAgencyPortType" variable="GetHotelsOut"/>
+                        </sequence>
+                    </scope>
+                </onEvent>
+                <onEvent partnerLink="PartnerLink3" operation="addHotelToItinerary" portType="ns0:TravelAgencyPortType" variable="addHotelToItineraryIn" messageType="ns0:AddHotelToItineraryRequest">
+                    <correlations>
+                        <correlation set="CorrelationSet1" initiate="no"/>
+                    </correlations>
+                    <scope name="addHotelScope">
+                        <variables>
+                            <variable name="AddHotelToItineraryOut" messageType="ns0:AddHotelToItineraryResponse"/>
+                        </variables>
+                        <sequence name="Sequence4">
+                            <assign name="Assign3">
+                                <copy>
+                                    <from>count($itinerary/hotelArray/hotelType)</from>
+                                    <to variable="hotelsNumber"/>
+                                </copy>
+                            </assign>
+                            <assign name="Assign4">
+                                <copy>
+                                    <from>$addHotelToItineraryIn.addHotelToItineraryInput/hotelType</from>
+                                    <to>$itinerary/hotelArray/hotelType[1 + $hotelsNumber]
+                                        <sxed:editor>
+                                            <sxed:predicate path="$itinerary/hotelArray/hotelType[1 + $hotelsNumber]" source="to"/>
+                                        </sxed:editor>
+                                    </to>
+                                </copy>
+                            </assign>
+                            <assign name="Assign6">
+                                <copy>
+                                    <from>$itinerary/hotelArray</from>
+                                    <to>$AddHotelToItineraryOut.addHotelToItineraryOutput/hotelArray</to>
+                                </copy>
+                                <copy>
+                                    <from>$itinerary/flightArray</from>
+                                    <to>$AddHotelToItineraryOut.addHotelToItineraryOutput/flightArray</to>
+                                </copy>
+                            </assign>
+                            <reply name="Reply2" partnerLink="PartnerLink3" operation="addHotelToItinerary" portType="ns0:TravelAgencyPortType" variable="AddHotelToItineraryOut"/>
+                        </sequence>
+                    </scope>
+                </onEvent>
+                <onEvent partnerLink="PartnerLink3" operation="AddFlightToItinerary" portType="ns0:TravelAgencyPortType" variable="AddFlightToItineraryIn" messageType="ns0:AddFlightToItineraryRequest">
+                    <correlations>
+                        <correlation set="CorrelationSet1" initiate="no"/>
+                    </correlations>
+                    <scope name="addFLightScope">
+                        <variables>
+                            <variable name="AddFlightToItineraryOut" messageType="ns0:AddFlightToItineraryResponse"/>
+                        </variables>
+                        <sequence name="Sequence5">
+                            <assign name="countNumberOfFlights">
+                                <copy>
+                                    <from>count($itinerary/flightArray/flightInformation)</from>
+                                    <to variable="flightsNumber"/>
+                                </copy>
+                            </assign>
+                            <assign name="Assign7">
+                                <copy>
+                                    <from>$AddFlightToItineraryIn.AddFlightToItineraryInput/flightInformation</from>
+                                    <to>$itinerary/flightArray/flightInformation[1 + $flightsNumber]
+                                        <sxed:editor>
+                                            <sxed:predicate path="$itinerary/flightArray/flightInformation[1 + $flightsNumber]" source="to"/>
+                                        </sxed:editor>
+                                    </to>
+                                </copy>
+                            </assign>
+                            <assign name="Assign8">
+                                <copy>
+                                    <from>$itinerary/hotelArray</from>
+                                    <to>$AddFlightToItineraryOut.AddFlightToItineraryOutput/hotelArray</to>
+                                </copy>
+                                <copy>
+                                    <from>$itinerary/flightArray</from>
+                                    <to>$AddFlightToItineraryOut.AddFlightToItineraryOutput/flightArray</to>
+                                </copy>
+                            </assign>
+                            <reply name="Reply3" partnerLink="PartnerLink3" operation="AddFlightToItinerary" portType="ns0:TravelAgencyPortType" variable="AddFlightToItineraryOut"/>
+                        </sequence>
+                    </scope>
+                </onEvent>
+            </eventHandlers>
+            <receive name="Receive1" createInstance="yes"/>
+        </scope>
     </sequence>
 </process>
