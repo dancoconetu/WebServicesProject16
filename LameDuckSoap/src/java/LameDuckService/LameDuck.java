@@ -151,8 +151,22 @@ return flight;
     }
 
     public boolean cancelFlight(CancelFlightInput cancelFlightInput) throws CancelFlightFaultMessage {
-        //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+        
+dk.dtu.imm.fastmoney.types.CreditCardInfoType creditCardInfo = new dk.dtu.imm.fastmoney.types.CreditCardInfoType();
+        dk.dtu.imm.fastmoney.types.CreditCardInfoType.ExpirationDate expirationDate =new dk.dtu.imm.fastmoney.types.CreditCardInfoType.ExpirationDate();
+        expirationDate.setMonth(cancelFlightInput.getCreditCardDetails().getExpirationDate().getMonth());
+        expirationDate.setYear(cancelFlightInput.getCreditCardDetails().getExpirationDate().getYear());
+        creditCardInfo.setExpirationDate(expirationDate);
+        creditCardInfo.setName(cancelFlightInput.getCreditCardDetails().getHoldersName());
+        creditCardInfo.setNumber(cancelFlightInput.getCreditCardDetails().getCardNumber());
+        
+        try{
+            refundCreditCard(16, creditCardInfo, cancelFlightInput.getPrice()/2, accountInfo);
+        }
+        catch (CreditCardFaultMessage ex) {
+            throw new CancelFlightFaultMessage("Flight cancellation failed!", ex.getFaultInfo().getMessage());
+        }
+            return true;
     }
     
 
