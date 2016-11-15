@@ -4,27 +4,34 @@
  * and open the template in the editor.
  */
 package HelpClasses;
-import javax.xml.bind.annotation.XmlRootElement;
+import java.util.List;
 import ws.lameduck.*;
-
+import ws.niceview.*;
 
 /**
  *
  * @author justinas
  */
-@XmlRootElement
-public class FlightsInfo {
-    private FlightInformation flightDetails;
+public class Itinerary {
+    
+    private List<FlightsInfo> flightDetails;
+    private List<HotelsInfo> HotelDetails;
     private StatusInfo.Status status;
 
-    public FlightInformation getFlightDetails() {
+    public List<FlightsInfo> getFlightDetails() {
         return flightDetails;
-        
-        
     }
 
-    public void setFlightDetails(FlightInformation flightDetails) {
+    public void setFlightDetails(List<FlightsInfo> flightDetails) {
         this.flightDetails = flightDetails;
+    }
+
+    public List<HotelsInfo> getHotelDetails() {
+        return HotelDetails;
+    }
+
+    public void setHotelDetails(List<HotelsInfo> HotelDetails) {
+        this.HotelDetails = HotelDetails;
     }
 
     public StatusInfo.Status getStatus() {
@@ -34,8 +41,5 @@ public class FlightsInfo {
     public void setStatus(StatusInfo.Status status) {
         this.status = status;
     }
-    
-    
-    
     
 }

@@ -46,7 +46,8 @@ public class FlightsResource {
             return Response.status(Response.Status.NOT_FOUND).build();
             
         }
-
+        ItineraryResource PO = new ItineraryResource();
+        PO.createItinerary();
         FlightInformationList flightListInformation = new FlightInformationList();
         flightListInformation.setList(list);
 

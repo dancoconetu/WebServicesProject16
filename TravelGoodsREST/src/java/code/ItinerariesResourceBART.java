@@ -10,15 +10,21 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import ws.lameduck.*;
 import ws.niceview.*;
+import HelpClasses.*;
+import java.util.concurrent.ThreadLocalRandom;
 
-@Path("/Itinerary")
-public class ItinerariesResource {
-//
+@Path("/itinerary")
+public class ItinerariesResourceBART {
+
+    
+    public static HashMap<Integer,Itinerary> itineraryMap = new HashMap<>();
 //    private final static String MEDIATYPE = "application/xml";
 //
-//    // Map containing all the itineraries
-//    public static HashMap<String, Itinerary> itineraries = new HashMap<String, Itinerary>();
-//
+    private static int getID(){
+    
+    int id = ThreadLocalRandom.current().nextInt(1, 10000 + 1);
+    return id;
+    }
 //    // Method for assigning new ids to new itineraries
 //    private static String getNextAvailableId() {
 //        String id = "IT";
