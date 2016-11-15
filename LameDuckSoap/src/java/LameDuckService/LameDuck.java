@@ -86,6 +86,13 @@ return flight;
     FI2.setNameAirline("ZELine");
     FI2.setPrice(560);
     list.add(FI2);
+    
+    FlightInformation FI3 = new FlightInformation();
+    FI3.setFlight(addToFlightList("Riga","Madrid","BolivianAir",new GregorianCalendar(2016, 11, 1, 19, 0, 0),new GregorianCalendar(2016, 11, 1, 10, 51, 0)));
+    FI3.setBookingNo("4");
+    FI3.setNameAirline("EstLine");
+    FI3.setPrice(350);
+    list.add(FI3);
     return list;
     
     }

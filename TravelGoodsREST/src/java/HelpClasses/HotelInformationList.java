@@ -1,4 +1,4 @@
-package code;
+package HelpClasses;
 
 import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;

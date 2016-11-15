@@ -1,5 +1,6 @@
 package code;
 
+import HelpClasses.FlightInformationList;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class FlightsResource {
 
         
     @GET
-    @Path("/flightInformation")
+   // @Path("/flightInformation")
     @Produces("application/xml")
     // Two ways to parse data over the URL: QueryParam are multivariable after "?" in ULR or PathParam variables betewen "/.../".
     public Response getFlights(@QueryParam("departureCity") String departureCity,
@@ -29,7 +30,7 @@ public class FlightsResource {
             throws DatatypeConfigurationException, ParserConfigurationException, IOException, SAXException, ParseException {
 
 //        http://localhost:8080/TravelGoodsREST/flights/flightInformation?departureCity=Riga&destinationCity=Madrid&date=2016-11-1%2014:00
-        
+        //convert to XML gregorianCalendar
         XMLGregorianCalendar xmlDate = TimeFormat.getDateFromString(date);
         
         GetFlightsInput gfi = new GetFlightsInput();
@@ -37,12 +38,13 @@ public class FlightsResource {
         gfi.setDestination(destinationCity);
         gfi.setFlightDate(xmlDate);
 
-        List<FlightInformation> list = new ArrayList<FlightInformation>();
-        list = getFlights(gfi).getFlightInformation();
-        
-        if (list.isEmpty()) {
-            System.out.println("No flights found");
+        List<FlightInformation> list = getFlights(gfi).getFlightInformation();
+       
+        //If there is no flights available return response status to notFound
+        if (list.size()<1) {
+            System.out.println("getFlights from LameDuck: no FlightFound");
             return Response.status(Response.Status.NOT_FOUND).build();
+            
         }
 
         FlightInformationList flightListInformation = new FlightInformationList();

@@ -1,5 +1,6 @@
 package code;
 
+import HelpClasses.HotelInformationList;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -13,9 +14,8 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import ws.lameduck.FlightInformation;
-
-;
-import ws.niceview.*;import ws.niceview.*;
+import ws.niceview.*;
+import ws.niceview.*;
 
 
 
