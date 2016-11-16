@@ -5,6 +5,7 @@
  */
 package HelpClasses;
 import java.util.List;
+import javax.xml.bind.annotation.XmlRootElement;
 import ws.lameduck.*;
 import ws.niceview.*;
 
@@ -12,6 +13,7 @@ import ws.niceview.*;
  *
  * @author justinas
  */
+@XmlRootElement
 public class Itinerary {
     
     private List<FlightsInfo> flightDetails;

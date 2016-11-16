@@ -5,10 +5,13 @@
  */
 package HelpClasses;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  *
  * @author justinas
  */
+@XmlRootElement
 public class StatusInfo {
     public static enum Status {
 		UNCONFIRMED,

@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author justinas
  */
-@XmlRootElement()
+@XmlRootElement
 public class ItinararyRepr {
     private Itinerary itinerary;
 

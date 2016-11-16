@@ -47,7 +47,7 @@ public class FlightsResource {
             
         }
         ItineraryResource PO = new ItineraryResource();
-        PO.createItinerary();
+        
         FlightInformationList flightListInformation = new FlightInformationList();
         flightListInformation.setList(list);
 
