@@ -13,6 +13,8 @@ import javax.ws.rs.core.Response;
 import ws.lameduck.*;
 import ws.niceview.*;
 import HelpClasses.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author justinas
@@ -22,7 +24,7 @@ public class ItineraryResource {
     
        public static HashMap<Integer,Itinerary> itineraryMap = new HashMap<>();
        private final static String output = "application/xml";
-
+ 
 //getting ID, which will be assigned to the iterinary
     private static int getID(){
     
@@ -43,12 +45,12 @@ public class ItineraryResource {
             
                 ItinararyRepr ir = new ItinararyRepr();
                 ir.setItinerary(iten);
-                return Response.ok(ir).entity("Itinerary is found").build();
+                return Response.ok(ir).build();
             
             }
 		
              
-		return Response.status(Response.Status.NOT_FOUND).entity("itinerary is not found with an ID: " + itineraryID).build();
+		return Response.status(Response.Status.NOT_FOUND).build();
 	}
        
      
@@ -71,7 +73,7 @@ public class ItineraryResource {
     } 
     
     @POST
-	@Produces(output)
+	@Produces(output) 
 	@Path("/{id}/flights")
 	public Response addFlightToItinerary(@PathParam("id")int itineraryID, FlightInformationList flightL) {
 		      System.out.println("addFlighttoItenerary() executed");
@@ -81,11 +83,12 @@ public class ItineraryResource {
                 System.out.println("Found an ID");
             //if the status of itinerary is unconfirmed then add flights
             if(itin.getStatus().equals(StatusInfo.Status.UNCONFIRMED)){
-            FlightsInfo FI = new FlightsInfo(); 
+            
             List<FlightsInfo> list = new ArrayList<>();   
-              
+                
         for(FlightInformation fl: flightL.getList()){
          System.out.println("price " + fl.getPrice());
+         FlightsInfo FI = new FlightsInfo(); 
          FI.setStatus(StatusInfo.Status.UNCONFIRMED);
          FI.setFlightDetails(fl);
          list.add(FI);
@@ -107,14 +110,60 @@ public class ItineraryResource {
 	@Path("/{id}")
 	@Consumes(output)
 	@Produces(output)
-	public Response bookItinerary(@PathParam("id")int id, CreditCardDetails creditCardInfo) {
+	public Response bookItinerary(@PathParam("id")int id, CreditCardDetails CardInfo) {
         
             if(itineraryMap.containsKey(id)){
                 System.out.println("itinerary is found, starting a book");
-                //itineraryMap.
+                Itinerary itin =  itineraryMap.get(id);
+                //start booking if itnierary status is unconfirmed
+                if(itin.getStatus() == StatusInfo.Status.UNCONFIRMED){
+                    System.out.println("itinerary is Unconfirmed");
+                    //for each flight/hotel connect to soap and and book them
+                    for(FlightsInfo fl: itin.getFlightDetails()){
+                        System.out.println("Booking flights: " + fl.getFlightDetails().getNameAirline());
+                     BookFlightInput gfi = new BookFlightInput();
+                        gfi.setBookingNo(fl.getFlightDetails().getBookingNo());
+                        gfi.setCreditCardDetails(CardInfo);
+                        try {
+                            if(bookFlight(gfi)){
+                                System.out.println("bookflight set to Confirmed");
+                            fl.setStatus(StatusInfo.Status.CONFIRMED);
+                            }
+                        } catch (BookFlightFaultMessage ex1) {
+                            Logger.getLogger(ItineraryResource.class.getName()).log(Level.SEVERE, null, ex1);
+                        }
+                    }
+                    
+                     
+                
+                }
+                
+                //if status of itinerary is cancelled or confirmed, then respond
+                else if(itin.getStatus() == StatusInfo.Status.CANCELLED){
+                
+                return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+                }
+                else if(itin.getStatus() == StatusInfo.Status.CONFIRMED){
+                    
+                return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+                }
             
             }
-            return null;
+            return Response.status(Response.Status.OK).build();
         }
+
+    private static boolean bookFlight(ws.lameduck.BookFlightInput input) throws BookFlightFaultMessage {
+        ws.lameduck.LameDuckService service = new ws.lameduck.LameDuckService();
+        ws.lameduck.LameDuckPortType port = service.getLameDuckPortTypeBindingPort();
+        return port.bookFlight(input);
+    }
+
+    private static boolean cancelFlight(ws.lameduck.CancelFlightInput cancelFlightInput) throws CancelFlightFaultMessage {
+        ws.lameduck.LameDuckService service = new ws.lameduck.LameDuckService();
+        ws.lameduck.LameDuckPortType port = service.getLameDuckPortTypeBindingPort();
+        return port.cancelFlight(cancelFlightInput);
+    }
+        
+        
         
 }
