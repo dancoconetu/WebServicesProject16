@@ -61,42 +61,42 @@ public class HotelTry {
     // public void hello() {}
     
     
-//    @Test
-//    public void testHotelListType() throws DatatypeConfigurationException, GetHotelListFault, ParseException {
-//
-//        GetHotelInput hinp = new GetHotelInput();  
-//        hinp = new GetHotelInput();
-//        hinp.setCity("Copenhagen");
-//        
-//        GregorianCalendar x = new GregorianCalendar(2016, 11, 1, 14, 0, 0);
-//        XMLGregorianCalendar date1 = null;
-//        date1 = DatatypeFactory.newInstance().newXMLGregorianCalendar(x);
-//        hinp.setArrival(date1);
-//
-//        GregorianCalendar x2 = new GregorianCalendar(2016, 11, 5, 14, 0, 0);
-//        XMLGregorianCalendar date2 = null;
-//        date2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(x2);
-//        hinp.setDeparture(date2);
-//
-//        GetHotelOutput h = getHotelsList(hinp);
-////               
-//        List<HotelType> hot = h.getHotelType();
-//
-//        if (hot.size() > 0) {
-//            System.out.println("List of hotels in : " + hinp.getCity());
-//
-//            for (HotelType bla : hot) {
-//                String creditCardNeeded = "Not needed";
-//                if (bla.isCreditCardNeeded() == true) {
-//                    creditCardNeeded = "Needed";
-//                }
-//                System.out.println("Name : " + bla.getHotelName() + " Adress: " + bla.getAdress() + " BookingNR: " + bla.getBookingNR() + " TotalPrice: " + bla.getPrice() + " CreditCard is : " + creditCardNeeded + " Reservation Service : " + bla.getReservationService());
-//            }
-//        } else {
-//            System.out.println("No hotel found in : " + hinp.getCity());
-//        }
-//
-//    }
+    @Test
+    public void testHotelListType() throws DatatypeConfigurationException, GetHotelListFault, ParseException {
+
+        GetHotelInput hinp = new GetHotelInput();  
+        hinp = new GetHotelInput();
+        hinp.setCity("Copenhagen");
+        
+        GregorianCalendar x = new GregorianCalendar(2016, 11, 1, 14, 0, 0);
+        XMLGregorianCalendar date1 = null;
+        date1 = DatatypeFactory.newInstance().newXMLGregorianCalendar(x);
+        hinp.setArrival(date1);
+
+        GregorianCalendar x2 = new GregorianCalendar(2016, 11, 5, 14, 0, 0);
+        XMLGregorianCalendar date2 = null;
+        date2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(x2);
+        hinp.setDeparture(date2);
+
+        GetHotelOutput h = getHotelsList(hinp);
+//               
+        List<HotelType> hot = h.getHotelType();
+
+        if (hot.size() > 0) {
+            System.out.println("List of hotels in : " + hinp.getCity());
+
+            for (HotelType bla : hot) {
+                String creditCardNeeded = "Not needed";
+                if (bla.isCreditCardNeeded() == true) {
+                    creditCardNeeded = "Needed";
+                }
+                System.out.println("Name : " + bla.getHotelName() + " Adress: " + bla.getAdress() + " BookingNR: " + bla.getBookingNR() + " TotalPrice: " + bla.getPrice() + " CreditCard is : " + creditCardNeeded + " Reservation Service : " + bla.getReservationService());
+            }
+        } else {
+            System.out.println("No hotel found in : " + hinp.getCity());
+        }
+
+    }
     
       @Test
       public void bookAssert() throws BookHotelFault{

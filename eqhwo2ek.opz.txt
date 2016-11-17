@@ -1,0 +1,29 @@
+﻿
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Your branch is up-to-date with 'origin/master'.
+#
+# Changes to be committed:
+#	renamed:    HotelClient/xml-resources/web-service-references/NiceViewService/wsdl/desktop-nbfivfi_8080/NiceView/NiceViewService.wsdl -> HotelClient/src/META-INF/NiceViewService.xml
+#	new file:   MainTests/src/META-INF/service.xml
+#
+# Changes not staged for commit:
+#	modified:   HotelClient/test/HotelTry/HotelTry.java
+#	modified:   LameDuckTestCustomer/nbproject/private/private.properties
+#	modified:   MainTests/src/META-INF/wsdl/localhost_9080/service.wsdl
+#	modified:   MainTests/test/MainTest.java
+#	modified:   MainTests/xml-resources/web-service-references/service/wsdl/localhost_9080/service.wsdl
+#	modified:   NiseView/nbproject/private/private.properties
+#	modified:   TravelAgencySoapBpel/src/TravelAgency.wsdl
+#	modified:   TravelAgencySoapBpel/src/travelAgencySoapBpel.bpel
+#
+# Untracked files:
+#	HotelClient/src/META-INF/wsdl/localhost_8080/
+#	HotelClient/src/META-INF/wsit-client.xml
+#	HotelClient/xml-resources/
+#	MainTests/dist/
+#	MainTests/src/META-INF/wsit-client.xml
+#	TravelAgencySoapBpel/src/TravelAgencyWrapper.wsdl
+#
+

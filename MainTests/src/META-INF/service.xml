@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://j2ee.netbeans.org/wsdl/TravelAgencySoapBpel/src/TravelAgency" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="TravelAgency" targetNamespace="http://j2ee.netbeans.org/wsdl/TravelAgencySoapBpel/src/TravelAgency">
+  <types>
+    <xsd:schema targetNamespace="http://j2ee.netbeans.org/wsdl/TravelAgencySoapBpel/src/TravelAgency">
+            
+            
+            <xsd:complexType name="hotelType">
+                <xsd:sequence maxOccurs="1" minOccurs="1">
+                    <xsd:element name="hotelName" type="xsd:string"/>
+                     <xsd:element name="adress" type="xsd:string"/>
+                      <xsd:element name="bookingNR" type="xsd:string"/>
+                       <xsd:element name="price" type="xsd:double"/>
+                    <xsd:element name="creditCardNeeded" type="xsd:boolean"/>
+                    <xsd:element name="reservationService" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="getHotelInput">
+                <xsd:sequence>
+                    <xsd:element name="city" type="xsd:string"/>
+                    <xsd:element name="arrival" type="xsd:date"/>
+                    <xsd:element name="departure" type="xsd:date"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="getHotelInputs" type="tns:getHotelInput"/>
+            <xsd:complexType name="getHotelOutput">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="unbounded" minOccurs="0" name="hotelType" type="tns:hotelType"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="creditCardInformation">
+                <xsd:sequence>
+                    <xsd:element name="holderName" type="xsd:string"/>
+                    <xsd:element name="cardNumber" type="xsd:string"/>
+                    <xsd:element name="expDate" type="tns:expDate"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="bookHotelOutput" type="xsd:boolean"/>
+            <xsd:element name="bookHotelFault" type="xsd:string"/>
+            <xsd:element name="cancelHotelOutput" type="xsd:boolean"/>
+            <xsd:complexType name="expDate">
+                <xsd:sequence>
+                    <xsd:element name="month" type="xsd:int"/>
+                    <xsd:element name="year" type="xsd:int"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="getHotelsFault" type="xsd:string"/>
+            <xsd:complexType name="bookHotelInput">
+                <xsd:sequence>
+                    <xsd:element name="bookingNR" type="xsd:string"/>
+                    <xsd:element name="creditCardInformation" type="tns:creditCardInformation"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="bookHotelInput" type="tns:bookHotelInput"/>
+            <xsd:element name="cancelHotelInput" type="xsd:string"/>
+            <xsd:element name="getHotelsOutput" type="tns:getHotelOutput"/>
+            <xsd:complexType name="HotelInformation">
+                <xsd:sequence>
+                    <xsd:element name="name" type="xsd:string"/>
+                    <xsd:element name="city" type="xsd:string"/>
+                    <xsd:element name="bookingNR" type="xsd:string"/>
+                    <xsd:element name="pricePerNight" type="xsd:double"/>
+                    <xsd:element name="adress" type="xsd:string"/>
+                    <xsd:element name="CreditCardReqiured" type="xsd:boolean"/>
+                    <xsd:element name="HotelReservationService" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="HotelInformationList">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="unbounded" minOccurs="0" name="HotelInformation" type="tns:HotelInformation"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            
+            
+                 <xsd:complexType name="flightInformation">
+                <xsd:sequence>
+                    <xsd:element name="bookingNo" type="xsd:string"/>
+                    <xsd:element name="price" type="xsd:int"/>
+                    <xsd:element name="nameAirline" type="xsd:string"/>
+                    <xsd:element name="flight" type="tns:flight"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="flight">
+                <xsd:sequence>
+                    <xsd:element name="startAirport" type="xsd:string"/>
+                    <xsd:element name="destination" type="xsd:string"/>
+                    <xsd:element name="carrier" type="xsd:string"/>
+                    <xsd:element name="liftOffTime" type="xsd:date"/>
+                    <xsd:element name="landingTime" type="xsd:date"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="getFlightsInput">
+                <xsd:sequence>
+                    <xsd:element name="flightDate" type="xsd:date"/>
+                    <xsd:element name="startAirport" type="xsd:string"/>
+                    <xsd:element name="destination" type="xsd:string"/>
+                    
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="getFlightsOutput">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="unbounded" minOccurs="0" name="flightInformation" type="tns:flightInformation"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="getFlighsInputElement" type="tns:getFlightsInput"/>
+            <xsd:element name="getFlightsOutputElement" type="tns:getFlightsOutput"/>
+            <xsd:complexType name="bookFlightInput">
+                <xsd:sequence>
+                    <xsd:element name="bookingNo" type="xsd:string"/>
+                    <xsd:element name="creditCardDetails" type="tns:creditCardDetails"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="creditCardDetails">
+                <xsd:sequence>
+                    <xsd:element name="holdersName" type="xsd:string"/>
+                    <xsd:element name="cardNumber" type="xsd:string"/>
+                    <xsd:element name="expirationDate" type="tns:expirationDate"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="bookFlightInputElement" type="tns:bookFlightInput"/>
+            <xsd:element name="bookFlightOutputElement" type="xsd:boolean"/>
+            <xsd:element name="bookFlightFaultElement" type="xsd:string"/>
+            <xsd:element name="cancelFlightFaultElement" type="xsd:string"/>
+            <xsd:complexType name="cancelFlightInput">
+                <xsd:sequence>
+                    <xsd:element name="bookingNo" type="xsd:string"/>
+                    <xsd:element name="creditCardDetails" type="tns:creditCardDetails"/>
+                    <xsd:element name="price" type="xsd:int"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="cancelFlightInputElement" type="tns:cancelFlightInput"/>
+            <xsd:element name="cancelFlightOutputElement" type="xsd:boolean"/>
+            <xsd:complexType name="expirationDate">
+                <xsd:sequence>
+                    <xsd:element name="year" type="xsd:int"/>
+                    <xsd:element name="month" type="xsd:int"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:schema>
+  </types>
+  <message name="TravelAgencyOperationRequest1">
+    <part element="tns:getHotelInputs" name="getHotelsRequest">
+    </part>
+  </message>
+  <message name="TravelAgencyOperationRequest2">
+    <part element="tns:getHotelInputs" name="request">
+    </part>
+  </message>
+  <message name="TravelAgencyOperationResponse2">
+    <part element="tns:getHotelsOutput" name="response">
+    </part>
+  </message>
+  <message name="TravelAgencyOperationResponse1">
+    <part element="tns:getHotelsOutput" name="getHotelsResponse">
+    </part>
+  </message>
+  <message name="TravelAgencyOperationRequest">
+    <part element="tns:getHotelInputs" name="getHotelsInput">
+    </part>
+  </message>
+  <message name="TravelAgencyOperationResponse">
+    <part element="tns:getHotelsOutput" name="getHotelsOutput">
+    </part>
+  </message>
+  <portType name="TravelAgencyPortType">
+    <operation name="getHotels">
+      <input message="tns:TravelAgencyOperationRequest2" name="input1">
+    </input>
+      <output message="tns:TravelAgencyOperationResponse2" name="output1">
+    </output>
+    </operation>
+  </portType>
+  <binding name="TravelAgencyPortTypeBinding" type="tns:TravelAgencyPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="getHotels">
+      <soap:operation/>
+      <input name="input1">
+        <soap:body use="literal"/>
+      </input>
+      <output name="output1">
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="TravelAgencyService">
+    <port binding="tns:TravelAgencyPortTypeBinding" name="TravelAgencyPortTypeBindingPort">
+      <soap:address location="http://DESKTOP-GD2FLL1.eduroam.wireless.dtu.dk:9080/service"/>
+    </port>
+  </service>
+    <plnk:partnerLinkType name="TravelAgency">
+        <!-- A partner link type is automatically generated when a new port type is added. Partner link types are used by BPEL processes. 
+In a BPEL process, a partner link represents the interaction between the BPEL process and a partner service. Each partner link is associated with a partner link type.
+A partner link type characterizes the conversational relationship between two services. The partner link type can have one or two roles.-->
+        <plnk:role name="TravelAgencyPortTypeRole" portType="tns:TravelAgencyPortType"/>
+    </plnk:partnerLinkType>
+</definitions>

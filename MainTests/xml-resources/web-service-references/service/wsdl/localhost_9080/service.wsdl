@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://j2ee.netbeans.org/wsdl/TravelAgencySoapBpel/src/TravelAgency" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="TravelAgency" targetNamespace="http://j2ee.netbeans.org/wsdl/TravelAgencySoapBpel/src/TravelAgency">
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://j2ee.netbeans.org/wsdl/TravelAgencySoapBpel/src/TravelAgency" xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="TravelAgency" targetNamespace="http://j2ee.netbeans.org/wsdl/TravelAgencySoapBpel/src/TravelAgency">
   <types>
     <xsd:schema targetNamespace="http://j2ee.netbeans.org/wsdl/TravelAgencySoapBpel/src/TravelAgency">
             
@@ -14,6 +14,18 @@
                     <xsd:element name="reservationService" type="xsd:string"/>
                 </xsd:sequence>
             </xsd:complexType>
+            
+            <xsd:complexType name="hotelTypeWithStatus">
+                <xsd:sequence maxOccurs="1" minOccurs="1">
+                    <xsd:element name="hotelName" type="xsd:string"/>
+                     <xsd:element name="adress" type="xsd:string"/>
+                      <xsd:element name="bookingNR" type="xsd:string"/>
+                       <xsd:element name="price" type="xsd:double"/>
+                    <xsd:element name="creditCardNeeded" type="xsd:boolean"/>
+                    <xsd:element name="reservationService" type="xsd:string"/>
+                    <xsd:element name="status" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
             <xsd:complexType name="getHotelInput">
                 <xsd:sequence>
                     <xsd:element name="city" type="xsd:string"/>
@@ -21,7 +33,6 @@
                     <xsd:element name="departure" type="xsd:date"/>
                 </xsd:sequence>
             </xsd:complexType>
-            <xsd:element name="getHotelInputs" type="tns:getHotelInput"/>
             <xsd:complexType name="getHotelOutput">
                 <xsd:sequence>
                     <xsd:element maxOccurs="unbounded" minOccurs="0" name="hotelType" type="tns:hotelType"/>
@@ -79,6 +90,16 @@
                     <xsd:element name="flight" type="tns:flight"/>
                 </xsd:sequence>
             </xsd:complexType>
+            
+              <xsd:complexType name="flightInformationWithStatus">
+                <xsd:sequence>
+                    <xsd:element name="bookingNo" type="xsd:string"/>
+                    <xsd:element name="price" type="xsd:int"/>
+                    <xsd:element name="nameAirline" type="xsd:string"/>
+                     <xsd:element name="status" type="xsd:string"/>
+                    <xsd:element name="flight" type="tns:flight"/>
+                </xsd:sequence>
+            </xsd:complexType>
             <xsd:complexType name="flight">
                 <xsd:sequence>
                     <xsd:element name="startAirport" type="xsd:string"/>
@@ -101,7 +122,6 @@
                     <xsd:element maxOccurs="unbounded" minOccurs="0" name="flightInformation" type="tns:flightInformation"/>
                 </xsd:sequence>
             </xsd:complexType>
-            <xsd:element name="getFlighsInputElement" type="tns:getFlightsInput"/>
             <xsd:element name="getFlightsOutputElement" type="tns:getFlightsOutput"/>
             <xsd:complexType name="bookFlightInput">
                 <xsd:sequence>
@@ -135,48 +155,293 @@
                     <xsd:element name="month" type="xsd:int"/>
                 </xsd:sequence>
             </xsd:complexType>
+            <xsd:element name="createItineraryInput" type="xsd:string"/>
+            <xsd:element name="createItineraryOutput" type="xsd:int"/>
+            <xsd:complexType name="itinerary">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="unbounded" minOccurs="0" name="hotelArray">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="hotelType" type="tns:hotelType"/>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element maxOccurs="unbounded" minOccurs="0" name="flightArray">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="flightInformation" type="tns:flightInformation"/>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="addFlightToItineraryInput">
+                <xsd:sequence>
+                    <xsd:element name="flightInformation" type="tns:flightInformation"/>
+                    <xsd:element name="itineraryId" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="addHotelToItineraryInput">
+                <xsd:sequence>
+                    <xsd:element name="hotelType" type="tns:hotelType"/>
+                    <xsd:element name="itineraryId" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="addFlightToItineraryInput" type="tns:addFlightToItineraryInput"/>
+            <xsd:element name="itineraryOutput" type="tns:itinerary"/>
+            <xsd:element name="transaction" type="xsd:boolean"/>
+            <xsd:complexType name="itineraryStatus">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="hotelArray">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element maxOccurs="unbounded" minOccurs="0" name="hotelTypeWithStatus" type="tns:hotelTypeWithStatus"/>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="flightArray">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element maxOccurs="unbounded" minOccurs="0" name="flightInformationWithStatus" type="tns:flightInformationWithStatus"/>
+                               
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="getItineraryStatusOutput" type="tns:itineraryStatus"/>
+            <xsd:element name="addHotelToItineraryInput" type="tns:addHotelToItineraryInput"/>
+            <xsd:element name="itineraryInput" type="xsd:string"/>
+            <xsd:complexType name="getTravelHotelInput">
+                <xsd:sequence>
+                    <xsd:element name="itineraryId" type="xsd:string"/>
+                    <xsd:element name="getHotelInput" type="tns:getHotelInput"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="getTravelFlightInput">
+                <xsd:sequence>
+                    <xsd:element name="itineraryId" type="xsd:string"/>
+                    <xsd:element name="getFlightsInput" type="tns:getFlightsInput"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="getHotelInput" type="tns:getHotelInput"/>
+            <xsd:element name="getFlightsInput" type="tns:getFlightsInput"/>
+            <xsd:element name="getTravelHotellInputElement" type="tns:getTravelHotelInput"/>
+            <xsd:element name="getTravelFlightInputElement" type="tns:getTravelFlightInput"/>
+            <xsd:element name="cancelItineraryInput" type="xsd:string"/>
+            <xsd:element name="getItineraryStatusInput" type="xsd:string"/>
+            <xsd:element name="cancelPlanInput" type="xsd:string"/>
+            <xsd:element name="bookItineraryInput" type="xsd:string"/>
         </xsd:schema>
   </types>
-  <message name="TravelAgencyOperationRequest1">
-    <part element="tns:getHotelInputs" name="getHotelsRequest">
+  <message name="AddFlightToItineraryRequest">
+    <part element="tns:addFlightToItineraryInput" name="AddFlightToItineraryInput">
     </part>
   </message>
-  <message name="TravelAgencyOperationRequest2">
-    <part element="tns:getHotelInputs" name="request">
+  <message name="bookItineraryResponse">
+    <part element="tns:transaction" name="part1">
     </part>
   </message>
-  <message name="TravelAgencyOperationResponse2">
-    <part element="tns:getHotelsOutput" name="response">
+  <message name="CancelPlanRequest">
+    <part element="tns:cancelPlanInput" name="request">
     </part>
   </message>
-  <message name="TravelAgencyOperationResponse1">
-    <part element="tns:getHotelsOutput" name="getHotelsResponse">
+  <message name="getFlightsResponse">
+    <part element="tns:getFlightsOutputElement" name="output">
     </part>
   </message>
-  <message name="TravelAgencyOperationRequest">
-    <part element="tns:getHotelInputs" name="getHotelsInput">
+  <message name="GetHotelsResponse">
+    <part element="tns:getHotelsOutput" name="output">
     </part>
   </message>
-  <message name="TravelAgencyOperationResponse">
-    <part element="tns:getHotelsOutput" name="getHotelsOutput">
+  <message name="CreateItineraryRequest">
+    <part element="tns:createItineraryInput" name="ItineraryRequest">
+    </part>
+  </message>
+  <message name="AddHotelToItineraryRequest">
+    <part element="tns:addHotelToItineraryInput" name="addHotelToItineraryInput">
+    </part>
+  </message>
+  <message name="cancelItineraryRequest">
+    <part element="tns:cancelItineraryInput" name="request">
+    </part>
+  </message>
+  <message name="GetHotelsRequest">
+    <part element="tns:getTravelHotellInputElement" name="input">
+    </part>
+  </message>
+  <message name="CreateItineraryResponse">
+    <part element="tns:createItineraryInput" name="ItineraryResponse">
+    </part>
+  </message>
+  <message name="AddHotelToItineraryResponse">
+    <part element="tns:getItineraryStatusOutput" name="addHotelToItineraryOutput">
+    </part>
+  </message>
+  <message name="AddFlightToItineraryResponse">
+    <part element="tns:getItineraryStatusOutput" name="AddFlightToItineraryOutput">
+    </part>
+  </message>
+  <message name="getItineraryStatusResponse">
+    <part element="tns:getItineraryStatusOutput" name="response">
+    </part>
+  </message>
+  <message name="bookItineraryRequest">
+    <part element="tns:bookItineraryInput" name="request">
+    </part>
+  </message>
+  <message name="CancelPlanResponse">
+    <part element="tns:transaction" name="response">
+    </part>
+  </message>
+  <message name="cancelItineraryResponse">
+    <part element="tns:transaction" name="response">
+    </part>
+  </message>
+  <message name="getItineraryStatusRequest">
+    <part element="tns:getItineraryStatusInput" name="request">
+    </part>
+  </message>
+  <message name="getFlightsRequest">
+    <part element="tns:getTravelFlightInputElement" name="input">
     </part>
   </message>
   <portType name="TravelAgencyPortType">
-    <operation name="getHotels">
-      <input message="tns:TravelAgencyOperationRequest2" name="input1">
+    <operation name="createItinerary">
+      <input message="tns:CreateItineraryRequest" name="input2">
     </input>
-      <output message="tns:TravelAgencyOperationResponse2" name="output1">
+      <output message="tns:CreateItineraryResponse" name="output2">
+    </output>
+    </operation>
+    <operation name="addHotelToItinerary">
+      <input message="tns:AddHotelToItineraryRequest" name="input3">
+    </input>
+      <output message="tns:AddHotelToItineraryResponse" name="output3">
+    </output>
+    </operation>
+    <operation name="AddFlightToItinerary">
+      <input message="tns:AddFlightToItineraryRequest" name="input4">
+    </input>
+      <output message="tns:AddFlightToItineraryResponse" name="output4">
+    </output>
+    </operation>
+    <operation name="bookItinerary">
+      <input message="tns:bookItineraryRequest" name="input5">
+    </input>
+      <output message="tns:bookItineraryResponse" name="output5">
+    </output>
+    </operation>
+    <operation name="CancelItinerary">
+      <input message="tns:cancelItineraryRequest" name="input6">
+    </input>
+      <output message="tns:cancelItineraryResponse" name="output6">
+    </output>
+    </operation>
+    <operation name="getItineraryStatus">
+      <input message="tns:getItineraryStatusRequest" name="input7">
+    </input>
+      <output message="tns:getItineraryStatusResponse" name="output7">
+    </output>
+    </operation>
+    <operation name="cancelPlan">
+      <input message="tns:CancelPlanRequest" name="input8">
+    </input>
+      <output message="tns:CancelPlanResponse" name="output8">
+    </output>
+    </operation>
+    <operation name="getFlights">
+      <input message="tns:getFlightsRequest" name="input1">
+    </input>
+      <output message="tns:getFlightsResponse" name="output1">
+    </output>
+    </operation>
+    <operation name="getHotels">
+      <input message="tns:GetHotelsRequest" name="input9">
+    </input>
+      <output message="tns:GetHotelsResponse" name="output9">
     </output>
     </operation>
   </portType>
   <binding name="TravelAgencyPortTypeBinding" type="tns:TravelAgencyPortType">
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-    <operation name="getHotels">
+    <operation name="createItinerary">
+      <soap:operation/>
+      <input name="input2">
+        <soap:body use="literal"/>
+      </input>
+      <output name="output2">
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="addHotelToItinerary">
+      <soap:operation/>
+      <input name="input3">
+        <soap:body use="literal"/>
+      </input>
+      <output name="output3">
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="AddFlightToItinerary">
+      <soap:operation/>
+      <input name="input4">
+        <soap:body use="literal"/>
+      </input>
+      <output name="output4">
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="bookItinerary">
+      <soap:operation/>
+      <input name="input5">
+        <soap:body use="literal"/>
+      </input>
+      <output name="output5">
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="CancelItinerary">
+      <soap:operation/>
+      <input name="input6">
+        <soap:body use="literal"/>
+      </input>
+      <output name="output6">
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="getItineraryStatus">
+      <soap:operation/>
+      <input name="input7">
+        <soap:body use="literal"/>
+      </input>
+      <output name="output7">
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="cancelPlan">
+      <soap:operation/>
+      <input name="input8">
+        <soap:body use="literal"/>
+      </input>
+      <output name="output8">
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="getFlights">
       <soap:operation/>
       <input name="input1">
         <soap:body use="literal"/>
       </input>
       <output name="output1">
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="getHotels">
+      <soap:operation/>
+      <input name="input9">
+        <soap:body use="literal"/>
+      </input>
+      <output name="output9">
         <soap:body use="literal"/>
       </output>
     </operation>
@@ -186,10 +451,18 @@
       <soap:address location="http://DESKTOP-GD2FLL1.eduroam.wireless.dtu.dk:9080/service"/>
     </port>
   </service>
-    <plnk:partnerLinkType name="TravelAgency">
-        <!-- A partner link type is automatically generated when a new port type is added. Partner link types are used by BPEL processes. 
-In a BPEL process, a partner link represents the interaction between the BPEL process and a partner service. Each partner link is associated with a partner link type.
-A partner link type characterizes the conversational relationship between two services. The partner link type can have one or two roles.-->
-        <plnk:role name="TravelAgencyPortTypeRole" portType="tns:TravelAgencyPortType"/>
-    </plnk:partnerLinkType>
+    <vprop:property name="itineraryId" type="xsd:string"/>
+    <vprop:propertyAlias messageType="tns:getFlightsRequest" part="input" propertyName="tns:itineraryId">
+        <vprop:query>itineraryId</vprop:query>
+    </vprop:propertyAlias>
+    <vprop:propertyAlias messageType="tns:GetHotelsRequest" part="input" propertyName="tns:itineraryId">
+        <vprop:query>itineraryId</vprop:query>
+    </vprop:propertyAlias>
+    <vprop:propertyAlias messageType="tns:CreateItineraryResponse" part="ItineraryResponse" propertyName="tns:itineraryId"/>
+    <vprop:propertyAlias messageType="tns:AddHotelToItineraryRequest" part="addHotelToItineraryInput" propertyName="tns:itineraryId">
+        <vprop:query>itineraryId</vprop:query>
+    </vprop:propertyAlias>
+    <vprop:propertyAlias messageType="tns:AddFlightToItineraryRequest" part="AddFlightToItineraryInput" propertyName="tns:itineraryId">
+        <vprop:query>itineraryId</vprop:query>
+    </vprop:propertyAlias>
 </definitions>
