@@ -1,6 +1,6 @@
 package code;
 
-import HelpClasses.HotelInformationList;
+import HelpClasses.HotelInformationListLocal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,14 +22,15 @@ import ws.niceview.*;
 @Path("/hotels")
 public class HotelsResource {
 
-    @Path("/HotelInfomration")
+    @GET
+    @Produces("application/xml")
     public Response getHotels(@QueryParam("city") String city,
             //This is stupid, why we need specify start date and end date for displaying only list of hotels...
             @QueryParam("startDate") String startDate,
             @QueryParam("endDate") String endDate)
             throws DatatypeConfigurationException, ParseException, GetHotelListFault {
 
-        //http://localhost:8080/TravelGoodsREST/hotels/HotelInfomration?city=Copenhagen&startDate=2016-11-1 14:00&endDate=2016-11-5%2014:00
+        //http://localhost:8080/TravelGoodsREST/hotels?city=Copenhagen&startDate=2016-11-1 14:00&endDate=2016-11-5%2014:00
         XMLGregorianCalendar startDateGregorianFormat = TimeFormat.getDateFromString(startDate);
         XMLGregorianCalendar endDateGregorianFormat = TimeFormat.getDateFromString(endDate);
 
@@ -49,16 +50,18 @@ public class HotelsResource {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
         
-        HotelInformationList hotelInformationList = new HotelInformationList();
+        HotelInformationListLocal hotelInformationList = new HotelInformationListLocal();
         hotelInformationList.setList(list);
 
         return Response.status(Response.Status.OK).entity(hotelInformationList).build();
     }
 
-    private static GetHotelOutput getHotelsList(GetHotelInput input1) throws GetHotelListFault {
-        NiceViewService service = new ws.niceview.NiceViewService();
-        NiceViewPort port = service.getNiceViewPort();
+    private static GetHotelOutput getHotelsList(ws.niceview.GetHotelInput input1) throws GetHotelListFault {
+        ws.niceview.NiceViewService service = new ws.niceview.NiceViewService();
+        ws.niceview.NiceViewPort port = service.getNiceViewPortBindingPort();
         return port.getHotelsList(input1);
     }
+
+   
 
 }

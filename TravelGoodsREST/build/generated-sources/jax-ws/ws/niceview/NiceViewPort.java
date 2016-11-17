@@ -7,8 +7,6 @@ import javax.jws.WebResult;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import javax.xml.bind.annotation.XmlSeeAlso;
-import javax.xml.ws.Action;
-import javax.xml.ws.FaultAction;
 
 
 /**
@@ -32,33 +30,12 @@ public interface NiceViewPort {
      *     returns boolean
      * @throws CancelHotelFault
      */
-    @WebMethod(action = "cancelHotel_action")
+    @WebMethod
     @WebResult(name = "cancelHotelOutput", targetNamespace = "http://NiceView.WS", partName = "output")
-    @Action(input = "cancelHotel_action", output = "http://NiceView.WS/NiceViewPort/cancelHotelResponse", fault = {
-        @FaultAction(className = CancelHotelFault.class, value = "http://NiceView.WS/NiceViewPort/cancelHotel/Fault/CancelHotelFault")
-    })
     public boolean cancelHotel(
         @WebParam(name = "cancelHotelInput", targetNamespace = "http://NiceView.WS", partName = "input2")
         String input2)
         throws CancelHotelFault
-    ;
-
-    /**
-     * 
-     * @param input3
-     * @return
-     *     returns boolean
-     * @throws BookHotelFault
-     */
-    @WebMethod(action = "bookHotel_action")
-    @WebResult(name = "bookHotelOutput", targetNamespace = "http://NiceView.WS", partName = "part1")
-    @Action(input = "bookHotel_action", output = "http://NiceView.WS/NiceViewPort/bookHotelResponse", fault = {
-        @FaultAction(className = BookHotelFault.class, value = "http://NiceView.WS/NiceViewPort/bookHotel/Fault/BookHotelFault")
-    })
-    public boolean bookHotel(
-        @WebParam(name = "bookHotelInput", targetNamespace = "http://NiceView.WS", partName = "input3")
-        BookHotelInput input3)
-        throws BookHotelFault
     ;
 
     /**
@@ -68,15 +45,27 @@ public interface NiceViewPort {
      *     returns ws.niceview.GetHotelOutput
      * @throws GetHotelListFault
      */
-    @WebMethod(action = "getHotelsList_action")
+    @WebMethod
     @WebResult(name = "getHotelsOutput", targetNamespace = "http://NiceView.WS", partName = "output1")
-    @Action(input = "getHotelsList_action", output = "http://NiceView.WS/NiceViewPort/getHotelsListResponse", fault = {
-        @FaultAction(className = GetHotelListFault.class, value = "http://NiceView.WS/NiceViewPort/getHotelsList/Fault/GetHotelListFault")
-    })
     public GetHotelOutput getHotelsList(
         @WebParam(name = "getHotelInputs", targetNamespace = "http://NiceView.WS", partName = "input1")
         GetHotelInput input1)
         throws GetHotelListFault
+    ;
+
+    /**
+     * 
+     * @param input2
+     * @return
+     *     returns boolean
+     * @throws BookHotelFault
+     */
+    @WebMethod
+    @WebResult(name = "bookHotelOutput", targetNamespace = "http://NiceView.WS", partName = "output2")
+    public boolean bookHotel(
+        @WebParam(name = "bookHotelInput", targetNamespace = "http://NiceView.WS", partName = "input2")
+        BookHotelInput input2)
+        throws BookHotelFault
     ;
 
 }

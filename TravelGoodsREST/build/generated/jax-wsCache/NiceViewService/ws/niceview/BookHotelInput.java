@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="bookingNR" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="CreditCardInformation" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="creditCardInformation" type="{http://NiceView.WS}creditCardInformation"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -36,8 +36,8 @@ public class BookHotelInput {
 
     @XmlElement(required = true)
     protected String bookingNR;
-    @XmlElement(name = "CreditCardInformation", required = true)
-    protected String creditCardInformation;
+    @XmlElement(required = true)
+    protected CreditCardInformation creditCardInformation;
 
     /**
      * Gets the value of the bookingNR property.
@@ -68,10 +68,10 @@ public class BookHotelInput {
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link CreditCardInformation }
      *     
      */
-    public String getCreditCardInformation() {
+    public CreditCardInformation getCreditCardInformation() {
         return creditCardInformation;
     }
 
@@ -80,10 +80,10 @@ public class BookHotelInput {
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link CreditCardInformation }
      *     
      */
-    public void setCreditCardInformation(String value) {
+    public void setCreditCardInformation(CreditCardInformation value) {
         this.creditCardInformation = value;
     }
 

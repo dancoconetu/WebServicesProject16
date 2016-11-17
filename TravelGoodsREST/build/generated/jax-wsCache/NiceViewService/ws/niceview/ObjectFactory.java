@@ -27,9 +27,9 @@ public class ObjectFactory {
     private final static QName _CancelHotelFault_QNAME = new QName("http://NiceView.WS", "cancelHotelFault");
     private final static QName _GetHotelInputs_QNAME = new QName("http://NiceView.WS", "getHotelInputs");
     private final static QName _BookHotelInput_QNAME = new QName("http://NiceView.WS", "bookHotelInput");
-    private final static QName _CancelHotelInput_QNAME = new QName("http://NiceView.WS", "cancelHotelInput");
     private final static QName _CancelHotelOutput_QNAME = new QName("http://NiceView.WS", "cancelHotelOutput");
     private final static QName _GetHotelsFault_QNAME = new QName("http://NiceView.WS", "getHotelsFault");
+    private final static QName _CancelHotelInput_QNAME = new QName("http://NiceView.WS", "cancelHotelInput");
     private final static QName _GetHotelsOutput_QNAME = new QName("http://NiceView.WS", "getHotelsOutput");
     private final static QName _BookHotelOutput_QNAME = new QName("http://NiceView.WS", "bookHotelOutput");
     private final static QName _BookHotelFault_QNAME = new QName("http://NiceView.WS", "bookHotelFault");
@@ -133,15 +133,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://NiceView.WS", name = "cancelHotelInput")
-    public JAXBElement<String> createCancelHotelInput(String value) {
-        return new JAXBElement<String>(_CancelHotelInput_QNAME, String.class, null, value);
-    }
-
-    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Boolean }{@code >}}
      * 
      */
@@ -157,6 +148,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://NiceView.WS", name = "getHotelsFault")
     public JAXBElement<String> createGetHotelsFault(String value) {
         return new JAXBElement<String>(_GetHotelsFault_QNAME, String.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://NiceView.WS", name = "cancelHotelInput")
+    public JAXBElement<String> createCancelHotelInput(String value) {
+        return new JAXBElement<String>(_CancelHotelInput_QNAME, String.class, null, value);
     }
 
     /**
