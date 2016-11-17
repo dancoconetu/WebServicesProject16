@@ -5,7 +5,6 @@
  */
 package code;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import javax.ws.rs.*;
@@ -14,7 +13,6 @@ import javax.ws.rs.core.Response;
 import ws.lameduck.*;
 import ws.niceview.*;
 import HelpClasses.*;
-import java.util.concurrent.ThreadLocalRandom;
 /**
  *
  * @author justinas
@@ -36,7 +34,7 @@ public class ItineraryResource {
     	@GET
 	@Produces(output)
 	@Path("/{id}")
-	public Response getStatus(@PathParam("id")Integer itineraryID) {
+	public Response getStatusOfItinerary(@PathParam("id")int itineraryID) {
             
             //check if there is a record in the map of requested ID
             if(itineraryMap.containsKey(itineraryID)){
@@ -45,12 +43,12 @@ public class ItineraryResource {
             
                 ItinararyRepr ir = new ItinararyRepr();
                 ir.setItinerary(iten);
-                return Response.ok(ir).build();
+                return Response.ok(ir).entity("Itinerary is found").build();
             
             }
 		
              
-		return Response.status(Response.Status.NOT_FOUND).build();
+		return Response.status(Response.Status.NOT_FOUND).entity("itinerary is not found with an ID: " + itineraryID).build();
 	}
        
      
@@ -68,17 +66,14 @@ public class ItineraryResource {
         ir.setItinerary(itinerary);
         System.out.println("creatItenerary executed!!@@@");
         
-//        addGetFlightsLink(userid, itineraryid, statusRep);
-//        addGetHotelsLink(userid, itineraryid, statusRep);
-//        addGetItineraryLink(userid, itineraryid, statusRep);
-        return  Response.status(Response.Status.OK).entity(ir).build();
+        return  Response.status(Response.Status.OK).entity("Itinerary created with ID of: " + ID).build();
         
     } 
     
     @POST
 	@Produces(output)
 	@Path("/{id}/flights")
-	public Response addFlightToItinerary(@PathParam("id")Integer itineraryID, FlightInformationList flightL) {
+	public Response addFlightToItinerary(@PathParam("id")int itineraryID, FlightInformationList flightL) {
 		      System.out.println("addFlighttoItenerary() executed");
             //if ID is found in the hashmap then retrieve itinerary
             if(itineraryMap.containsKey(itineraryID)){
@@ -87,37 +82,39 @@ public class ItineraryResource {
             //if the status of itinerary is unconfirmed then add flights
             if(itin.getStatus().equals(StatusInfo.Status.UNCONFIRMED)){
             FlightsInfo FI = new FlightsInfo(); 
-            FlightsInfo FI2 = new FlightsInfo(); 
-               
+            List<FlightsInfo> list = new ArrayList<>();   
               
-for(FlightInformation fl: flightL.getList()){
- System.out.println("price " + fl.getPrice());
- //FI.setFlightDetails(fl);
+        for(FlightInformation fl: flightL.getList()){
+         System.out.println("price " + fl.getPrice());
+         FI.setStatus(StatusInfo.Status.UNCONFIRMED);
+         FI.setFlightDetails(fl);
+         list.add(FI);
+        }
 
-}
-            FI2.setFlightDetails(flightL.getList().get(0));
-            FI.setFlightDetails(flightL.getList().get(1));
-            FI.setStatus(StatusInfo.Status.UNCONFIRMED);
-            FI2.setStatus(StatusInfo.Status.UNCONFIRMED);
-            List<FlightsInfo> list = new ArrayList<FlightsInfo>();
-            list.add(FI);
-            list.add(FI2);
             itin.setFlightDetails(list);
 		itineraryMap.put(itineraryID, itin);
                 System.out.println("Itinerary id: " + itineraryID + " Has been added");
-                return Response.status(Response.Status.OK).build();
+                return Response.status(Response.Status.OK).entity("Flights successfully added into itinerary").build();
             }
             
             }
-//            if (itineraries.containsKey(id)) {
-//			Itinerary i = itineraries.get(id);
-//			if (i.getStatus() == Status.UNCONFIRMED) {
-//				i.addFlight(flight);
-//				return Response.ok("Flight added").build();
-//			} else {
-//				return Response.status(Response.Status.BAD_REQUEST).entity("Can't add flight to booked/cancelled itinerary").build();
-//			}
-//		}
-		return Response.status(Response.Status.NOT_FOUND).build();
+
+		return Response.status(Response.Status.NOT_FOUND).entity("Itinerary not found").build();
 	}
+        
+        
+        @PUT
+	@Path("/{id}")
+	@Consumes(output)
+	@Produces(output)
+	public Response bookItinerary(@PathParam("id")int id, CreditCardDetails creditCardInfo) {
+        
+            if(itineraryMap.containsKey(id)){
+                System.out.println("itinerary is found, starting a book");
+                //itineraryMap.
+            
+            }
+            return null;
+        }
+        
 }
