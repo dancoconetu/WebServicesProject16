@@ -4,7 +4,7 @@
         <endpoint endpoint-name="LameDuckPortTypeBindingPort" interface-name="ns1:LameDuckPortType" name="endpoint1" service-name="ns1:LameDuckService"/>
         <endpoint endpoint-name="NiceViewPortBindingPort" interface-name="ns2:NiceViewPort" name="endpoint2" service-name="ns2:NiceViewService"/>
         <endpoint endpoint-name="TravelAgencyPortTypeBindingPort" interface-name="ns3:TravelAgencyPortType" name="endpoint3" service-name="ns3:TravelAgencyService"/>
-        <endpoint display-name="PartnerLink3" endpoint-name="TravelAgencyPortTypeRole_myRole" file-path="travelAgencySoapBpel.bpel" interface-name="ns3:TravelAgencyPortType" name="endpoint4" process-name="travelAgencySoapBpel" service-name="ns4:PartnerLink3"/>
+        <endpoint display-name="PartnerLink3" endpoint-name="TravelAgencyRole_myRole" file-path="travelAgencySoapBpel.bpel" interface-name="ns3:TravelAgencyPortType" name="endpoint4" process-name="travelAgencySoapBpel" service-name="ns4:PartnerLink3"/>
         <endpoint display-name="PartnerLink1" endpoint-name="LameDuck_partnerRole" file-path="travelAgencySoapBpel.bpel" interface-name="ns1:LameDuckPortType" name="endpoint5" process-name="travelAgencySoapBpel" service-name="ns4:PartnerLink1"/>
         <endpoint display-name="PartnerLink2" endpoint-name="NiceViewPortRole_partnerRole" file-path="travelAgencySoapBpel.bpel" interface-name="ns2:NiceViewPort" name="endpoint6" process-name="travelAgencySoapBpel" service-name="ns4:PartnerLink2"/>
     </endpoints>

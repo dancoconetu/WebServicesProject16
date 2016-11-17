@@ -99,14 +99,15 @@ public class MainTest {
         addHotelToItineraryInput.setItineraryId(itineraryId);
         addHotelToItineraryInput.setHotelType(hot.get(0));
         
-       ItineraryStatus itineraryStatus =      addHotelToItinerary(addHotelToItineraryInput);
+       GetItineraryStatusOutput itineraryStatus =      addHotelToItinerary(addHotelToItineraryInput);
        addHotelToItineraryInput.setHotelType(hot.get(1));
        itineraryStatus =      addHotelToItinerary(addHotelToItineraryInput);
        
-       HotelTypeWithStatus bla = itineraryStatus.getHotelArray().getHotelTypeWithStatus().get(0);
+       
+       HotelTypeWithStatus bla = itineraryStatus.getItineraryStatus().getHotelArray().getHotelTypeWithStatus().get(0);
         System.out.println("Name : " + bla.getHotelName() + " Adress: " + bla.getAdress() + " BookingNR: " + bla.getBookingNR() + " TotalPrice: " + bla.getPrice() + " Reservation Service : " + bla.getReservationService() + "Booked status: "  + bla.getStatus());
            
-       bla = itineraryStatus.getHotelArray().getHotelTypeWithStatus().get(1);
+       bla = itineraryStatus.getItineraryStatus().getHotelArray().getHotelTypeWithStatus().get(1);
         System.out.println("Name : " + bla.getHotelName() + " Adress: " + bla.getAdress() + " BookingNR: " + bla.getBookingNR() + " TotalPrice: " + bla.getPrice() + " Reservation Service : " + bla.getReservationService() + "Booked status: "  + bla.getStatus());
            
         
@@ -127,10 +128,14 @@ public class MainTest {
          
          
          GetFlightsOutput gfo = getFlights(getTravelFlightInput);
-         
+         if (gfo.getFlightInformation()!=null)
+         {
          for (FlightInformation flightInformation: gfo.getFlightInformation())
          {
-             System.out.println("Flight Information: \n "  + flightInformation.getBookingNo() + "\n" + flightInformation.getFlight().getStartAirport() + "<->" + flightInformation.getFlight().getDestination());
+             if (flightInformation!=null && flightInformation.getFlight()!=null)
+             System.out.println("Flight Information: \n "  + flightInformation.getBookingNo() +
+                     "\n" + flightInformation.getFlight().getStartAirport() + "<->" 
+                     + flightInformation.getFlight().getDestination());
          }
          
          AddFlightToItineraryInput addFlightToItineraryInput = new AddFlightToItineraryInput();
@@ -138,21 +143,88 @@ public class MainTest {
          addFlightToItineraryInput.setFlightInformation(gfo.getFlightInformation().get(0));
          
          
-         ItineraryStatus itineraryStatus2 = addFlightToItinerary(addFlightToItineraryInput);
+         GetItineraryStatusOutput itineraryStatus2 = addFlightToItinerary(addFlightToItineraryInput);
+         
+         if  (itineraryStatus2.isStatus()) {
+        
+          bla = itineraryStatus2.getItineraryStatus().getHotelArray().getHotelTypeWithStatus().get(0);
+        System.out.println("Name : " + bla.getHotelName() + " Adress: " + bla.getAdress() + " BookingNR: " + bla.getBookingNR() + " TotalPrice: " + bla.getPrice() + " Reservation Service : " + bla.getReservationService() + "Booked status: "  + bla.getStatus());
+           
+       bla = itineraryStatus2.getItineraryStatus().getHotelArray().getHotelTypeWithStatus().get(1);
+        System.out.println("Name : " + bla.getHotelName() + " Adress: " + bla.getAdress() + " BookingNR: " + bla.getBookingNR() + " TotalPrice: " + bla.getPrice() + " Reservation Service : " + bla.getReservationService() + "Booked status: "  + bla.getStatus());
+           
+        
+        FlightInformationWithStatus flightInformation = itineraryStatus2.getItineraryStatus().getFlightArray().getFlightInformationWithStatus().get(0);
+          System.out.println("Flight Information: \n "  + flightInformation.getBookingNo() + "\n" + flightInformation.getFlight().getStartAirport() + "<->" + flightInformation.getFlight().getDestination() + "\nstatus:" + flightInformation.getStatus());
+         }
+         else
+         {
+             System.out.println("Failed trying to add Flight");
+         }
+         }
+         else
+             System.out.println("Empty");
+         
+         BookItineraryInput bookItineraryInput = new BookItineraryInput();
+         bookItineraryInput.setItineraryId(itineraryId);
+         CreditCardDetails creditCardDetails = new CreditCardDetails();
+         creditCardDetails.setCardNumber("50408824");
+         creditCardDetails.setHoldersName("Tick Joachim");
+         ExpirationDate expirationDate = new ExpirationDate();
+         expirationDate.setMonth(2);
+         expirationDate.setYear(11);
+         creditCardDetails.setExpirationDate(expirationDate);
+         bookItineraryInput.setCreditCardDetails(creditCardDetails);
+         
+         boolean booked = bookItinerary(bookItineraryInput);
+         
+         System.out.println("Booked: " + booked);
+         
+         GetItineraryStatusOutput itineraryStatus2 = getItineraryStatus(itineraryId);
+         
+         if  (itineraryStatus2.isStatus()) {
+        
+          bla = itineraryStatus2.getItineraryStatus().getHotelArray().getHotelTypeWithStatus().get(0);
+        System.out.println("Name : " + bla.getHotelName() + " Adress: " + bla.getAdress() + " BookingNR: " + bla.getBookingNR() + " TotalPrice: " + bla.getPrice() + " Reservation Service : " + bla.getReservationService() + "Booked status: "  + bla.getStatus());
+           
+       bla = itineraryStatus2.getItineraryStatus().getHotelArray().getHotelTypeWithStatus().get(1);
+        System.out.println("Name : " + bla.getHotelName() + " Adress: " + bla.getAdress() + " BookingNR: " + bla.getBookingNR() + " TotalPrice: " + bla.getPrice() + " Reservation Service : " + bla.getReservationService() + "Booked status: "  + bla.getStatus());
+           
+        
+        FlightInformationWithStatus flightInformation = itineraryStatus2.getItineraryStatus().getFlightArray().getFlightInformationWithStatus().get(0);
+          System.out.println("Flight Information: \n "  + flightInformation.getBookingNo() + "\n" + flightInformation.getFlight().getStartAirport() + "<->" + flightInformation.getFlight().getDestination() + "\nstatus:" + flightInformation.getStatus());
+         }
+         
+         
+         System.out.println("\nTrying to book second time: " +  bookItinerary(bookItineraryInput));
+         
+            CancelItineraryInput cancelItineraryInput = new CancelItineraryInput();
+            cancelItineraryInput.setItineraryId(itineraryId);
+            cancelItineraryInput.setCreditCardDetails(creditCardDetails);
+            
+            System.out.println("Canceled: " + cancelItinerary(cancelItineraryInput));
+            
+            itineraryStatus2 = getItineraryStatus(itineraryId);
+         
+         if  (itineraryStatus2.isStatus()) {
+        
+          bla = itineraryStatus2.getItineraryStatus().getHotelArray().getHotelTypeWithStatus().get(0);
+        System.out.println("Name : " + bla.getHotelName() + " Adress: " + bla.getAdress() + " BookingNR: " + bla.getBookingNR() + " TotalPrice: " + bla.getPrice() + " Reservation Service : " + bla.getReservationService() + "Booked status: "  + bla.getStatus());
+           
+       bla = itineraryStatus2.getItineraryStatus().getHotelArray().getHotelTypeWithStatus().get(1);
+        System.out.println("Name : " + bla.getHotelName() + " Adress: " + bla.getAdress() + " BookingNR: " + bla.getBookingNR() + " TotalPrice: " + bla.getPrice() + " Reservation Service : " + bla.getReservationService() + "Booked status: "  + bla.getStatus());
+           
+         }
          
         
-          bla = itineraryStatus2.getHotelArray().getHotelTypeWithStatus().get(0);
-        System.out.println("Name : " + bla.getHotelName() + " Adress: " + bla.getAdress() + " BookingNR: " + bla.getBookingNR() + " TotalPrice: " + bla.getPrice() + " Reservation Service : " + bla.getReservationService() + "Booked status: "  + bla.getStatus());
-           
-       bla = itineraryStatus2.getHotelArray().getHotelTypeWithStatus().get(1);
-        System.out.println("Name : " + bla.getHotelName() + " Adress: " + bla.getAdress() + " BookingNR: " + bla.getBookingNR() + " TotalPrice: " + bla.getPrice() + " Reservation Service : " + bla.getReservationService() + "Booked status: "  + bla.getStatus());
-           
-        
-        FlightInformationWithStatus flightInformation = itineraryStatus2.getFlightArray().getFlightInformationWithStatus().get(0);
-          System.out.println("Flight Information: \n "  + flightInformation.getBookingNo() + "\n" + flightInformation.getFlight().getStartAirport() + "<->" + flightInformation.getFlight().getDestination() + "\nstatus:" + flightInformation.getStatus());
-        
-        
+         System.out.println("\nTrying to book third time: " +  bookItinerary(bookItineraryInput));
+         
     }
+    
+    
+    
+    
+    
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //
@@ -177,17 +249,7 @@ public class MainTest {
         return port.cancelPlan(request);
     }
 
-    private static ItineraryStatus addHotelToItinerary(org.netbeans.j2ee.wsdl.travelagencysoapbpel.src.travelagency.AddHotelToItineraryInput addHotelToItineraryInput) {
-        org.netbeans.j2ee.wsdl.travelagencysoapbpel.src.travelagency.TravelAgencyService service = new org.netbeans.j2ee.wsdl.travelagencysoapbpel.src.travelagency.TravelAgencyService();
-        org.netbeans.j2ee.wsdl.travelagencysoapbpel.src.travelagency.TravelAgencyPortType port = service.getTravelAgencyPortTypeBindingPort();
-        return port.addHotelToItinerary(addHotelToItineraryInput);
-    }
-
-    private static ItineraryStatus addFlightToItinerary(org.netbeans.j2ee.wsdl.travelagencysoapbpel.src.travelagency.AddFlightToItineraryInput addFlightToItineraryInput) {
-        org.netbeans.j2ee.wsdl.travelagencysoapbpel.src.travelagency.TravelAgencyService service = new org.netbeans.j2ee.wsdl.travelagencysoapbpel.src.travelagency.TravelAgencyService();
-        org.netbeans.j2ee.wsdl.travelagencysoapbpel.src.travelagency.TravelAgencyPortType port = service.getTravelAgencyPortTypeBindingPort();
-        return port.addFlightToItinerary(addFlightToItineraryInput);
-    }
+    
 
     private static GetFlightsOutput getFlights(org.netbeans.j2ee.wsdl.travelagencysoapbpel.src.travelagency.GetTravelFlightInput input) {
         org.netbeans.j2ee.wsdl.travelagencysoapbpel.src.travelagency.TravelAgencyService service = new org.netbeans.j2ee.wsdl.travelagencysoapbpel.src.travelagency.TravelAgencyService();
@@ -195,12 +257,38 @@ public class MainTest {
         return port.getFlights(input);
     }
 
-    private static boolean bookItinerary(java.lang.String request) {
+
+    private static GetItineraryStatusOutput addFlightToItinerary(org.netbeans.j2ee.wsdl.travelagencysoapbpel.src.travelagency.AddFlightToItineraryInput addFlightToItineraryInput) {
+        org.netbeans.j2ee.wsdl.travelagencysoapbpel.src.travelagency.TravelAgencyService service = new org.netbeans.j2ee.wsdl.travelagencysoapbpel.src.travelagency.TravelAgencyService();
+        org.netbeans.j2ee.wsdl.travelagencysoapbpel.src.travelagency.TravelAgencyPortType port = service.getTravelAgencyPortTypeBindingPort();
+        return port.addFlightToItinerary(addFlightToItineraryInput);
+    }
+
+    private static GetItineraryStatusOutput addHotelToItinerary(org.netbeans.j2ee.wsdl.travelagencysoapbpel.src.travelagency.AddHotelToItineraryInput addHotelToItineraryInput) {
+        org.netbeans.j2ee.wsdl.travelagencysoapbpel.src.travelagency.TravelAgencyService service = new org.netbeans.j2ee.wsdl.travelagencysoapbpel.src.travelagency.TravelAgencyService();
+        org.netbeans.j2ee.wsdl.travelagencysoapbpel.src.travelagency.TravelAgencyPortType port = service.getTravelAgencyPortTypeBindingPort();
+        return port.addHotelToItinerary(addHotelToItineraryInput);
+    }
+
+    private static boolean bookItinerary(org.netbeans.j2ee.wsdl.travelagencysoapbpel.src.travelagency.BookItineraryInput request) {
         org.netbeans.j2ee.wsdl.travelagencysoapbpel.src.travelagency.TravelAgencyService service = new org.netbeans.j2ee.wsdl.travelagencysoapbpel.src.travelagency.TravelAgencyService();
         org.netbeans.j2ee.wsdl.travelagencysoapbpel.src.travelagency.TravelAgencyPortType port = service.getTravelAgencyPortTypeBindingPort();
         return port.bookItinerary(request);
     }
 
+    private static GetItineraryStatusOutput getItineraryStatus(java.lang.String request) {
+        org.netbeans.j2ee.wsdl.travelagencysoapbpel.src.travelagency.TravelAgencyService service = new org.netbeans.j2ee.wsdl.travelagencysoapbpel.src.travelagency.TravelAgencyService();
+        org.netbeans.j2ee.wsdl.travelagencysoapbpel.src.travelagency.TravelAgencyPortType port = service.getTravelAgencyPortTypeBindingPort();
+        return port.getItineraryStatus(request);
+    }
+
+    private static boolean cancelItinerary(org.netbeans.j2ee.wsdl.travelagencysoapbpel.src.travelagency.CancelItineraryInput request) {
+        org.netbeans.j2ee.wsdl.travelagencysoapbpel.src.travelagency.TravelAgencyService service = new org.netbeans.j2ee.wsdl.travelagencysoapbpel.src.travelagency.TravelAgencyService();
+        org.netbeans.j2ee.wsdl.travelagencysoapbpel.src.travelagency.TravelAgencyPortType port = service.getTravelAgencyPortTypeBindingPort();
+        return port.cancelItinerary(request);
+    }
+
+   
 
    
 

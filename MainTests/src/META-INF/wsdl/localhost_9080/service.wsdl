@@ -209,7 +209,6 @@
                     </xsd:element>
                 </xsd:sequence>
             </xsd:complexType>
-            <xsd:element name="getItineraryStatusOutput" type="tns:itineraryStatus"/>
             <xsd:element name="addHotelToItineraryInput" type="tns:addHotelToItineraryInput"/>
             <xsd:element name="itineraryInput" type="xsd:string"/>
             <xsd:complexType name="getTravelHotelInput">
@@ -228,10 +227,32 @@
             <xsd:element name="getFlightsInput" type="tns:getFlightsInput"/>
             <xsd:element name="getTravelHotellInputElement" type="tns:getTravelHotelInput"/>
             <xsd:element name="getTravelFlightInputElement" type="tns:getTravelFlightInput"/>
-            <xsd:element name="cancelItineraryInput" type="xsd:string"/>
             <xsd:element name="getItineraryStatusInput" type="xsd:string"/>
             <xsd:element name="cancelPlanInput" type="xsd:string"/>
-            <xsd:element name="bookItineraryInput" type="xsd:string"/>
+            <xsd:element name="getItineraryStatusOutput">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="itineraryStatus" type="tns:itineraryStatus"/>
+                        <xsd:element name="status" type="xsd:boolean"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="bookItineraryInput">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="itineraryId" type="xsd:string"/>
+                        <xsd:element name="creditCardDetails" type="tns:creditCardDetails"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="cancelItineraryInput">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="itineraryId" type="xsd:string"/>
+                        <xsd:element name="creditCardDetails" type="tns:creditCardDetails"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
         </xsd:schema>
   </types>
   <message name="AddFlightToItineraryRequest">
@@ -463,6 +484,14 @@
         <vprop:query>itineraryId</vprop:query>
     </vprop:propertyAlias>
     <vprop:propertyAlias messageType="tns:AddFlightToItineraryRequest" part="AddFlightToItineraryInput" propertyName="tns:itineraryId">
+        <vprop:query>itineraryId</vprop:query>
+    </vprop:propertyAlias>
+    <vprop:propertyAlias messageType="tns:getItineraryStatusRequest" part="request" propertyName="tns:itineraryId"/>
+    <vprop:propertyAlias messageType="tns:CancelPlanRequest" part="request" propertyName="tns:itineraryId"/>
+    <vprop:propertyAlias messageType="tns:bookItineraryRequest" part="request" propertyName="tns:itineraryId">
+        <vprop:query>itineraryId</vprop:query>
+    </vprop:propertyAlias>
+    <vprop:propertyAlias messageType="tns:cancelItineraryRequest" part="request" propertyName="tns:itineraryId">
         <vprop:query>itineraryId</vprop:query>
     </vprop:propertyAlias>
 </definitions>
