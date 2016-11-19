@@ -31,7 +31,6 @@ public class ApplicationConfig extends Application {
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(code.FlightsResource.class);
         resources.add(code.HotelsResource.class);
-        resources.add(code.ItinerariesResourceBART.class);
         resources.add(code.ItineraryResource.class);
     }
     

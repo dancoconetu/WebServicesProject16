@@ -84,7 +84,7 @@ public class ItineraryResource {
             if (itin.getStatus().equals(StatusInfo.Status.UNCONFIRMED)) {
 
                 List<HotelsInfo> list = new ArrayList<>();
-  
+   
                 for (HotelType hotelLoop : hotelsList.getList()) {
                     System.out.println("price for hotel" + hotelLoop.getAdress());
                     HotelsInfo hotelLocalLoop = new HotelsInfo();
@@ -131,7 +131,7 @@ public class ItineraryResource {
                 return Response.status(Response.Status.OK).entity("Flights successfully added into itinerary").build();
             }
 
-        }
+        } 
 
         return Response.status(Response.Status.NOT_FOUND).entity("Itinerary not found").build();
     }
@@ -150,6 +150,7 @@ public class ItineraryResource {
                 System.out.println("itinerary is Unconfirmed");
                 //for each flight/hotel connect to soap and and book them
                 try {
+                    if(itin.getFlightDetails().size()>0){
                     for (FlightsInfo fl : itin.getFlightDetails()) {
                         System.out.println("Booking flights: " + fl.getFlightDetails().getNameAirline());
                         BookFlightInput gfi = new BookFlightInput();
@@ -161,14 +162,20 @@ public class ItineraryResource {
                         fl.setStatus(StatusInfo.Status.CONFIRMED);
 
                     }
-                    
+                    }
+                    if(itin.getHotelDetails().size()>0){
                     for(HotelsInfo ht : itin.getHotelDetails()){
+                        
                     
-                    
+                    BookHotelInput bhi =  new BookHotelInput();
+                    bhi.setBookingNR(ht.getHotelDetails().getBookingNR());
+                    bhi.setCreditCardInformation(fromFlightToHotelsCredit(CardInfo));
+                        bookHotel(bhi);
+                    ht.setStatus(StatusInfo.Status.CONFIRMED);
+                    }
                     }
                     
-                    
-                } catch (BookFlightFaultMessage ex1) {
+                } catch (Exception ex1) {
 
                     Logger.getLogger(ItineraryResource.class.getName()).log(Level.SEVERE, null, ex1);
                         //If for some reason flight/hotel booking is failed, and code executed in the catch
@@ -178,20 +185,31 @@ public class ItineraryResource {
                 }
 
                 if (!booking) {
+                    try {
+                        if(itin.getFlightDetails().size()>0){
                     for (FlightsInfo fl2 : itin.getFlightDetails()) {
                         CancelFlightInput cfi = new CancelFlightInput();
                         cfi.setBookingNo(fl2.getFlightDetails().getBookingNo());
                         cfi.setCreditCardDetails(CardInfo);
                         cfi.setPrice(fl2.getFlightDetails().getPrice());
                         fl2.setStatus(StatusInfo.Status.UNCONFIRMED);
+                        cancelFlight(cfi);
                         System.out.println("Canceling: " + fl2.getStatus());
-                        try {
-
-                            cancelFlight(cfi);
-
-                        } catch (CancelFlightFaultMessage ex) {
-                            Logger.getLogger(ItineraryResource.class.getName()).log(Level.SEVERE, null, ex);
+                        
+                    }
                         }
+                      if(itin.getHotelDetails().size()>0){
+                    for(HotelsInfo ht2 : itin.getHotelDetails()){
+                        
+                    
+                    
+                    ht2.setStatus(StatusInfo.Status.UNCONFIRMED);
+                    }
+                        }      
+
+                        } catch (Exception ex) {
+                            Logger.getLogger(ItineraryResource.class.getName()).log(Level.SEVERE, null, ex);
+                        
                         //all of hotels/flights are cancelled
                         return Response.status(Response.Status.OK).build();
                     }
@@ -209,6 +227,21 @@ public class ItineraryResource {
 
         }
         return Response.status(Response.Status.OK).build();
+    }
+    
+    //due to different name in Hotels/Flighs CreditCard types, must be casted
+    private CreditCardInformation fromFlightToHotelsCredit(CreditCardDetails CardInfo){
+    
+    CreditCardInformation cdi = new CreditCardInformation();
+                    cdi.setCardNumber(CardInfo.getCardNumber());
+                    cdi.setHolderName(CardInfo.getHoldersName());
+                    ExpDate expDate = new ExpDate();
+                    expDate.setMonth(CardInfo.getExpirationDate().getMonth());
+                    expDate.setYear(CardInfo.getExpirationDate().getYear());
+                    cdi.setExpDate(expDate);
+                    
+                    return cdi;
+    
     }
 
     private static boolean bookFlight(ws.lameduck.BookFlightInput input) throws BookFlightFaultMessage {
