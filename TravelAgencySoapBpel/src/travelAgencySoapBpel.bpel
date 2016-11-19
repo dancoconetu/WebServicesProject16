@@ -880,8 +880,15 @@
                                                                                             <variable name="CancelFlightIn" xmlns:tns="http://LameDuck.ws" messageType="tns:LameDuckOperationRequest2"/>
                                                                                     </variables>
                                                                                     <sequence name="Sequence22">
-                                                                                        <assign name="Assign32">
-                                                                                                <copy>
+                                                                                        <if name="If10">
+                                                                                            <condition>sxxf:date-less-than(sxxf:current-dateTime(), $itinerary/flightArray/flightInformationWithStatus[$ForEach4Counter]/flight/liftOffTime)
+                                                                                                <sxed:editor>
+                                                                                                    <sxed:predicate path="$itinerary/flightArray/flightInformationWithStatus[$ForEach4Counter]" source="from"/>
+                                                                                                </sxed:editor>
+                                                                                            </condition>
+                                                                                            <sequence name="Sequence30">
+                                                                                                <assign name="Assign32">
+                                                                                                    <copy>
                                                                                                         <from>$itinerary/flightArray/flightInformationWithStatus[$ForEach4Counter]/bookingNo
                                                                                                                     <sxed:editor>
                                                                                                                         <sxed:predicate path="$itinerary/flightArray/flightInformationWithStatus[$ForEach4Counter]" source="from"/>
@@ -889,7 +896,7 @@
                                                                                                             </from>
                                                                                                             <to>$CancelFlightIn.cancelFlightInput/bookingNo</to>
                                                                                                     </copy>
-                                                                                                    <copy>
+                                                                                                        <copy>
                                                                                                         <from>$itinerary/flightArray/flightInformationWithStatus[$ForEach4Counter]/price
                                                                                                                     <sxed:editor>
                                                                                                                         <sxed:predicate path="$itinerary/flightArray/flightInformationWithStatus[$ForEach4Counter]" source="from"/>
@@ -897,25 +904,27 @@
                                                                                                             </from>
                                                                                                             <to>$CancelFlightIn.cancelFlightInput/price</to>
                                                                                                     </copy>
-                                                                                            <copy>
-                                                                                                <from>$CancelItineraryIn.request/creditCardDetails</from>
-                                                                                                <to>$CancelFlightIn.cancelFlightInput/creditCardDetails</to>
-                                                                                            </copy>
-                                                                                        </assign>
-                                                                                            <invoke name="Invoke4" partnerLink="PartnerLink1" operation="cancelFlight" xmlns:tns="http://LameDuck.ws" portType="tns:LameDuckPortType" inputVariable="CancelFlightIn" outputVariable="CancelFlightOut"/>
-                                                                                            <if name="If4">
-                                                                                                <condition>$CancelFlightOut.cancelFlightOutput</condition>
-                                                                                                <assign name="Assign41">
-                                                                                                    <copy>
-                                                                                                        <from>'canceled'</from>
-                                                                                                        <to>$itinerary/flightArray/flightInformationWithStatus[$ForEach4Counter]/status
-                                                                                                            <sxed:editor>
-                                                                                                                <sxed:predicate path="$itinerary/flightArray/flightInformationWithStatus[$ForEach4Counter]" source="to"/>
-                                                                                                            </sxed:editor>
-                                                                                                        </to>
+                                                                                                        <copy>
+                                                                                                        <from>$CancelItineraryIn.request/creditCardDetails</from>
+                                                                                                            <to>$CancelFlightIn.cancelFlightInput/creditCardDetails</to>
                                                                                                     </copy>
                                                                                                 </assign>
-                                                                                            </if>
+                                                                                                <invoke name="Invoke4" partnerLink="PartnerLink1" operation="cancelFlight" portType="tns:LameDuckPortType" inputVariable="CancelFlightIn" outputVariable="CancelFlightOut"/>
+                                                                                                <if name="If4">
+                                                                                                    <condition>$CancelFlightOut.cancelFlightOutput</condition>
+                                                                                                        <assign name="Assign41">
+                                                                                                            <copy>
+                                                                                                                    <from>'canceled'</from>
+                                                                                                                        <to>$itinerary/flightArray/flightInformationWithStatus[$ForEach4Counter]/status
+                                                                                                                                <sxed:editor>
+                                                                                                                                    <sxed:predicate path="$itinerary/flightArray/flightInformationWithStatus[$ForEach4Counter]" source="to"/>
+                                                                                                                                </sxed:editor>
+                                                                                                                        </to>
+                                                                                                                </copy>
+                                                                                                        </assign>
+                                                                                                </if>
+                                                                                            </sequence>
+                                                                                        </if>
                                                                                     </sequence>
                                                                             </scope>
                                                                     </forEach>

@@ -69,19 +69,19 @@ return flight;
     
     
     FlightInformation FI = new FlightInformation();
-    FI.setFlight(addToFlightList("Riga","Madrid","Ryanair",new GregorianCalendar(2016, 11, 1, 19, 0, 0),new GregorianCalendar(2016, 11, 1, 23, 50, 0)));
+    FI.setFlight(addToFlightList("Riga","Madrid","Ryanair",new GregorianCalendar(2017, 11, 1, 19, 0, 0),new GregorianCalendar(2017, 11, 1, 23, 50, 0)));
     FI.setBookingNo("1");
     FI.setNameAirline("GerLine");
     FI.setPrice(2000);
     list.add(FI);
     FlightInformation FI1 = new FlightInformation();
-    FI1.setFlight(addToFlightList("Riga","Copenhagen","easyJet",new GregorianCalendar(2016, 11, 1, 14, 0, 0),new GregorianCalendar(2016, 11, 1, 18, 0, 0)));
+    FI1.setFlight(addToFlightList("Riga","Copenhagen","easyJet",new GregorianCalendar(2017, 11, 1, 14, 0, 0),new GregorianCalendar(2017, 11, 1, 18, 0, 0)));
     FI1.setBookingNo("2");
     FI1.setNameAirline("BEline");
     FI1.setPrice(200);
     list.add(FI1);
     FlightInformation FI2 = new FlightInformation();
-    FI2.setFlight(addToFlightList("Riga","Dublin","SAS",new GregorianCalendar(2016, 10, 10, 14, 0, 0),new GregorianCalendar(2016, 10, 10, 2, 25, 0)));
+    FI2.setFlight(addToFlightList("Riga","Dublin","SAS",new GregorianCalendar(2017, 10, 10, 14, 0, 0),new GregorianCalendar(2017, 10, 10, 2, 25, 0)));
     FI2.setBookingNo("3");
     FI2.setNameAirline("ZELine");
     FI2.setPrice(560);
@@ -92,6 +92,20 @@ return flight;
     FI3.setBookingNo("4");
     FI3.setNameAirline("EstLine");
     FI3.setPrice(350);
+    
+    
+    FI3 = new FlightInformation();
+    FI3.setFlight(addToFlightList("Riga","Madrid","BolivianAir",new GregorianCalendar(2015, 11, 2, 19, 0, 0),new GregorianCalendar(2015, 11, 2, 10, 51, 0)));
+    FI3.setBookingNo("6");
+    FI3.setNameAirline("EstLine");
+    FI3.setPrice(350);
+    list.add(FI3);
+    
+     FI3 = new FlightInformation();
+    FI3.setFlight(addToFlightList("Riga","Madrid","BolivianAir",new GregorianCalendar(2017, 11, 1, 19, 0, 0),new GregorianCalendar(2017, 11, 1, 10, 51, 0)));
+    FI3.setBookingNo("5");
+    FI3.setNameAirline("Romania");
+    FI3.setPrice(900);
     list.add(FI3);
     return list;
     
