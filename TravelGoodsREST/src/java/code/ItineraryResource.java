@@ -34,7 +34,7 @@ public class ItineraryResource {
         return id;
     }
     // http://localhost:9090/TravelGoodsREST/itinerary/x
-
+ 
     @GET
     @Produces(output)
     @Path("/{id}")
@@ -73,24 +73,24 @@ public class ItineraryResource {
     }
 
     @POST
-    @Path("/{id}/hotels")
+    @Path("/{id}/hotels") 
     @Consumes(output)
     @Produces(output)
     public Response addHotelToItinerary(@PathParam("id") int id, HotelInformationListLocal hotelsList) {
         if (itineraryMap.containsKey(id)) {
-            Itinerary itin = itineraryMap.get(id);
-            System.out.println("Found an ID");
+            Itinerary itin = itineraryMap.get(id); 
+           System.out.println("addHotelItinerary() executed");
             //if the status of itinerary is unconfirmed then add flights
             if (itin.getStatus().equals(StatusInfo.Status.UNCONFIRMED)) {
 
                 List<HotelsInfo> list = new ArrayList<>();
-
+ 
                 for (HotelType hotelLoop : hotelsList.getList()) {
                     System.out.println("price for hotel" + hotelLoop.getAdress());
                     HotelsInfo hotelLocalLoop = new HotelsInfo();
                     hotelLocalLoop.setStatus(StatusInfo.Status.UNCONFIRMED);
-                    hotelLocalLoop.setHotelDetails(null);
-                    list.add(hotelLocalLoop);
+                    hotelLocalLoop.setHotelDetails(hotelLoop);
+                    list.add(hotelLocalLoop);  
                 }
 
                 itin.setHotelDetails(list);
@@ -111,7 +111,7 @@ public class ItineraryResource {
         //if ID is found in the hashmap then retrieve itinerary
         if (itineraryMap.containsKey(itineraryID)) {
             Itinerary itin = itineraryMap.get(itineraryID);
-            System.out.println("Found an ID");
+            
             //if the status of itinerary is unconfirmed then add flights
             if (itin.getStatus().equals(StatusInfo.Status.UNCONFIRMED)) {
 
@@ -147,10 +147,10 @@ public class ItineraryResource {
             Itinerary itin = itineraryMap.get(id);
             //start booking if itnierary status is unconfirmed
             if (itin.getStatus() == StatusInfo.Status.UNCONFIRMED) {
-                System.out.println("itinerary is Unconfirmed");
+                 
                 //for each flight/hotel connect to soap and and book them
                 try {
-                    if (itin.getFlightDetails().size() > 0) {
+                    if (itin.getFlightDetails()!=null) {
                         for (FlightsInfo fl : itin.getFlightDetails()) {
                             System.out.println("Booking flights: " + fl.getFlightDetails().getNameAirline());
                             BookFlightInput gfi = new BookFlightInput();
@@ -163,7 +163,7 @@ public class ItineraryResource {
 
                         }
                     }
-                    if (itin.getHotelDetails().size() > 0) {
+                    if (itin.getHotelDetails()!=null) {
                         for (HotelsInfo ht : itin.getHotelDetails()) {
 
                             BookHotelInput bhi = new BookHotelInput();
@@ -171,47 +171,52 @@ public class ItineraryResource {
                             bhi.setCreditCardInformation(fromFlightToHotelsCredit(CardInfo));
                             bookHotel(bhi);
                             ht.setStatus(StatusInfo.Status.CONFIRMED);
-                        }
+                        } 
                     }
-
+                    itin.setStatus(StatusInfo.Status.CONFIRMED);
+                       Response.status(Response.Status.OK).build();
+                       
                 } catch (Exception ex1) {
-
-                    Logger.getLogger(ItineraryResource.class.getName()).log(Level.SEVERE, null, ex1);
+                       System.out.println("Booking hotels/flight exceptions");
+                    //Logger.getLogger(ItineraryResource.class.getName()).log(Level.SEVERE, null, ex1);
                     //If for some reason flight/hotel booking is failed, and code executed in the catch
-                    //then cancel all the hotels/flights
-
+                    //then c ancel all the hotels/flights
+  
                     booking = false;
-                }
+                } 
 
                 if (!booking) {
                     try {
-                        if (itin.getFlightDetails().size() > 0) {
+                        if (itin.getFlightDetails() !=null) {
                             for (FlightsInfo fl2 : itin.getFlightDetails()) {
                                 CancelFlightInput cfi = new CancelFlightInput();
                                 cfi.setBookingNo(fl2.getFlightDetails().getBookingNo());
                                 cfi.setCreditCardDetails(CardInfo);
                                 cfi.setPrice(fl2.getFlightDetails().getPrice());
-                                fl2.setStatus(StatusInfo.Status.UNCONFIRMED);
+                                fl2.setStatus(StatusInfo.Status.CANCELLED);
                                 cancelFlight(cfi);
                                 System.out.println("Canceling: " + fl2.getStatus());
-
-                                return Response.status(Response.Status.valueOf(cfi.getBookingNo() + " booking number of flight is cancelled.")).build();
-                            }
+ 
+                             
+                            } 
+                           
                         }
-                        if (itin.getHotelDetails().size() > 0) {
+                        if (itin.getHotelDetails() !=null) {
                             for (HotelsInfo ht2 : itin.getHotelDetails()) {
-                                ht2.setStatus(StatusInfo.Status.UNCONFIRMED);
-                                cancelHotel(ht2.getHotelDetails().getBookingNR() + " booking number is cancelled.");
+                                ht2.setStatus(StatusInfo.Status.CANCELLED);
+                                cancelHotel(ht2.getHotelDetails().getBookingNR());
 
-                                return Response.status(Response.Status.valueOf(ht2.getHotelDetails().getBookingNR() + " booking number of hotel is cancelled.")).build();
+                              
                             }
                         }
+                        itin.setStatus(StatusInfo.Status.CANCELLED);
+                        return Response.status(Response.Status.OK).build();
 
                     } catch (Exception ex) {
                         Logger.getLogger(ItineraryResource.class.getName()).log(Level.SEVERE, null, ex);
-
+                           System.out.println("Canceling hotel/flights exception");
                         //all of hotels/flights are cancelled
-                        return Response.status(Response.Status.OK).build();
+                        return Response.status(Response.Status.NOT_ACCEPTABLE).build();
                     }
 
                 }
@@ -236,7 +241,7 @@ public class ItineraryResource {
     public Response CancelItinerary(@PathParam("id") int id, CreditCardDetails CardInfo) {
         Itinerary itin = itineraryMap.get(id);
         try {
-            if (itin.getFlightDetails().size() > 0) {
+            if (itin.getFlightDetails() !=null) {
                 for (FlightsInfo fl2 : itin.getFlightDetails()) {
                     CancelFlightInput cfi = new CancelFlightInput();
                     cfi.setBookingNo(fl2.getFlightDetails().getBookingNo());
@@ -246,15 +251,15 @@ public class ItineraryResource {
                     cancelFlight(cfi);
                     System.out.println("Canceling: " + fl2.getStatus());
 
-                    return Response.status(Response.Status.valueOf(cfi.getBookingNo() + " booking number of flight is cancelled.")).build();
+                    
                 }
             }
-            if (itin.getHotelDetails().size() > 0) {
+            if (itin.getHotelDetails() !=null) {
                 for (HotelsInfo ht2 : itin.getHotelDetails()) {
                     ht2.setStatus(StatusInfo.Status.UNCONFIRMED);
                     cancelHotel(ht2.getHotelDetails().getBookingNR() + " booking number is cancelled.");
 
-                    return Response.status(Response.Status.valueOf(ht2.getHotelDetails().getBookingNR() + " booking number of hotel is cancelled.")).build();
+                    
                 }
             }
 

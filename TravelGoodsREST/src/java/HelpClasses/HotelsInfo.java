@@ -15,13 +15,13 @@ import ws.niceview.*;
 public class HotelsInfo {
  
     private StatusInfo.Status status;
-    private HotelInformation hotelDetails;
+    private HotelType hotelDetails;
 
-    public HotelInformation getHotelDetails() {
+    public HotelType getHotelDetails() {
         return hotelDetails;
     }
 
-    public void setHotelDetails(HotelInformation hotelDetails) {
+    public void setHotelDetails(HotelType hotelDetails) {
         this.hotelDetails = hotelDetails;
     }
 
