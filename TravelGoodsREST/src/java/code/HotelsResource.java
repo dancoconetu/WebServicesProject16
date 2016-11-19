@@ -43,7 +43,7 @@ public class HotelsResource {
         List<HotelType> list = new ArrayList<HotelType>();
         list = getHotelsList(hinp).getHotelType();
         
-        System.out.println(list.get(2).getAdress());  //It works but return below shows 404
+//        System.out.println(list.get(2).getAdress()); 
         
         if (list.isEmpty()) {
             System.out.println("No hotels found");
