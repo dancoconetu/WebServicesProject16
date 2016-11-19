@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 
+package BPEL;
+
 import java.util.GregorianCalendar;
 import java.util.List;
 import javax.xml.datatype.DatatypeConfigurationException;
@@ -23,12 +25,14 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * @author Dan
  */
 public class MainTest {
-    
+     
+        String itineraryId = "";
     public MainTest() {
     }
     
     @BeforeClass
     public static void setUpClass() {
+       
     }
     
     @AfterClass
@@ -37,6 +41,8 @@ public class MainTest {
     
     @Before
     public void setUp() {
+        //returns the Itinerary Id after it is created
+         itineraryId= createItinerary("");
     }
     
     @After
@@ -44,10 +50,48 @@ public class MainTest {
     }
 
     
+    @Test
+    public void P1()
+    {
+        
+    }
+    
+    
+    @Test
+    public void P2()
+    {
+        
+    }
+    
+    
+    @Test
+    public void B()
+    {
+        
+    }
+    
+    
+    @Test
+    public void C1()
+    {
+        
+    }
+    
+    
+    @Test
+    public void C2()
+    {
+        
+    }
+    
+    
+    
+    
+    
         @Test
     public void testHotelListType() throws DatatypeConfigurationException  {
 
-        String itineraryId= createItinerary("somethiung");
+        
          System.out.println("Before");
             System.out.println("Itinerary: " + itineraryId );
         GetHotelInput hinp = new GetHotelInput();  
@@ -225,11 +269,6 @@ public class MainTest {
     
     
     
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
 
     private static GetHotelOutput getHotels(org.netbeans.j2ee.wsdl.travelagencysoapbpel.src.travelagency.GetTravelHotelInput input) {
         org.netbeans.j2ee.wsdl.travelagencysoapbpel.src.travelagency.TravelAgencyService service = new org.netbeans.j2ee.wsdl.travelagencysoapbpel.src.travelagency.TravelAgencyService();

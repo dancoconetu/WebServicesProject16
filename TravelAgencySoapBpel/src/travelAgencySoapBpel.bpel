@@ -293,7 +293,7 @@
                                                     </to>
                                                 </copy>
                                                 <copy>
-                                                    <from>'unbooked'</from>
+                                                    <from>'unconfirmed'</from>
                                                     <to>$itinerary/hotelArray/hotelTypeWithStatus[1 + $hotelsNumber]/status
                                                         <sxed:editor>
                                                             <sxed:predicate path="$itinerary/hotelArray/hotelTypeWithStatus[1 + $hotelsNumber]" source="to"/>
@@ -384,7 +384,7 @@
                                                                     </to>
                                                             </copy>
                                                             <copy>
-                                                                <from>'unbooked'</from>
+                                                                <from>'unconfirmed'</from>
                                                                     <to>$itinerary/flightArray/flightInformationWithStatus[1 + $flightsNumber]/status
                                                     <sxed:editor>
                                                                                 <sxed:predicate path="$itinerary/flightArray/flightInformationWithStatus[1 + $flightsNumber]" source="to"/>
@@ -731,7 +731,7 @@
                                                         <to variable="BookItineraryOut" part="part1"/>
                                                     </copy>
                                                     <copy>
-                                                        <from>'booked'</from>
+                                                        <from>'confirmed'</from>
                                                         <to variable="itineraryBooked"/>
                                                     </copy>
                                                 </assign>
