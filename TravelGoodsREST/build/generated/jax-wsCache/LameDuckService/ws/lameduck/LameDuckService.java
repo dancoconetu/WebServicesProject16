@@ -17,7 +17,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "LameDuckService", targetNamespace = "http://LameDuck.ws", wsdlLocation = "http://localhost:9090/LameDuckSoap/LameDuckService?wsdl")
+@WebServiceClient(name = "LameDuckService", targetNamespace = "http://LameDuck.ws", wsdlLocation = "http://localhost:8080/LameDuckSoap/LameDuckService?wsdl")
 public class LameDuckService
     extends Service
 {
@@ -30,7 +30,7 @@ public class LameDuckService
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("http://localhost:9090/LameDuckSoap/LameDuckService?wsdl");
+            url = new URL("http://localhost:8080/LameDuckSoap/LameDuckService?wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }

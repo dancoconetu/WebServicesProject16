@@ -22,7 +22,6 @@ public class FlightsInfo {
         
         
     }
-
     public void setFlightDetails(FlightInformation flightDetails) {
         this.flightDetails = flightDetails;
     }

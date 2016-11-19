@@ -194,15 +194,15 @@ public class ItineraryResource {
                                 fl2.setStatus(StatusInfo.Status.UNCONFIRMED);
                                 cancelFlight(cfi);
                                 System.out.println("Canceling: " + fl2.getStatus());
-                                
+
                                 return Response.status(Response.Status.valueOf(cfi.getBookingNo() + " booking number of flight is cancelled.")).build();
                             }
                         }
                         if (itin.getHotelDetails().size() > 0) {
                             for (HotelsInfo ht2 : itin.getHotelDetails()) {
-                                ht2.setStatus(StatusInfo.Status.UNCONFIRMED);                                
+                                ht2.setStatus(StatusInfo.Status.UNCONFIRMED);
                                 cancelHotel(ht2.getHotelDetails().getBookingNR() + " booking number is cancelled.");
-                               
+
                                 return Response.status(Response.Status.valueOf(ht2.getHotelDetails().getBookingNR() + " booking number of hotel is cancelled.")).build();
                             }
                         }
@@ -227,6 +227,44 @@ public class ItineraryResource {
 
         }
         return Response.status(Response.Status.OK).build();
+    }
+
+    @PUT
+    @Path("/{id}/cancelItinerary")
+    @Consumes(output)
+    @Produces(output)
+    public Response CancelItinerary(@PathParam("id") int id, CreditCardDetails CardInfo) {
+        Itinerary itin = itineraryMap.get(id);
+        try {
+            if (itin.getFlightDetails().size() > 0) {
+                for (FlightsInfo fl2 : itin.getFlightDetails()) {
+                    CancelFlightInput cfi = new CancelFlightInput();
+                    cfi.setBookingNo(fl2.getFlightDetails().getBookingNo());
+                    cfi.setCreditCardDetails(CardInfo);
+                    cfi.setPrice(fl2.getFlightDetails().getPrice());
+                    fl2.setStatus(StatusInfo.Status.UNCONFIRMED);
+                    cancelFlight(cfi);
+                    System.out.println("Canceling: " + fl2.getStatus());
+
+                    return Response.status(Response.Status.valueOf(cfi.getBookingNo() + " booking number of flight is cancelled.")).build();
+                }
+            }
+            if (itin.getHotelDetails().size() > 0) {
+                for (HotelsInfo ht2 : itin.getHotelDetails()) {
+                    ht2.setStatus(StatusInfo.Status.UNCONFIRMED);
+                    cancelHotel(ht2.getHotelDetails().getBookingNR() + " booking number is cancelled.");
+
+                    return Response.status(Response.Status.valueOf(ht2.getHotelDetails().getBookingNR() + " booking number of hotel is cancelled.")).build();
+                }
+            }
+
+        } catch (Exception ex) {
+            Logger.getLogger(ItineraryResource.class.getName()).log(Level.SEVERE, null, ex);
+
+            //all of hotels/flights are cancelled
+            return Response.status(Response.Status.valueOf("Error")).build();
+        }
+        return Response.status(Response.Status.valueOf("Itinerary cancelled")).build();
     }
 
     //due to different name in Hotels/Flighs CreditCard types, must be casted
