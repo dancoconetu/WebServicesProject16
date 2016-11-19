@@ -42,7 +42,7 @@ public class MainTest {
     @Before
     public void setUp() {
         //returns the Itinerary Id after it is created
-         itineraryId= createItinerary("");
+       
     }
     
     @After
@@ -58,23 +58,201 @@ public class MainTest {
     
     
     @Test
-    public void P2()
+    //Cancel Planning
+    public void P2() throws DatatypeConfigurationException
     {
         
+        String itineraryId= createItinerary("");
+        GetTravelFlightInput getTravelFlightInput = new GetTravelFlightInput();
+        getTravelFlightInput.setItineraryId(itineraryId);
+        GetFlightsInput getFlightsInput = new GetFlightsInput();
+        getFlightsInput.setStartAirport("Riga");
+        getFlightsInput.setDestination("Madrid");
+         GregorianCalendar x3 = new GregorianCalendar(2016, 11, 1, 14, 0, 0);
+        
+        XMLGregorianCalendar date3 = null;
+        date3 = DatatypeFactory.newInstance().newXMLGregorianCalendar(x3);
+        getFlightsInput.setFlightDate(date3);
+        getTravelFlightInput.setGetFlightsInput(getFlightsInput);
+         
+         
+         GetFlightsOutput gfo = getFlights(getTravelFlightInput);
+        
+         
+         AddFlightToItineraryInput addFlightToItineraryInput = new AddFlightToItineraryInput();
+         addFlightToItineraryInput.setItineraryId(itineraryId);
+         addFlightToItineraryInput.setFlightInformation(gfo.getFlightInformation().get(0));
+         
+         
+         GetItineraryStatusOutput itineraryStatus2 = addFlightToItinerary(addFlightToItineraryInput);
+         
+         assertEquals("unconfirmed", itineraryStatus2.getItineraryStatus().getFlightArray().getFlightInformationWithStatus().get(0).getStatus() );
+         assertEquals(gfo.getFlightInformation().get(0).getBookingNo(), itineraryStatus2.getItineraryStatus().getFlightArray().getFlightInformationWithStatus().get(0).getBookingNo() );
+         
+         
+         assertEquals(true,cancelPlan(itineraryId));
+         itineraryStatus2 = getItineraryStatus(itineraryId);
+         assertEquals(0, itineraryStatus2.getItineraryStatus().getFlightArray().getFlightInformationWithStatus().size());
+         
     }
     
     
     @Test
-    public void B()
-    {
+    public void B() throws DatatypeConfigurationException
+    { //Bech Camilla 50408822 7 9 
+        
+        
+        
+        String itineraryId= createItinerary("");
+        GetTravelFlightInput getTravelFlightInput = new GetTravelFlightInput();
+        getTravelFlightInput.setItineraryId(itineraryId);
+        GetFlightsInput getFlightsInput = new GetFlightsInput();
+        getFlightsInput.setStartAirport("Riga");
+        getFlightsInput.setDestination("Madrid");
+         GregorianCalendar x3 = new GregorianCalendar(2016, 11, 1, 14, 0, 0);
+        
+        XMLGregorianCalendar date3 = null;
+        date3 = DatatypeFactory.newInstance().newXMLGregorianCalendar(x3);
+        getFlightsInput.setFlightDate(date3);
+        getTravelFlightInput.setGetFlightsInput(getFlightsInput);
+         
+         
+         GetFlightsOutput gfo = getFlights(getTravelFlightInput);
+        
+         
+         AddFlightToItineraryInput addFlightToItineraryInput = new AddFlightToItineraryInput();
+         addFlightToItineraryInput.setItineraryId(itineraryId);
+         addFlightToItineraryInput.setFlightInformation(gfo.getFlightInformation().get(1));
+         
+         
+         GetItineraryStatusOutput itineraryStatus2 = addFlightToItinerary(addFlightToItineraryInput);
+         
+         addFlightToItineraryInput.setFlightInformation(gfo.getFlightInformation().get(0));
+         
+         itineraryStatus2 = addFlightToItinerary(addFlightToItineraryInput);
+         
+         itineraryStatus2 = addFlightToItinerary(addFlightToItineraryInput);
+         
+         
+         
+        
+         BookItineraryInput bookItineraryInput = new BookItineraryInput();
+         bookItineraryInput.setItineraryId(itineraryId);
+         CreditCardDetails creditCardDetails = new CreditCardDetails();
+         creditCardDetails.setCardNumber("50408822");
+         creditCardDetails.setHoldersName("Bech Camilla");
+         ExpirationDate expirationDate = new ExpirationDate();
+         expirationDate.setMonth(7);
+         expirationDate.setYear(9);
+         creditCardDetails.setExpirationDate(expirationDate);
+         bookItineraryInput.setCreditCardDetails(creditCardDetails);
+         
+         
+         assertEquals(false,  bookItinerary(bookItineraryInput));
+         
+         itineraryStatus2 = getItineraryStatus(itineraryId);
+         
+         assertEquals("canceled", itineraryStatus2.getItineraryStatus().getFlightArray().getFlightInformationWithStatus().get(0).getStatus());
+
+         
+
         
     }
     
     
+    
+    
     @Test
-    public void C1()
+    public void C1() throws DatatypeConfigurationException
     {
+         String itineraryId= createItinerary("");
+        GetTravelFlightInput getTravelFlightInput = new GetTravelFlightInput();
+        getTravelFlightInput.setItineraryId(itineraryId);
+        GetFlightsInput getFlightsInput = new GetFlightsInput();
+        getFlightsInput.setStartAirport("Riga");
+        getFlightsInput.setDestination("Madrid");
+         GregorianCalendar x3 = new GregorianCalendar(2016, 11, 1, 14, 0, 0);
         
+        XMLGregorianCalendar date3 = null;
+        date3 = DatatypeFactory.newInstance().newXMLGregorianCalendar(x3);
+        getFlightsInput.setFlightDate(date3);
+        getTravelFlightInput.setGetFlightsInput(getFlightsInput);
+         
+         
+         GetFlightsOutput gfo = getFlights(getTravelFlightInput);
+        
+         
+         AddFlightToItineraryInput addFlightToItineraryInput = new AddFlightToItineraryInput();
+         addFlightToItineraryInput.setItineraryId(itineraryId);
+         addFlightToItineraryInput.setFlightInformation(gfo.getFlightInformation().get(1));
+         
+         
+         GetItineraryStatusOutput itineraryStatus2 = addFlightToItinerary(addFlightToItineraryInput);
+         
+         addFlightToItineraryInput.setFlightInformation(gfo.getFlightInformation().get(0));
+         
+         itineraryStatus2 = addFlightToItinerary(addFlightToItineraryInput);
+         
+         GetHotelInput hinp = new GetHotelInput();  
+        hinp = new GetHotelInput();
+        hinp.setCity("Copenhagen");
+        
+        GregorianCalendar x = new GregorianCalendar(2016, 11, 1, 14, 0, 0);
+        XMLGregorianCalendar date1 = null;
+        date1 = DatatypeFactory.newInstance().newXMLGregorianCalendar(x);
+        hinp.setArrival(date1);
+
+        GregorianCalendar x2 = new GregorianCalendar(2016, 11, 5, 14, 0, 0);
+        XMLGregorianCalendar date2 = null;
+        date2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(x2);
+        hinp.setDeparture(date2);
+            GetTravelHotelInput getTravelHotelInput = new GetTravelHotelInput();
+            getTravelHotelInput.setItineraryId(itineraryId);
+            getTravelHotelInput.setGetHotelInput(hinp);
+      
+       GetHotelOutput h = getHotels(getTravelHotelInput);
+
+        List<HotelType> hot = h.getHotelType();
+
+    
+        
+        AddHotelToItineraryInput addHotelToItineraryInput = new AddHotelToItineraryInput();
+        addHotelToItineraryInput.setItineraryId(itineraryId);
+        addHotelToItineraryInput.setHotelType(hot.get(0));
+        
+       GetItineraryStatusOutput itineraryStatus =      addHotelToItinerary(addHotelToItineraryInput);
+       
+       assertEquals(2, itineraryStatus.getItineraryStatus().getFlightArray().getFlightInformationWithStatus().size());
+       assertEquals(1, itineraryStatus.getItineraryStatus().getHotelArray().getHotelTypeWithStatus().size());
+       
+         BookItineraryInput bookItineraryInput = new BookItineraryInput();
+         bookItineraryInput.setItineraryId(itineraryId);
+         CreditCardDetails creditCardDetails = new CreditCardDetails();
+         creditCardDetails.setCardNumber("50408824");
+         creditCardDetails.setHoldersName("Tick Joachim");
+         ExpirationDate expirationDate = new ExpirationDate();
+         expirationDate.setMonth(2);
+         expirationDate.setYear(11);
+         creditCardDetails.setExpirationDate(expirationDate);
+         bookItineraryInput.setCreditCardDetails(creditCardDetails);
+         
+         boolean booked = bookItinerary(bookItineraryInput);
+         
+         GetItineraryStatusOutput itineraryAfterBooking = getItineraryStatus(itineraryId);
+         
+         assertEquals(true, booked);
+         CancelItineraryInput cancelItineraryInput = new CancelItineraryInput();
+         cancelItineraryInput.setItineraryId(itineraryId);
+         cancelItineraryInput.setCreditCardDetails(creditCardDetails);
+         boolean canceled = cancelItinerary(cancelItineraryInput);
+         assertEquals(canceled, true);
+         
+         GetItineraryStatusOutput itineraryStatusAfterCanceling = getItineraryStatus(itineraryId);
+         
+         assertEquals("canceled", itineraryStatusAfterCanceling.getItineraryStatus().getFlightArray().getFlightInformationWithStatus().get(0).getStatus());
+          assertEquals("canceled", itineraryStatusAfterCanceling.getItineraryStatus().getFlightArray().getFlightInformationWithStatus().get(1).getStatus());
+          assertEquals("canceled", itineraryStatusAfterCanceling.getItineraryStatus().getHotelArray().getHotelTypeWithStatus().get(0).getStatus());
+       
     }
     
     
@@ -88,10 +266,10 @@ public class MainTest {
     
     
     
-        @Test
+       @Test
     public void testHotelListType() throws DatatypeConfigurationException  {
 
-        
+        String itineraryId= createItinerary("");
          System.out.println("Before");
             System.out.println("Itinerary: " + itineraryId );
         GetHotelInput hinp = new GetHotelInput();  
@@ -112,7 +290,7 @@ public class MainTest {
             getTravelHotelInput.setGetHotelInput(hinp);
               System.out.println("After1");
         
-      //  System.out.println("Cancelation" +cancelPlan(itineraryId));
+     
 //        AddHotelToItineraryInput addHotelToItineraryInput = new AddHotelToItineraryInput();
 //        addHotelToItineraryInput.setHotelType(null);
 //        addHotelToItineraryInput.setItineraryId(itineraryId);
@@ -263,6 +441,7 @@ public class MainTest {
         
          System.out.println("\nTrying to book third time: " +  bookItinerary(bookItineraryInput));
          
+          System.out.println("Cancelation" +cancelPlan(itineraryId));
     }
     
     
