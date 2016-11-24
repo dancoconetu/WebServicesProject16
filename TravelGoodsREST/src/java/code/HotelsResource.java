@@ -46,7 +46,7 @@ public class HotelsResource {
 //        System.out.println(list.get(2).getAdress()); 
         
         if (list.isEmpty()) {
-            System.out.println("No hotels found");
+            System.out.println("No hotels found from NiceView");
             return Response.status(Response.Status.NOT_FOUND).build();
         }
         

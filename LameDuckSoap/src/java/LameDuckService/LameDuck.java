@@ -34,54 +34,53 @@ import ws.lameduck.GetFlightsOutput;
 @WebService(serviceName = "LameDuckService", portName = "LameDuckPortTypeBindingPort", endpointInterface = "ws.lameduck.LameDuckPortType", targetNamespace = "http://LameDuck.ws", wsdlLocation = "WEB-INF/wsdl/LameDuck/LameDuck.wsdl")
 public class LameDuck {
 
-   @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/fastmoney.imm.dtu.dk_8080/BankService.wsdl")
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/fastmoney.imm.dtu.dk_8080/BankService.wsdl")
     private BankService service;
-    
+
     //Bank detail information used to connect to bank services
-    private static final AccountType accountInfo= new AccountType();
+    private static final AccountType accountInfo = new AccountType();
+
     static {
-    accountInfo.setName("SleepDeep");
-    accountInfo.setNumber("50308814");
-    
+        accountInfo.setName("SleepDeep");
+        accountInfo.setNumber("50308814");
+
     }
 
-    
-private static Flight addToFlightList(String startCity, String endCity, String carrier,GregorianCalendar departureDate, GregorianCalendar arrivalDate) throws DatatypeConfigurationException{
-    
-    //Converting to correct XML date
-            XMLGregorianCalendar departureDate1, arrivalDate1;
-        
-            departureDate1 = DatatypeFactory.newInstance().newXMLGregorianCalendar(departureDate);
-            arrivalDate1 = DatatypeFactory.newInstance().newXMLGregorianCalendar(arrivalDate);
-       
-    Flight flight = new Flight();
-    flight.setCarrier(carrier);
-    flight.setDestination(endCity);
-    flight.setStartAirport(startCity);
-    flight.setLandingTime(departureDate1);
-    flight.setLiftOffTime(arrivalDate1);
+    private static Flight addToFlightList(String startCity, String endCity, String carrier, GregorianCalendar departureDate, GregorianCalendar arrivalDate) throws DatatypeConfigurationException {
 
-return flight;
-}
+        //Converting to correct XML date
+        XMLGregorianCalendar departureDate1, arrivalDate1;
 
-    private static List<FlightInformation> flightsList() throws DatatypeConfigurationException{
-    List<FlightInformation> list = new ArrayList<FlightInformation>();
-    
-    
-    FlightInformation FI = new FlightInformation();
-    FI.setFlight(addToFlightList("Riga","Madrid","Ryanair",new GregorianCalendar(2016, 11, 1, 19, 0, 0),new GregorianCalendar(2016, 11, 1, 23, 50, 0)));
+        departureDate1 = DatatypeFactory.newInstance().newXMLGregorianCalendar(departureDate);
+        arrivalDate1 = DatatypeFactory.newInstance().newXMLGregorianCalendar(arrivalDate);
+
+        Flight flight = new Flight();
+        flight.setCarrier(carrier);
+        flight.setDestination(endCity);
+        flight.setStartAirport(startCity);
+        flight.setLandingTime(departureDate1);
+        flight.setLiftOffTime(arrivalDate1);
+
+        return flight;
+    }
+
+    private static List<FlightInformation> flightsList() throws DatatypeConfigurationException {
+        List<FlightInformation> list = new ArrayList<FlightInformation>();
+
+          FlightInformation FI = new FlightInformation();
+    FI.setFlight(addToFlightList("Riga","Madrid","Ryanair",new GregorianCalendar(2017, 11, 1, 19, 0, 0),new GregorianCalendar(2017, 11, 1, 23, 50, 0)));
     FI.setBookingNo("1");
     FI.setNameAirline("GerLine");
     FI.setPrice(2000);
     list.add(FI);
     FlightInformation FI1 = new FlightInformation();
-    FI1.setFlight(addToFlightList("Riga","Copenhagen","easyJet",new GregorianCalendar(2016, 11, 1, 14, 0, 0),new GregorianCalendar(2016, 11, 1, 18, 0, 0)));
+    FI1.setFlight(addToFlightList("Riga","Copenhagen","easyJet",new GregorianCalendar(2017, 11, 1, 14, 0, 0),new GregorianCalendar(2017, 11, 1, 18, 0, 0)));
     FI1.setBookingNo("2");
     FI1.setNameAirline("BEline");
     FI1.setPrice(200);
     list.add(FI1);
     FlightInformation FI2 = new FlightInformation();
-    FI2.setFlight(addToFlightList("Riga","Dublin","SAS",new GregorianCalendar(2016, 10, 10, 14, 0, 0),new GregorianCalendar(2016, 10, 10, 2, 25, 0)));
+    FI2.setFlight(addToFlightList("Riga","Dublin","SAS",new GregorianCalendar(2017, 10, 10, 14, 0, 0),new GregorianCalendar(2017, 10, 10, 2, 25, 0)));
     FI2.setBookingNo("3");
     FI2.setNameAirline("ZELine");
     FI2.setPrice(560);
@@ -92,90 +91,144 @@ return flight;
     FI3.setBookingNo("4");
     FI3.setNameAirline("EstLine");
     FI3.setPrice(350);
-    list.add(FI3);
-    return list;
     
+    
+    FI3 = new FlightInformation();
+    FI3.setFlight(addToFlightList("Riga","Madrid","BolivianAir",new GregorianCalendar(2015, 11, 2, 19, 0, 0),new GregorianCalendar(2015, 11, 2, 10, 51, 0)));
+    FI3.setBookingNo("6");
+    FI3.setNameAirline("EstLine");
+    FI3.setPrice(350);
+    list.add(FI3);
+    
+     FI3 = new FlightInformation();
+    FI3.setFlight(addToFlightList("Riga","Madrid","BolivianAir",new GregorianCalendar(2017, 11, 1, 19, 0, 0),new GregorianCalendar(2017, 11, 1, 10, 51, 0)));
+    FI3.setBookingNo("5");
+    FI3.setNameAirline("Romania");
+    FI3.setPrice(900);
+    list.add(FI3);
+    
+    //Justinas test one
+      FI3 = new FlightInformation();
+    FI3.setFlight(addToFlightList("Viena","Vilnius","BolivianAir",new GregorianCalendar(2017, 10, 1, 19, 0, 0),new GregorianCalendar(2017, 10, 1, 10, 12, 0)));
+    FI3.setBookingNo("7");
+    FI3.setNameAirline("PeasyJet");
+    FI3.setPrice(150);
+    list.add(FI3);
+    
+      FI3 = new FlightInformation();
+    FI3.setFlight(addToFlightList("Minsk","Vilnius","BolivianAir",new GregorianCalendar(2017, 10, 1, 19, 0, 0),new GregorianCalendar(2017, 10, 1, 10, 12, 0)));
+    FI3.setBookingNo("8");
+    FI3.setNameAirline("EasyJet");
+    FI3.setPrice(1500);
+    list.add(FI3);
+       FlightInformation FI4 = new FlightInformation();
+        FI4.setFlight(addToFlightList("Talin", "Copenhagen", "easyJet", new GregorianCalendar(2017, 3, 16, 14, 0, 0), new GregorianCalendar(2017, 3, 16, 18, 0, 0)));
+        FI4.setBookingNo("9");
+        FI4.setNameAirline("GarLine");
+        FI4.setPrice(205);
+        list.add(FI4);
+        FlightInformation FI8 = new FlightInformation();
+        FI8.setFlight(addToFlightList("Berlin", "Dublin", "SAS", new GregorianCalendar(2016, 11, 10, 14, 0, 0), new GregorianCalendar(2016, 11, 10, 2, 16, 0)));
+        FI8.setBookingNo("10");
+        FI8.setNameAirline("JocLine");
+        FI8.setPrice(199);
+        list.add(FI8);
+        
+         FlightInformation FI9 = new FlightInformation();
+        FI9.setFlight(addToFlightList("Boston", "Barcelona", "BbOnion", new GregorianCalendar(2017, 5, 5, 14, 0, 0), new GregorianCalendar(2017, 5, 5, 2, 16, 0)));
+        FI9.setBookingNo("11");
+        FI9.setNameAirline("GroLine");
+        FI9.setPrice(1);
+        list.add(FI9);
+        
+        
+        return list;
+
     }
 
     public GetFlightsOutput getFlights(GetFlightsInput getFlightsInput) throws DatatypeConfigurationException {
         List<FlightInformation> flights = flightsList();
         
-         GetFlightsOutput object = new  GetFlightsOutput();
+        
 
-             for(FlightInformation result: flights){
-                 
-                 if(result.getFlight().getStartAirport().equals(getFlightsInput.getStartAirport()) && result.getFlight().getDestination().equals(getFlightsInput.getDestination())){
-                     
-                     if(result.getFlight().getLiftOffTime().getDay() == getFlightsInput.getFlightDate().getDay()
+        GetFlightsOutput object = new GetFlightsOutput();
+
+        for (FlightInformation result : flights) {
+
+            if (result.getFlight().getStartAirport().equals(getFlightsInput.getStartAirport()) && result.getFlight().getDestination().equals(getFlightsInput.getDestination())) {
+
+                if (result.getFlight().getLiftOffTime().getDay() == getFlightsInput.getFlightDate().getDay()
                         && result.getFlight().getLiftOffTime().getMonth() == getFlightsInput.getFlightDate().getMonth()
-                             && result.getFlight().getLiftOffTime().getYear() == getFlightsInput.getFlightDate().getYear()
-                             ){
-                         System.out.println("Last of up: " +  result.getFlight().getCarrier());
-                     object.getFlightInformation().add(result);
-                     }
-                 
-                 }
-              
-}
-         
-         return object;
+                        && result.getFlight().getLiftOffTime().getYear() == getFlightsInput.getFlightDate().getYear()) {
+                    
+                   // System.out.println("Input month " + getFlightsInput.getFlightDate().getMonth() + " LameDuck LiftOff month: " +result.getFlight().getLiftOffTime().getMonth() );
+                    System.out.println("getFlights from lameduck: " + result.getFlight().getCarrier());
+                  //  System.out.println("DATE x: " + result.getFlight().getLandingTime().getHour());
+                    object.getFlightInformation().add(result);
+                }
+
+            }
+
+        }
+
+        return object;
     }
-    
-     
+
     public boolean bookFlight(BookFlightInput input) throws BookFlightFaultMessage, DatatypeConfigurationException {
         List<FlightInformation> list = flightsList();
-        
+
         //Create an object of creditCardInfo
-        
         CreditCardInfoType CDD = new CreditCardInfoType();
         CDD.setNumber(input.getCreditCardDetails().getCardNumber());
         CreditCardInfoType.ExpirationDate expirationDate = new CreditCardInfoType.ExpirationDate();
         expirationDate.setMonth(input.getCreditCardDetails().getExpirationDate().getMonth());
         expirationDate.setYear(input.getCreditCardDetails().getExpirationDate().getYear());
-         
+
         CDD.setExpirationDate(expirationDate);
         CDD.setName(input.getCreditCardDetails().getHoldersName());
-        
-        for(FlightInformation result: list){
-            
-            if(input.getBookingNo().equals(result.getBookingNo())){
+
+        for (FlightInformation result : list) {
+
+            if (input.getBookingNo().equals(result.getBookingNo())) {
                 System.out.println("Booking are equal: " + result.getBookingNo());
                 try {
-                    chargeCreditCard(16,CDD, result.getPrice(), accountInfo);
+                    chargeCreditCard(16, CDD, result.getPrice(), accountInfo);
                     System.out.println("TRYING charge credit Card");
-                    
+
                     return true;
                 } catch (CreditCardFaultMessage ex) {
-                    Logger.getLogger(LameDuck.class.getName()).log(Level.SEVERE, null, ex);
-                    throw new BookFlightFaultMessage("Failed to charge CreditCard: " + ex.getMessage(), null);
-                    
+                    //Logger.getLogger(LameDuck.class.getName()).log(Level.SEVERE, null, ex);
+                    // throw new BookFlightFaultMessage("Failed to charge CreditCard: " + ex.getMessage(), null);
+                    throw new BookFlightFaultMessage("From LameDuck: Failed to charge CreditCard: ", null);
+
                 }
             }
-        
-                }
-        
-        throw new BookFlightFaultMessage("Error Flight Booking no: " +input.getBookingNo() + " doesnt exists",null);
+
+        }
+
+        throw new BookFlightFaultMessage("Error Flight Booking no: " + input.getBookingNo() + " doesnt exists", null);
     }
 
     public boolean cancelFlight(CancelFlightInput cancelFlightInput) throws CancelFlightFaultMessage {
-        
-dk.dtu.imm.fastmoney.types.CreditCardInfoType creditCardInfo = new dk.dtu.imm.fastmoney.types.CreditCardInfoType();
-        dk.dtu.imm.fastmoney.types.CreditCardInfoType.ExpirationDate expirationDate =new dk.dtu.imm.fastmoney.types.CreditCardInfoType.ExpirationDate();
+
+        dk.dtu.imm.fastmoney.types.CreditCardInfoType creditCardInfo = new dk.dtu.imm.fastmoney.types.CreditCardInfoType();
+        dk.dtu.imm.fastmoney.types.CreditCardInfoType.ExpirationDate expirationDate = new dk.dtu.imm.fastmoney.types.CreditCardInfoType.ExpirationDate();
         expirationDate.setMonth(cancelFlightInput.getCreditCardDetails().getExpirationDate().getMonth());
         expirationDate.setYear(cancelFlightInput.getCreditCardDetails().getExpirationDate().getYear());
         creditCardInfo.setExpirationDate(expirationDate);
         creditCardInfo.setName(cancelFlightInput.getCreditCardDetails().getHoldersName());
         creditCardInfo.setNumber(cancelFlightInput.getCreditCardDetails().getCardNumber());
-        
-        try{
-            refundCreditCard(16, creditCardInfo, cancelFlightInput.getPrice()/2, accountInfo);
+
+        try {
+            refundCreditCard(16, creditCardInfo, cancelFlightInput.getPrice() / 2, accountInfo);
+            
+            
+        } catch (CreditCardFaultMessage ex) {
+            //throw new CancelFlightFaultMessage("Flight cancellation failed!", ex.getFaultInfo().getMessage());
+            throw new CancelFlightFaultMessage("From LameDuck Cancel method: Flight cancellation failed!", null);
         }
-        catch (CreditCardFaultMessage ex) {
-            throw new CancelFlightFaultMessage("Flight cancellation failed!", ex.getFaultInfo().getMessage());
-        }
-            return true;
+        return true;
     }
-    
 
     private boolean chargeCreditCard(int group, dk.dtu.imm.fastmoney.types.CreditCardInfoType creditCardInfo, int amount, dk.dtu.imm.fastmoney.types.AccountType account) throws CreditCardFaultMessage {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
@@ -196,8 +249,6 @@ dk.dtu.imm.fastmoney.types.CreditCardInfoType creditCardInfo = new dk.dtu.imm.fa
         // If the calling of port operations may lead to race condition some synchronization is required.
         dk.dtu.imm.fastmoney.BankPortType port = service.getBankPort();
         return port.validateCreditCard(group, creditCardInfo, amount);
-}
-    
-    
-    
+    }
+
 }

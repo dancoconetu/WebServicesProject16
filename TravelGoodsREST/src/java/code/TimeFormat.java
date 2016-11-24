@@ -19,6 +19,7 @@ public class TimeFormat {
 
     public static XMLGregorianCalendar getDateFromString(String date) throws ParseException, DatatypeConfigurationException {
 
+        
         String[] splitDate = date.split(" ");
         
         String daysDate = null;
@@ -37,9 +38,10 @@ public class TimeFormat {
         int minutes = Integer.parseInt(splitHour[1]);
 
         // dates go in properly
-        GregorianCalendar dateConverted = new GregorianCalendar(year, month, days, hour, minutes, 0);
+        GregorianCalendar dateConverted = new GregorianCalendar(year, month-1, days, hour, minutes, 0);
         XMLGregorianCalendar date2 = null;
         date2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(dateConverted);
+        
         
         return date2;
     }
